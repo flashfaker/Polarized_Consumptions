@@ -159,23 +159,22 @@ Date Modified: Mar 30th, 2022
 		local variable_label: subinstr local variable_label " " "" 
 		label variable `var' "`variable_label'"
 	}	
-
+	* destring countryoforigin variables and generate partial
+	gen partial_m = 0
+	foreach var of varlist countryof* v* {
+		replace partial = 1 if strpos(`var', "Partial") != 0
+		replace `var' = "1" if `var' != ""
+		replace `var' = "0" if `var' == ""
+		destring `var', replace
+	}
+	
 	ssc install labutil2
 	lab2varn countryof*
 	
 	foreach var of varlist v* {
 		local label: variable label `var'
-		local v "`label'`var'"
+		local v "`label'_`var'"
 		rename `var' `v'
-	}
-	* generate partial (later)
-	
-	/* manually check for duplicates variable name (due to importing variable names
-	issue with csv. and then merge them together */
-	foreach var of varlist _all {
-		replace `var' = "1" if `var' != ""
-		replace `var' = "0" if `var' == ""
-		destring `var', replace
 	}
 	
 	order _all, alpha
@@ -186,39 +185,22 @@ Date Modified: Mar 30th, 2022
 				 PapuaNewGuinea Peru Pitcairn Portugal Slovenia Switzerland ///
 				 Tokelau Tonga Tuvalu {
 		egen `x' = rowmax(`x'*)
-		/* drop original duplicated obs
-		local i "`x'v"
-		drop `i' */
-	}
-	foreach x in Albania Aruba Bahamas Barbados Belgium Belize ///
-				 BritishVirginIslands Canada CaymanIslands Colombia Cuba ///
-				 DominicanRepublic Dominica ElSalvador Greenland Guyana ///
-				 Lithuania Montenegro NorthernMarianaIsland Norway ///
-				 PapuaNewGuinea Peru Pitcairn Portugal Slovenia Switzerland ///
-				 Tokelau Tonga Tuvalu {
-		local i "`x'v"
+		local i "`x'_v"
 		drop `i'* 	
 	}
+	* clean other variables ended with _v...
+	rename *_v* *
 	
-	merge 1:1 productid using "$outdir/labelinsights_product_coo_cleaned", keepusing(coo)
+	merge 1:1 productid using "$outdir/labelinsights_product_coo_cleaned", keepusing(coo partial)
+	* simple sanity checks
+	isid productid
+	assert partial == partial_m
 	
-	/* albania
-	drop v107 
-	* belgium
-	drop v111
-	* lithuania
-	drop v137 
-	* montenegro
-	drop v141
-	* norway
-	drop v144
-	* portugal
-	replace v160 = v160 + v146
-	drop v146
-	* slovenia
-	drop v153
-	
-	renvarlab v*, presub label */
+	drop partial_m
+	order _all, alpha
+	order productid-upcstandardfields coo 
+	sort productid
+	save "$outdir/labelinsights_product_cleaned", replace
 ********************************* END ******************************************
 
 capture log close

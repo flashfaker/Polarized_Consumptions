@@ -1,13 +1,13 @@
 * clean food&beverage product label + country of origin data from Label Insights
-local fname clean_labelinsights_coo_data
+local fname clean_02_labelinsights_coo_data
 
 /*******************************************************************************
 
 * clean and append Label Insights Food&Beverage Data 
 
 Author: Zirui Song
-Date Created: Mar 27th, 2022
-Date Modified: Mar 30th, 2022
+Date Created: Mar 31st, 2022
+Date Modified: Apr 1st, 2022
 
 ********************************************************************************/
 
@@ -20,9 +20,9 @@ Date Modified: Mar 30th, 2022
 	
 	* Set local directory
 	* notice that repodir path for Mac/Windows might differ
-	global dropbox = "/Users/zsong98/Dropbox/Polarized Consumptions"
+	global dropbox = "/Users/zsong/Dropbox/Polarized Consumptions"
 	global datadir = "$dropbox/Data"
-	global rawdir = "$datadir/Label Insights"
+	global rawdir = "$datadir/Label Insights/20220331"
 	global outdir = "$datadir/Cleaned Data"
 	global intdir = "$datadir/Cleaned Data/Intermediate"
 	global logdir = "$dropbox/Code/ZS/LogFiles"
@@ -45,15 +45,16 @@ Date Modified: Mar 30th, 2022
 		foreach x of varlist countryoforigin* v* {
 			replace countryoforigin = countryoforigin + " " + `x'
 		}
-		tostring productid upc*, replace format("%15.0f")
+		tostring productid onpackgtinformats upc* ean* gtin, replace format("%15.0f")
 		local file: subinstr local file ".csv" ""
-		save "$intdir/Label Insights/`file'", replace
+		save "$intdir/Label Insights/20220331/`file'", replace
 	}
 	
 	* append files
 	
 	* See https://www.statalist.org/forums/forum/general-stata-discussion/general/1530135-append-all-dta-files-in-directory
-	local File : dir "$intdir/Label Insights" files "*"
+	cd "$intdir/Label Insights/20220331"
+	local File : dir . files "*.dta"
 	clear 
 	append using `File' 
 	
@@ -170,7 +171,7 @@ Date Modified: Mar 30th, 2022
 		destring `var', replace
 	}
 	
-	ssc install labutil2
+	*ssc install labutil2
 	lab2varn countryof*
 	
 	foreach var of varlist v* {
@@ -199,6 +200,9 @@ Date Modified: Mar 30th, 2022
 	* simple sanity checks
 	isid productid
 	assert partial == partial_m
+	merge 1:1 productid using "$intdir/labelinsights_product_coo_base", keepusing(upc*)
+	keep if _merge == 3
+	drop _merge
 	
 	drop partial_m
 	rename brandidentifyingheaderinformatio brand
@@ -206,8 +210,15 @@ Date Modified: Mar 30th, 2022
 	rename productsizeidentifyingheaderinfo size
 	rename producttitleidentifyingheaderinf title
 	order _all, alpha
-	order productid title brand category size upc upcstandardfields coo partial
 	sort productid
+	keep productid title brand category size upc-upcstandardfields coo partial datecreatedtimestamps Afghanistan-Zimbabwe
+	
+*** generate date for upc creation
+	gen date = substr(datecreatedtimestamps, 1, 10)
+	gen upc_date = date(date, "YMD")
+	format upc_date %td
+	order productid title brand category size upc-upcstandardfields coo partial date upc_date datecreatedtimestamps
+	
 	save "$outdir/labelinsights_product_cleaned", replace
 ********************************* END ******************************************
 

@@ -1,0 +1,1209 @@
+------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/zsong/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/clean_02_l
+> abelinsights_coo_data.txt
+  log type:  text
+ opened on:   2 Apr 2022, 15:57:03
+
+. 
+end of do-file
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD00556.000000"
+
+.         use "$intdir/labelinsights_product_coo_base.dta", clear
+
+. *** change label to be country names solely
+.         drop countryoforigin
+
+.         foreach var of varlist countryof* v* {
+  2.                 local variable_label: variable label `var'
+  3.                 local variable_label: subinstr local variable_label "Country Of
+>  Origin (On-Package) " ""
+  4.                 local variable_label: subinstr local variable_label "- Africa -
+>  " ""
+  5.                 local variable_label: subinstr local variable_label "- Asia - "
+>  ""
+  6.                 local variable_label: subinstr local variable_label "- Europe -
+>  " ""
+  7.                 local variable_label: subinstr local variable_label "- Oceanic 
+> - " ""
+  8.                 local variable_label: subinstr local variable_label "- North Am
+> erica - " ""
+  9.                 local variable_label: subinstr local variable_label "- South Am
+> erica - " ""
+ 10.                 local variable_label: subinstr local variable_label "- Antarcti
+> ca - " ""
+ 11.                 local variable_label: subinstr local variable_label "- Antarcti
+> ca - " ""
+ 12.                 local variable_label: subinstr local variable_label "&" "" 
+ 13.                 * get rid of blanks in country names in case there are more tha
+> n 1 blanks
+.                 * u.e., Republic of Korea
+.                 local variable_label: subinstr local variable_label " " "" 
+ 14.                 local variable_label: subinstr local variable_label " " "" 
+ 15.                 local variable_label: subinstr local variable_label " " "" 
+ 16.                 local variable_label: subinstr local variable_label " " "" 
+ 17.                 local variable_label: subinstr local variable_label " " "" 
+ 18.                 local variable_label: subinstr local variable_label " " "" 
+ 19.                 label variable `var' "`variable_label'"
+ 20.         }       
+
+.         * destring countryoforigin variables and generate partial
+.         gen partial_m = 0
+
+.         foreach var of varlist countryof* v* {
+  2.                 replace partial = 1 if strpos(`var', "Partial") != 0
+  3.                 replace `var' = "1" if `var' != ""
+  4.                 replace `var' = "0" if `var' == ""
+  5.                 destring `var', replace
+  6.         }
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageafricaal: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricaan: all characters numeric; replaced as byte
+(52 real changes made)
+(55 real changes made)
+(456,290 real changes made)
+countryoforiginonpackageafricabe: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricabo: all characters numeric; replaced as byte
+(11 real changes made)
+(12 real changes made)
+(456,333 real changes made)
+countryoforiginonpackageafricabu: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageafricaca: all characters numeric; replaced as byte
+(3 real changes made)
+(3 real changes made)
+(456,342 real changes made)
+countryoforiginonpackageafricace: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricach: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricaco: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricade: all characters numeric; replaced as byte
+(0 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+countryoforiginonpackageafricadj: all characters numeric; replaced as byte
+(52 real changes made)
+(234 real changes made)
+(456,111 real changes made)
+countryoforiginonpackageafricaeg: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricaeq: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricaer: all characters numeric; replaced as byte
+(43 real changes made)
+(97 real changes made)
+(456,248 real changes made)
+countryoforiginonpackageafricaet: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricaga: all characters numeric; replaced as byte
+(193 real changes made)
+(470 real changes made)
+(455,875 real changes made)
+countryoforiginonpackageafricagh: all characters numeric; replaced as byte
+(114 real changes made)
+(243 real changes made)
+(456,102 real changes made)
+countryoforiginonpackageafricake: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricali: all characters numeric; replaced as byte
+(247 real changes made)
+(291 real changes made)
+(456,054 real changes made)
+countryoforiginonpackageafricama: all characters numeric; replaced as byte
+(115 real changes made)
+(418 real changes made)
+(455,927 real changes made)
+countryoforiginonpackageafricamo: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricana: all characters numeric; replaced as byte
+(12 real changes made)
+(13 real changes made)
+(456,332 real changes made)
+countryoforiginonpackageafricani: all characters numeric; replaced as byte
+(5 real changes made)
+(5 real changes made)
+(456,340 real changes made)
+countryoforiginonpackageafricare: all characters numeric; replaced as byte
+(8 real changes made)
+(14 real changes made)
+(456,331 real changes made)
+countryoforiginonpackageafricarw: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricasa: all characters numeric; replaced as byte
+(5 real changes made)
+(5 real changes made)
+(456,340 real changes made)
+countryoforiginonpackageafricase: all characters numeric; replaced as byte
+(0 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+countryoforiginonpackageafricasi: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricaso: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricasu: all characters numeric; replaced as byte
+(0 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+countryoforiginonpackageafricasw: all characters numeric; replaced as byte
+(16 real changes made)
+(170 real changes made)
+(456,175 real changes made)
+countryoforiginonpackageafricata: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricato: all characters numeric; replaced as byte
+(120 real changes made)
+(349 real changes made)
+(455,996 real changes made)
+countryoforiginonpackageafricatu: all characters numeric; replaced as byte
+(4 real changes made)
+(16 real changes made)
+(456,329 real changes made)
+countryoforiginonpackageafricaug: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricawe: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricaza: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageafricazi: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageantarcti: all characters numeric; replaced as byte
+(0 real changes made)
+(6 real changes made)
+(456,339 real changes made)
+countryoforiginonpackageasiaafgh: all characters numeric; replaced as byte
+(2 real changes made)
+(24 real changes made)
+(456,321 real changes made)
+countryoforiginonpackageasiaarme: all characters numeric; replaced as byte
+(0 real changes made)
+(4 real changes made)
+(456,341 real changes made)
+countryoforiginonpackageasiaazer: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiabahr: all characters numeric; replaced as byte
+(4 real changes made)
+(31 real changes made)
+(456,314 real changes made)
+countryoforiginonpackageasiabang: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiabhut: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiabrit: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiabrun: all characters numeric; replaced as byte
+(6 real changes made)
+(84 real changes made)
+(456,261 real changes made)
+countryoforiginonpackageasiacamb: all characters numeric; replaced as byte
+(1,671 real changes made)
+(7,916 real changes made)
+(448,429 real changes made)
+countryoforiginonpackageasiachin: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiachri: all characters numeric; replaced as byte
+(3 real changes made)
+(24 real changes made)
+(456,321 real changes made)
+countryoforiginonpackageasiacypr: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiademo: all characters numeric; replaced as byte
+(2 real changes made)
+(34 real changes made)
+(456,311 real changes made)
+countryoforiginonpackageasiageor: all characters numeric; replaced as byte
+(1 real change made)
+(38 real changes made)
+(456,307 real changes made)
+countryoforiginonpackageasiahong: all characters numeric; replaced as byte
+(662 real changes made)
+(2,892 real changes made)
+(453,453 real changes made)
+countryoforiginonpackageasiaindi: all characters numeric; replaced as byte
+(147 real changes made)
+(1,665 real changes made)
+(454,680 real changes made)
+countryoforiginonpackageasiaindo: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageasiairan: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiairaq: all characters numeric; replaced as byte
+(12 real changes made)
+(828 real changes made)
+(455,517 real changes made)
+countryoforiginonpackageasiaisra: all characters numeric; replaced as byte
+(51 real changes made)
+(852 real changes made)
+(455,493 real changes made)
+countryoforiginonpackageasiajapa: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageasiajord: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageasiakaza: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageasiakuwa: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiakyrg: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasialaop: all characters numeric; replaced as byte
+(6 real changes made)
+(39 real changes made)
+(456,306 real changes made)
+countryoforiginonpackageasialeba: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasialeso: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiamaca: all characters numeric; replaced as byte
+(41 real changes made)
+(216 real changes made)
+(456,129 real changes made)
+countryoforiginonpackageasiamala: all characters numeric; replaced as byte
+(1 real change made)
+(2 real changes made)
+(456,343 real changes made)
+countryoforiginonpackageasiamald: all characters numeric; replaced as byte
+(2 real changes made)
+(6 real changes made)
+(456,339 real changes made)
+countryoforiginonpackageasiamong: all characters numeric; replaced as byte
+(0 real changes made)
+(5 real changes made)
+(456,340 real changes made)
+countryoforiginonpackageasianepa: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageasiaoman: all characters numeric; replaced as byte
+(20 real changes made)
+(214 real changes made)
+(456,131 real changes made)
+countryoforiginonpackageasiapaki: all characters numeric; replaced as byte
+(2 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+countryoforiginonpackageasiapale: all characters numeric; replaced as byte
+(106 real changes made)
+(1,074 real changes made)
+(455,271 real changes made)
+countryoforiginonpackageasiaphil: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiaqata: all characters numeric; replaced as byte
+(3 real changes made)
+(19 real changes made)
+(456,326 real changes made)
+countryoforiginonpackageasiarepu: all characters numeric; replaced as byte
+(8 real changes made)
+(79 real changes made)
+(456,266 real changes made)
+countryoforiginonpackageasiaruss: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageasiasaud: all characters numeric; replaced as byte
+(1 real change made)
+(15 real changes made)
+(456,330 real changes made)
+countryoforiginonpackageasiasing: all characters numeric; replaced as byte
+(0 real changes made)
+(19 real changes made)
+(456,326 real changes made)
+countryoforiginonpackageasiasout: all characters numeric; replaced as byte
+(43 real changes made)
+(440 real changes made)
+(455,905 real changes made)
+countryoforiginonpackageasiasril: all characters numeric; replaced as byte
+(1 real change made)
+(12 real changes made)
+(456,333 real changes made)
+countryoforiginonpackageasiasyri: all characters numeric; replaced as byte
+(20 real changes made)
+(539 real changes made)
+(455,806 real changes made)
+countryoforiginonpackageasiataiw: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiataji: all characters numeric; replaced as byte
+(117 real changes made)
+(1,076 real changes made)
+(455,269 real changes made)
+countryoforiginonpackageasiathai: all characters numeric; replaced as byte
+(75 real changes made)
+(1,866 real changes made)
+(454,479 real changes made)
+countryoforiginonpackageasiaturk: all characters numeric; replaced as byte
+(1 real change made)
+(19 real changes made)
+(456,326 real changes made)
+countryoforiginonpackageasiaunit: all characters numeric; replaced as byte
+(1 real change made)
+(19 real changes made)
+(456,326 real changes made)
+countryoforiginonpackageasiauzbe: all characters numeric; replaced as byte
+(69 real changes made)
+(1,903 real changes made)
+(454,442 real changes made)
+countryoforiginonpackageasiaviet: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageasiayeme: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropeal: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropean: all characters numeric; replaced as byte
+(6 real changes made)
+(111 real changes made)
+(456,234 real changes made)
+countryoforiginonpackageeuropeau: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropebe: all characters numeric; replaced as byte
+(1 real change made)
+(33 real changes made)
+(456,312 real changes made)
+countryoforiginonpackageeuropebo: all characters numeric; replaced as byte
+(23 real changes made)
+(242 real changes made)
+(456,103 real changes made)
+countryoforiginonpackageeuropebu: all characters numeric; replaced as byte
+(1 real change made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageeuropeca: all characters numeric; replaced as byte
+(1 real change made)
+(67 real changes made)
+(456,278 real changes made)
+countryoforiginonpackageeuropecr: all characters numeric; replaced as byte
+(5 real changes made)
+(100 real changes made)
+(456,245 real changes made)
+countryoforiginonpackageeuropecz: all characters numeric; replaced as byte
+(6 real changes made)
+(168 real changes made)
+(456,177 real changes made)
+countryoforiginonpackageeuropede: all characters numeric; replaced as byte
+(2 real changes made)
+(204 real changes made)
+(456,141 real changes made)
+countryoforiginonpackageeuropeen: all characters numeric; replaced as byte
+(2 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+countryoforiginonpackageeuropees: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropefa: all characters numeric; replaced as byte
+(3 real changes made)
+(58 real changes made)
+(456,287 real changes made)
+countryoforiginonpackageeuropefi: all characters numeric; replaced as byte
+(75 real changes made)
+(1,612 real changes made)
+(454,733 real changes made)
+countryoforiginonpackageeuropefr: all characters numeric; replaced as byte
+(48 real changes made)
+(1,764 real changes made)
+(454,581 real changes made)
+countryoforiginonpackageeuropege: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropegi: all characters numeric; replaced as byte
+(78 real changes made)
+(1,332 real changes made)
+(455,013 real changes made)
+countryoforiginonpackageeuropegr: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropegu: all characters numeric; replaced as byte
+(4 real changes made)
+(90 real changes made)
+(456,255 real changes made)
+countryoforiginonpackageeuropehu: all characters numeric; replaced as byte
+(11 real changes made)
+(36 real changes made)
+(456,309 real changes made)
+countryoforiginonpackageeuropeic: all characters numeric; replaced as byte
+(5 real changes made)
+(190 real changes made)
+(456,155 real changes made)
+countryoforiginonpackageeuropeir: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropeis: all characters numeric; replaced as byte
+(317 real changes made)
+(3,810 real changes made)
+(452,535 real changes made)
+countryoforiginonpackageeuropeit: all characters numeric; replaced as byte
+(1 real change made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageeuropeje: all characters numeric; replaced as byte
+(0 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+countryoforiginonpackageeuropeko: all characters numeric; replaced as byte
+(0 real changes made)
+(50 real changes made)
+(456,295 real changes made)
+countryoforiginonpackageeuropela: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropeli: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageeuropelu: all characters numeric; replaced as byte
+(0 real changes made)
+(6 real changes made)
+(456,339 real changes made)
+countryoforiginonpackageeuropema: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropemo: all characters numeric; replaced as byte
+(17 real changes made)
+(620 real changes made)
+(455,725 real changes made)
+countryoforiginonpackageeuropene: all characters numeric; replaced as byte
+(0 real changes made)
+(3 real changes made)
+(456,342 real changes made)
+countryoforiginonpackageeuropeno: all characters numeric; replaced as byte
+(8 real changes made)
+(1,091 real changes made)
+(455,254 real changes made)
+countryoforiginonpackageeuropepo: all characters numeric; replaced as byte
+(0 real changes made)
+(15 real changes made)
+(456,330 real changes made)
+countryoforiginonpackageeuropere: all characters numeric; replaced as byte
+(6 real changes made)
+(114 real changes made)
+(456,231 real changes made)
+countryoforiginonpackageeuropero: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropesa: all characters numeric; replaced as byte
+(0 real changes made)
+(117 real changes made)
+(456,228 real changes made)
+countryoforiginonpackageeuropesc: all characters numeric; replaced as byte
+(2 real changes made)
+(37 real changes made)
+(456,308 real changes made)
+countryoforiginonpackageeuropese: all characters numeric; replaced as byte
+(0 real changes made)
+(17 real changes made)
+(456,328 real changes made)
+countryoforiginonpackageeuropesl: all characters numeric; replaced as byte
+(82 real changes made)
+(2,926 real changes made)
+(453,419 real changes made)
+countryoforiginonpackageeuropesp: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageeuropesv: all characters numeric; replaced as byte
+(1 real change made)
+(58 real changes made)
+(456,287 real changes made)
+countryoforiginonpackageeuropesw: all characters numeric; replaced as byte
+(4 real changes made)
+(41 real changes made)
+(456,304 real changes made)
+countryoforiginonpackageeuropeuk: all characters numeric; replaced as byte
+(6 real changes made)
+(782 real changes made)
+(455,563 real changes made)
+countryoforiginonpackageeuropeun: all characters numeric; replaced as byte
+(23 real changes made)
+(106 real changes made)
+(456,239 real changes made)
+countryoforiginonpackageeuropeur: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageeuropewa: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackagenorthame: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanica: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanicc: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanicf: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanicg: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanick: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanicm: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanicn: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanicp: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanics: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+countryoforiginonpackageoceanict: all characters numeric; replaced as byte
+(1 real change made)
+(1 real change made)
+(456,344 real changes made)
+countryoforiginonpackageoceanicv: all characters numeric; replaced as byte
+(191 real changes made)
+(969 real changes made)
+(455,376 real changes made)
+countryoforiginonpackagesouthame: all characters numeric; replaced as byte
+(3 real changes made)
+(6 real changes made)
+(456,339 real changes made)
+v23: all characters numeric; replaced as byte
+(0 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+v25: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v36: all characters numeric; replaced as byte
+(1 real change made)
+(1 real change made)
+(456,344 real changes made)
+v40: all characters numeric; replaced as byte
+(0 real changes made)
+(19 real changes made)
+(456,326 real changes made)
+v42: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v43: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v44: all characters numeric; replaced as byte
+(2 real changes made)
+(14 real changes made)
+(456,331 real changes made)
+v45: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v46: all characters numeric; replaced as byte
+(1 real change made)
+(211 real changes made)
+(456,134 real changes made)
+v48: all characters numeric; replaced as byte
+(2 real changes made)
+(107 real changes made)
+(456,238 real changes made)
+v51: all characters numeric; replaced as byte
+(1 real change made)
+(6 real changes made)
+(456,339 real changes made)
+v53: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v57: all characters numeric; replaced as byte
+(75 real changes made)
+(500 real changes made)
+(455,845 real changes made)
+v60: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v61: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v72: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v73: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v74: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v75: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v125: all characters numeric; replaced as byte
+(0 real changes made)
+(6 real changes made)
+(456,339 real changes made)
+v131: all characters numeric; replaced as byte
+(120 real changes made)
+(939 real changes made)
+(455,406 real changes made)
+v135: all characters numeric; replaced as byte
+(0 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+v145: all characters numeric; replaced as byte
+(0 real changes made)
+(6 real changes made)
+(456,339 real changes made)
+v161: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v165: all characters numeric; replaced as byte
+(12 real changes made)
+(124 real changes made)
+(456,221 real changes made)
+v168: all characters numeric; replaced as byte
+(5 real changes made)
+(208 real changes made)
+(456,137 real changes made)
+v170: all characters numeric; replaced as byte
+(0 real changes made)
+(6 real changes made)
+(456,339 real changes made)
+v177: all characters numeric; replaced as byte
+(22 real changes made)
+(499 real changes made)
+(455,846 real changes made)
+v181: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v187: all characters numeric; replaced as byte
+(5 real changes made)
+(5 real changes made)
+(456,340 real changes made)
+v188: all characters numeric; replaced as byte
+(1 real change made)
+(5 real changes made)
+(456,340 real changes made)
+v189: all characters numeric; replaced as byte
+(13 real changes made)
+(35 real changes made)
+(456,310 real changes made)
+v190: all characters numeric; replaced as byte
+(2 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+v191: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+v192: all characters numeric; replaced as byte
+(321 real changes made)
+(14,999 real changes made)
+(441,346 real changes made)
+v193: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v194: all characters numeric; replaced as byte
+(114 real changes made)
+(563 real changes made)
+(455,782 real changes made)
+v195: all characters numeric; replaced as byte
+(0 real changes made)
+(2 real changes made)
+(456,343 real changes made)
+v196: all characters numeric; replaced as byte
+(3 real changes made)
+(5 real changes made)
+(456,340 real changes made)
+v197: all characters numeric; replaced as byte
+(29 real changes made)
+(259 real changes made)
+(456,086 real changes made)
+v198: all characters numeric; replaced as byte
+(5 real changes made)
+(141 real changes made)
+(456,204 real changes made)
+v199: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v200: all characters numeric; replaced as byte
+(3 real changes made)
+(3 real changes made)
+(456,342 real changes made)
+v201: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v202: all characters numeric; replaced as byte
+(49 real changes made)
+(512 real changes made)
+(455,833 real changes made)
+v203: all characters numeric; replaced as byte
+(3 real changes made)
+(11 real changes made)
+(456,334 real changes made)
+v204: all characters numeric; replaced as byte
+(25 real changes made)
+(155 real changes made)
+(456,190 real changes made)
+v205: all characters numeric; replaced as byte
+(22 real changes made)
+(301 real changes made)
+(456,044 real changes made)
+v206: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v207: all characters numeric; replaced as byte
+(455 real changes made)
+(10,398 real changes made)
+(445,947 real changes made)
+v208: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v209: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v210: all characters numeric; replaced as byte
+(20 real changes made)
+(84 real changes made)
+(456,261 real changes made)
+v211: all characters numeric; replaced as byte
+(1 real change made)
+(7 real changes made)
+(456,338 real changes made)
+v212: all characters numeric; replaced as byte
+(2 real changes made)
+(27 real changes made)
+(456,318 real changes made)
+v213: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v214: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v215: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v216: all characters numeric; replaced as byte
+(3,436 real changes made)
+(94,431 real changes made)
+(361,914 real changes made)
+v217: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v218: all characters numeric; replaced as byte
+(45 real changes made)
+(625 real changes made)
+(455,720 real changes made)
+v220: all characters numeric; replaced as byte
+(3 real changes made)
+(44 real changes made)
+(456,301 real changes made)
+v223: all characters numeric; replaced as byte
+(1 real change made)
+(1 real change made)
+(456,344 real changes made)
+v224: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v229: all characters numeric; replaced as byte
+(91 real changes made)
+(387 real changes made)
+(455,958 real changes made)
+v230: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v231: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v232: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v233: all characters numeric; replaced as byte
+(8 real changes made)
+(27 real changes made)
+(456,318 real changes made)
+v235: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+v236: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v238: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v240: all characters numeric; replaced as byte
+(0 real changes made)
+(1 real change made)
+(456,344 real changes made)
+v241: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v242: all characters numeric; replaced as byte
+(35 real changes made)
+(260 real changes made)
+(456,085 real changes made)
+v245: all characters numeric; replaced as byte
+(120 real changes made)
+(2,328 real changes made)
+(454,017 real changes made)
+v246: all characters numeric; replaced as byte
+(41 real changes made)
+(1,172 real changes made)
+(455,173 real changes made)
+v247: all characters numeric; replaced as byte
+(124 real changes made)
+(1,026 real changes made)
+(455,319 real changes made)
+v248: all characters numeric; replaced as byte
+(34 real changes made)
+(471 real changes made)
+(455,874 real changes made)
+v249: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v250: all characters numeric; replaced as byte
+(2 real changes made)
+(6 real changes made)
+(456,339 real changes made)
+v251: all characters numeric; replaced as byte
+(1 real change made)
+(37 real changes made)
+(456,308 real changes made)
+v252: all characters numeric; replaced as byte
+(53 real changes made)
+(1,759 real changes made)
+(454,586 real changes made)
+v253: all characters numeric; replaced as byte
+(0 real changes made)
+(0 real changes made)
+(456,345 real changes made)
+v254: all characters numeric; replaced as byte
+(9 real changes made)
+(15 real changes made)
+(456,330 real changes made)
+v255: all characters numeric; replaced as byte
+
+.         
+.         *ssc install labutil2
+.         lab2varn countryof*
+
+.         
+.         foreach var of varlist v* {
+  2.                 local label: variable label `var'
+  3.                 local v "`label'_`var'"
+  4.                 rename `var' `v'
+  5.         }
+
+.         
+.         order _all, alpha
+
+.         foreach x in Albania Aruba Bahamas Barbados Belgium Belize ///
+>                                  BritishVirginIslands Canada CaymanIslands Colombi
+> a Cuba ///
+>                                  DominicanRepublic Dominica ElSalvador Greenland G
+> uyana ///
+>                                  Lithuania Montenegro NorthernMarianaIsland Norway
+>  ///
+>                                  PapuaNewGuinea Peru Pitcairn Portugal Slovenia Sw
+> itzerland ///
+>                                  Tokelau Tonga Tuvalu {
+  2.                 egen `x' = rowmax(`x'*)
+  3.                 local i "`x'_v"
+  4.                 drop `i'*       
+  5.         }
+
+.         * clean other variables ended with _v...
+.         rename *_v* *
+
+.         
+.         merge 1:1 productid using "$intdir/labelinsights_product_coo_cleaned", kee
+> pusing(coo partial)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                           456,345  (_merge==3)
+    -----------------------------------------
+
+.         keep if _merge == 3
+(0 observations deleted)
+
+.         drop _merge
+
+.         * simple sanity checks
+.         isid productid
+
+.         assert partial == partial_m
+
+.         merge 1:1 productid using "$intdir/labelinsights_product_coo_base", keepus
+> ing(upc*)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                           456,345  (_merge==3)
+    -----------------------------------------
+
+.         keep if _merge == 3
+(0 observations deleted)
+
+.         drop _merge
+
+.         
+.         drop partial_m
+
+.         rename brandidentifyingheaderinformatio brand
+
+.         rename categoryproductcategorization category
+
+.         rename productsizeidentifyingheaderinfo size
+
+.         rename producttitleidentifyingheaderinf title
+
+.         order _all, alpha
+
+.         order productid title brand category size upc-upcstandardfields coo partia
+> l datecreatedtimestamps
+
+.         sort productid
+
+.         keep productid title brand category size upc-upcstandardfields coo partial
+>  datecreatedtimestamps Afghanistan-Zimbabwe
+
+.         
+. *** generate date for upc creation
+.         gen date = datecreatedtimestamps
+(34 missing values generated)
+
+. 
+end of do-file
+
+. br
+
+. sort date
+
+. br
+
+. help subinstr
+
+. br
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD00556.000000"
+
+.         replace date = substr(date, 1, 10)
+(456,311 real changes made)
+
+. 
+end of do-file
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD00556.000000"
+
+.         gen upc_date = date(date, "YMD")
+(34 missing values generated)
+
+. 
+end of do-file
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD00556.000000"
+
+.         format upc_date %td
+
+.         
+. 
+end of do-file
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD00556.000000"
+
+.         order productid title brand category size upc-upcstandardfields coo partia
+> l date upc_date 
+
+. 
+end of do-file
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD00556.000000"
+
+.         save "$outdir/labelinsights_product_cleaned", replace
+file /Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_pro
+> duct_cleaned.dta saved
+
+. 
+end of do-file
+
+. use "/Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_p
+> roduct_cleaned.dta"
+
+. br
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD00556.000000"
+
+.         sort productid
+
+. 
+end of do-file
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD00556.000000"
+
+.         save "$outdir/labelinsights_product_cleaned", replace
+file /Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_pro
+> duct_cleaned.dta saved
+
+. 
+end of do-file
+
+. use "/Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_p
+> roduct_cleaned.dta"
+
+. br
+
+. do "/Users/zsong/Dropbox/NGOs Form 990/code/zs/analyze_ngos_all.do"
+
+. * analyze ngos_all.dta obtained by PB
+. local fname analyze_ngos_all
+
+. 
+. /*******************************************************************************
+> 
+> * obtain the peaks and upticks of google search trend
+> 
+> Author: Zirui Song
+> Date Created: Apr 4th, 2022
+> Date Modified: Apr 4th, 2022
+> 
+> ********************************************************************************/
+. 
+. /**************
+>         Basic Set-up
+>         ***************/
+.         clear all
+
+.         set more off, permanently
+(set more preference recorded)
+
+.         capture log close

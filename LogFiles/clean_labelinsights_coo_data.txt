@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:/Users/zsong98/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/clean_labelinsights_coo_data.txt
   log type:  text
- opened on:  30 Mar 2022, 10:44:38
+ opened on:  30 Mar 2022, 14:47:16
 
 .         
 . /**************
@@ -22,8 +22,9 @@
   9.                         replace countryoforigin = countryoforigin + " " + `x'
  10.                 }
  11.                 tostring productid upc*, replace format("%15.0f")
- 12.                 save "$rawdir/`file'.dta", replace
- 13.         }
+ 12.                 local file: subinstr local file ".csv" ""
+ 13.                 save "$intdir/Label Insights/`file'", replace
+ 14.         }
 (encoding automatically selected: UTF-8)
 (245 vars, 24,160 obs)
   (all newnames==oldnames)
@@ -746,7 +747,7 @@ variable countryoforigin was str559 now str560
 productid was long now str8
 upc already string; no replace
 upcstandardfields already string; no replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/bakery.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/bakery.dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 3189; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -1487,7 +1488,7 @@ variable countryoforigin was str738 now str739
 productid already string; no replace
 upc was double now str14
 upcstandardfields was double now str14
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/baking_goods.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/baking_goods.dta saved
 (encoding automatically selected: UTF-8)
 (245 vars, 20,642 obs)
   (all newnames==oldnames)
@@ -2210,7 +2211,7 @@ variable countryoforigin was str669 now str670
 productid was long now str8
 upc was double now str14
 upcstandardfields was double now str14
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/cereal_and_breakfast_foods.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/cereal_and_breakfast_foods.dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 1422; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -2921,7 +2922,7 @@ variable countryoforigin was str821 now str822
 productid already string; no replace
 upc already string; no replace
 upcstandardfields already string; no replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/condiments_oil_and_salad_dressings.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/condiments_oil_and_salad_dressings.dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 4824; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -3656,7 +3657,7 @@ variable countryoforigin was str579 now str580
 productid already string; no replace
 upc already string; no replace
 upcstandardfields already string; no replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/dairy.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/dairy.dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 3030; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -4397,7 +4398,7 @@ variable countryoforigin was str873 now str874
 productid already string; no replace
 upc was double now str14
 upcstandardfields was double now str14
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/deli.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/deli.dta saved
 (encoding automatically selected: UTF-8)
 (245 vars, 10,123 obs)
   (all newnames==oldnames)
@@ -5120,7 +5121,7 @@ variable countryoforigin was str656 now str657
 productid was long now str8
 upc was double now str14
 upcstandardfields was double now str14
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/diet_and_nutrition.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/diet_and_nutrition.dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 6669; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -5954,7 +5955,7 @@ variable countryoforigin was str818 now str819
 productid already string; no replace
 upc was double now str14
 upcstandardfields was double now str14
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/drinks.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/drinks.dta saved
 (encoding automatically selected: UTF-8)
 (245 vars, 17,044 obs)
   (all newnames==oldnames)
@@ -6677,7 +6678,7 @@ variable countryoforigin was str569 now str570
 productid was long now str8
 upc was double now str15
 upcstandardfields was double now str15
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/fresh_fruit_and_vegetables.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/fresh_fruit_and_vegetables.dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 1318; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -7418,7 +7419,7 @@ variable countryoforigin was str839 now str840
 productid already string; no replace
 upc already string; no replace
 upcstandardfields already string; no replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/frozen_food.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/frozen_food.dta saved
 (encoding automatically selected: UTF-8)
 (245 vars, 18,358 obs)
   (all newnames==oldnames)
@@ -8141,7 +8142,7 @@ variable countryoforigin was str939 now str940
 productid was long now str8
 upc already string; no replace
 upcstandardfields already string; no replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/grains_pasta_and_side_dishes.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/grains_pasta_and_side_dishes.dta saved
 (encoding automatically selected: UTF-8)
 (245 vars, 73 obs)
   (all newnames==oldnames)
@@ -8864,7 +8865,7 @@ variable countryoforigin was str475 now str476
 productid was long now str8
 upc was double now str12
 upcstandardfields was double now str12
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/grocery_medicine_and_cosmetics.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/grocery_medicine_and_cosmetics.dta saved
 (encoding automatically selected: ISO-8859-1)
 (245 vars, 73 obs)
   (all newnames==oldnames)
@@ -9587,7 +9588,7 @@ variable countryoforigin was str475 now str476
 productid was long now str8
 upc was double now str12
 upcstandardfields was double now str12
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/grocery_medicine_cosmetics.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/grocery_medicine_cosmetics.dta saved
 (encoding automatically selected: UTF-8)
 (245 vars, 11,935 obs)
   (all newnames==oldnames)
@@ -10310,7 +10311,7 @@ variable countryoforigin was str537 now str538
 productid was long now str8
 upc was double now str13
 upcstandardfields was double now str13
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/meat_and_seafood.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/meat_and_seafood.dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 5058; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -11045,7 +11046,7 @@ variable countryoforigin was str672 now str673
 productid already string; no replace
 upc already string; no replace
 upcstandardfields already string; no replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/sauces_spices_and_seasonings.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/sauces_spices_and_seasonings.dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 3779; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -11780,7 +11781,7 @@ variable countryoforigin was str1270 now str1271
 productid already string; no replace
 upc already string; no replace
 upcstandardfields already string; no replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/snacks_cookies_candies(1).csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/snacks_cookies_candies(1).dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 1521; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -12516,7 +12517,7 @@ variable countryoforigin was str1030 now str1031
 productid already string; no replace
 upc already string; no replace
 upcstandardfields already string; no replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/snacks_cookies_candies(2).csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/snacks_cookies_candies(2).dta saved
 (encoding automatically selected: UTF-8)
 Note: Unmatched quote while processing row 480; this can be due to a formatting problem in the file or because a quoted data element spans multiple lines. You should carefully
     inspect your data after importing. Consider using option bindquote(strict) if quoted data spans multiple lines or option bindquote(nobind) if quotes are not used for
@@ -13245,17 +13246,17 @@ variable countryoforigin was str736 now str737
 productid already string; no replace
 upc was double now str14
 upcstandardfields was double now str14
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/soups_and_canned_goods.csv.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/Label Insights/soups_and_canned_goods.dta saved
 
 .         
 .         * append files
 .         
 .         * See https://www.statalist.org/forums/forum/general-stata-discussion/general/1530135-append-all-dta-files-in-directory
-.         local files : dir "$rawdir" files "*.dta"
+.         local File : dir "$intdir/Label Insights" files "*"
 
-.         clear
+.         clear 
 
-.         append using `files'
+.         append using `File' 
 (variable productid was str8, now strL to accommodate using data's values)
 (variable productsizeidentifyingheaderinfo was str10, now str12 to accommodate using data's values)
 (variable categoryproductcategorization was str41, now str53 to accommodate using data's values)
@@ -13404,34 +13405,34 @@ file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Label Insights/soups_and
 (variable v245 was str14, now str29 to accommodate using data's values)
 
 .         
-.         * drop duplicates in terms of productid
-.         duplicates drop productid, force        
+. *** to get rid of weird productids/empty upc products
+.                 drop if upc == ""
+(11 observations deleted)
+
+.                 drop if upc == "."
+(27 observations deleted)
+
+.                 *charlist productid
+.                 *charlist upc
+.                 * drop duplicates in terms of productid
+.                 duplicates drop productid, force        
 
 Duplicates in terms of productid
 
-(79 observations deleted)
+(73 observations deleted)
 
-. *** to get rid of weird productids/empty upc products
-.         drop if upc == ""
-(10 observations deleted)
-
-.         drop if upc == "."
-(22 observations deleted)
-
-.         *charlist productid
-.         *charlist upc
 .         destring productid, replace
 productid: all characters numeric; replaced as long
 
 .         
-.         save "$outdir/labelinsights_product_coo_base.dta", replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_product_coo_base.dta saved
+.         save "$intdir/labelinsights_product_coo_base.dta", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/labelinsights_product_coo_base.dta saved
 
 . 
 . /**************
 >         Clean Data to get coo string
 >         ***************/        
-.         use "$outdir/labelinsights_product_coo_base.dta", clear
+.         use "$intdir/labelinsights_product_coo_base.dta", clear
 
 .         keep productid-categoryproductcategorization countryoforigin
 
@@ -13521,11 +13522,11 @@ file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsigh
 (15 real changes made)
 
 .         
-.         save "$outdir/labelinsights_temp1", replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_temp1.dta saved
+.         save "$intdir/labelinsights_temp1", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/labelinsights_temp1.dta saved
 
 . *** get rid of string duplicates (country names)
-.         use "$outdir/labelinsights_temp1", clear
+.         use "$intdir/labelinsights_temp1", clear
 
 .         
 .         replace countryoforigin = stritrim(countryoforigin)
@@ -13583,7 +13584,7 @@ xij variables:
 .         
 .         keep productid coo
 
-.         merge 1:1 productid using "$outdir/labelinsights_temp1", keepusing(upc* partial)
+.         merge 1:1 productid using "$intdir/labelinsights_temp1", keepusing(upc* partial)
 
     Result                      Number of obs
     -----------------------------------------
@@ -13605,1278 +13606,14 @@ coo1   coo2   coo3   coo4   coo5   coo6   coo7   coo8   coo9   coo10  coo11  coo
 
 .         lab var partial "Partial Ingredient"
 
-.         save "$outdir/labelinsights_product_coo_cleaned", replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_product_coo_cleaned.dta saved
+.         save "$intdir/labelinsights_product_coo_cleaned", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/labelinsights_product_coo_cleaned.dta saved
 
 .         
 . /**************
 >         Obtain Country Dummies and Finalize Data
 >         ***************/        
-.         use "$outdir/labelinsights_product_coo_base.dta", clear
-
-. *** change label to be country names solely
-.         drop countryoforigin
-
-.         foreach var of varlist countryof* v* {
-  2.                 local variable_label: variable label `var'
-  3.                 local variable_label: subinstr local variable_label "Country Of Origin (On-Package) " ""
-  4.                 local variable_label: subinstr local variable_label "- Africa - " ""
-  5.                 local variable_label: subinstr local variable_label "- Asia - " ""
-  6.                 local variable_label: subinstr local variable_label "- Europe - " ""
-  7.                 local variable_label: subinstr local variable_label "- Oceanic - " ""
-  8.                 local variable_label: subinstr local variable_label "- North America - " ""
-  9.                 local variable_label: subinstr local variable_label "- South America - " ""
- 10.                 local variable_label: subinstr local variable_label "- Antarctica - " ""
- 11.                 local variable_label: subinstr local variable_label "- Antarctica - " ""
- 12.                 local variable_label: subinstr local variable_label "&" "" 
- 13.                 * get rid of blanks in country names in case there are more than 1 blanks
-.                 * u.e., Republic of Korea
-.                 local variable_label: subinstr local variable_label " " "" 
- 14.                 local variable_label: subinstr local variable_label " " "" 
- 15.                 local variable_label: subinstr local variable_label " " "" 
- 16.                 local variable_label: subinstr local variable_label " " "" 
- 17.                 local variable_label: subinstr local variable_label " " "" 
- 18.                 local variable_label: subinstr local variable_label " " "" 
- 19.                 label variable `var' "`variable_label'"
- 20.         }       
-
-. 
-.         ssc install labutil2
-checking labutil2 consistency and verifying not already installed...
-all files already exist and are up to date.
-
-.         lab2varn countryof*
-
-.         
-.         foreach var of varlist v* {
-  2.                 local label: variable label `var'
-  3.                 local v "`label'`var'"
-  4.                 rename `var' `v'
-  5.         }
-
-.         * generate partial (later)
-.         
-.         /* manually check for duplicates variable name (due to importing variable names
->         issue with csv. and then merge them together */
-.         foreach var of varlist _all {
-  2.                 replace `var' = "1" if `var' != ""
-  3.                 replace `var' = "0" if `var' == ""
-  4.                 destring `var', replace
-  5.         }
-type mismatch
-r(109);
-
-end of do-file
-
-r(109);
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
-
-.         use "$outdir/labelinsights_product_coo_base.dta", clear
-
-. *** change label to be country names solely
-.         drop countryoforigin
-
-.         foreach var of varlist countryof* v* {
-  2.                 local variable_label: variable label `var'
-  3.                 local variable_label: subinstr local variable_label "Country Of Origin (On-Package) " ""
-  4.                 local variable_label: subinstr local variable_label "- Africa - " ""
-  5.                 local variable_label: subinstr local variable_label "- Asia - " ""
-  6.                 local variable_label: subinstr local variable_label "- Europe - " ""
-  7.                 local variable_label: subinstr local variable_label "- Oceanic - " ""
-  8.                 local variable_label: subinstr local variable_label "- North America - " ""
-  9.                 local variable_label: subinstr local variable_label "- South America - " ""
- 10.                 local variable_label: subinstr local variable_label "- Antarctica - " ""
- 11.                 local variable_label: subinstr local variable_label "- Antarctica - " ""
- 12.                 local variable_label: subinstr local variable_label "&" "" 
- 13.                 * get rid of blanks in country names in case there are more than 1 blanks
-.                 * u.e., Republic of Korea
-.                 local variable_label: subinstr local variable_label " " "" 
- 14.                 local variable_label: subinstr local variable_label " " "" 
- 15.                 local variable_label: subinstr local variable_label " " "" 
- 16.                 local variable_label: subinstr local variable_label " " "" 
- 17.                 local variable_label: subinstr local variable_label " " "" 
- 18.                 local variable_label: subinstr local variable_label " " "" 
- 19.                 label variable `var' "`variable_label'"
- 20.         }       
-
-.         * destring countryoforigin variables and generate partial
-.         gen partial_m = 0
-
-.         foreach var of varlist countryof* v* {
-  2.                 replace partial = 1 if strpos(`var', "Partial") != 0
-  3.                 replace `var' = "1" if `var' != ""
-  4.                 replace `var' = "0" if `var' == ""
-  5.                 destring `var', replace
-  6.         }
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageafricaal: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricaan: all characters numeric; replaced as byte
-(52 real changes made)
-(55 real changes made)
-(455,420 real changes made)
-countryoforiginonpackageafricabe: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricabo: all characters numeric; replaced as byte
-(11 real changes made)
-(12 real changes made)
-(455,463 real changes made)
-countryoforiginonpackageafricabu: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageafricaca: all characters numeric; replaced as byte
-(3 real changes made)
-(3 real changes made)
-(455,472 real changes made)
-countryoforiginonpackageafricace: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricach: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricaco: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricade: all characters numeric; replaced as byte
-(0 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-countryoforiginonpackageafricadj: all characters numeric; replaced as byte
-(52 real changes made)
-(234 real changes made)
-(455,241 real changes made)
-countryoforiginonpackageafricaeg: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricaeq: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricaer: all characters numeric; replaced as byte
-(43 real changes made)
-(97 real changes made)
-(455,378 real changes made)
-countryoforiginonpackageafricaet: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricaga: all characters numeric; replaced as byte
-(194 real changes made)
-(471 real changes made)
-(455,004 real changes made)
-countryoforiginonpackageafricagh: all characters numeric; replaced as byte
-(114 real changes made)
-(243 real changes made)
-(455,232 real changes made)
-countryoforiginonpackageafricake: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricali: all characters numeric; replaced as byte
-(247 real changes made)
-(291 real changes made)
-(455,184 real changes made)
-countryoforiginonpackageafricama: all characters numeric; replaced as byte
-(115 real changes made)
-(418 real changes made)
-(455,057 real changes made)
-countryoforiginonpackageafricamo: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricana: all characters numeric; replaced as byte
-(12 real changes made)
-(13 real changes made)
-(455,462 real changes made)
-countryoforiginonpackageafricani: all characters numeric; replaced as byte
-(5 real changes made)
-(5 real changes made)
-(455,470 real changes made)
-countryoforiginonpackageafricare: all characters numeric; replaced as byte
-(9 real changes made)
-(15 real changes made)
-(455,460 real changes made)
-countryoforiginonpackageafricarw: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricasa: all characters numeric; replaced as byte
-(5 real changes made)
-(5 real changes made)
-(455,470 real changes made)
-countryoforiginonpackageafricase: all characters numeric; replaced as byte
-(0 real changes made)
-(3 real changes made)
-(455,472 real changes made)
-countryoforiginonpackageafricasi: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricaso: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricasu: all characters numeric; replaced as byte
-(0 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-countryoforiginonpackageafricasw: all characters numeric; replaced as byte
-(16 real changes made)
-(170 real changes made)
-(455,305 real changes made)
-countryoforiginonpackageafricata: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricato: all characters numeric; replaced as byte
-(120 real changes made)
-(349 real changes made)
-(455,126 real changes made)
-countryoforiginonpackageafricatu: all characters numeric; replaced as byte
-(4 real changes made)
-(16 real changes made)
-(455,459 real changes made)
-countryoforiginonpackageafricaug: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricawe: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricaza: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageafricazi: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageantarcti: all characters numeric; replaced as byte
-(0 real changes made)
-(6 real changes made)
-(455,469 real changes made)
-countryoforiginonpackageasiaafgh: all characters numeric; replaced as byte
-(2 real changes made)
-(24 real changes made)
-(455,451 real changes made)
-countryoforiginonpackageasiaarme: all characters numeric; replaced as byte
-(0 real changes made)
-(4 real changes made)
-(455,471 real changes made)
-countryoforiginonpackageasiaazer: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiabahr: all characters numeric; replaced as byte
-(4 real changes made)
-(31 real changes made)
-(455,444 real changes made)
-countryoforiginonpackageasiabang: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiabhut: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiabrit: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiabrun: all characters numeric; replaced as byte
-(6 real changes made)
-(84 real changes made)
-(455,391 real changes made)
-countryoforiginonpackageasiacamb: all characters numeric; replaced as byte
-(1,672 real changes made)
-(7,909 real changes made)
-(447,566 real changes made)
-countryoforiginonpackageasiachin: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiachri: all characters numeric; replaced as byte
-(3 real changes made)
-(24 real changes made)
-(455,451 real changes made)
-countryoforiginonpackageasiacypr: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiademo: all characters numeric; replaced as byte
-(2 real changes made)
-(34 real changes made)
-(455,441 real changes made)
-countryoforiginonpackageasiageor: all characters numeric; replaced as byte
-(1 real change made)
-(38 real changes made)
-(455,437 real changes made)
-countryoforiginonpackageasiahong: all characters numeric; replaced as byte
-(660 real changes made)
-(2,889 real changes made)
-(452,586 real changes made)
-countryoforiginonpackageasiaindi: all characters numeric; replaced as byte
-(147 real changes made)
-(1,662 real changes made)
-(453,813 real changes made)
-countryoforiginonpackageasiaindo: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageasiairan: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiairaq: all characters numeric; replaced as byte
-(12 real changes made)
-(827 real changes made)
-(454,648 real changes made)
-countryoforiginonpackageasiaisra: all characters numeric; replaced as byte
-(51 real changes made)
-(848 real changes made)
-(454,627 real changes made)
-countryoforiginonpackageasiajapa: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageasiajord: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageasiakaza: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageasiakuwa: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiakyrg: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasialaop: all characters numeric; replaced as byte
-(6 real changes made)
-(39 real changes made)
-(455,436 real changes made)
-countryoforiginonpackageasialeba: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasialeso: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiamaca: all characters numeric; replaced as byte
-(41 real changes made)
-(216 real changes made)
-(455,259 real changes made)
-countryoforiginonpackageasiamala: all characters numeric; replaced as byte
-(1 real change made)
-(2 real changes made)
-(455,473 real changes made)
-countryoforiginonpackageasiamald: all characters numeric; replaced as byte
-(2 real changes made)
-(6 real changes made)
-(455,469 real changes made)
-countryoforiginonpackageasiamong: all characters numeric; replaced as byte
-(0 real changes made)
-(5 real changes made)
-(455,470 real changes made)
-countryoforiginonpackageasianepa: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageasiaoman: all characters numeric; replaced as byte
-(20 real changes made)
-(214 real changes made)
-(455,261 real changes made)
-countryoforiginonpackageasiapaki: all characters numeric; replaced as byte
-(2 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-countryoforiginonpackageasiapale: all characters numeric; replaced as byte
-(106 real changes made)
-(1,073 real changes made)
-(454,402 real changes made)
-countryoforiginonpackageasiaphil: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiaqata: all characters numeric; replaced as byte
-(3 real changes made)
-(19 real changes made)
-(455,456 real changes made)
-countryoforiginonpackageasiarepu: all characters numeric; replaced as byte
-(8 real changes made)
-(79 real changes made)
-(455,396 real changes made)
-countryoforiginonpackageasiaruss: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageasiasaud: all characters numeric; replaced as byte
-(1 real change made)
-(13 real changes made)
-(455,462 real changes made)
-countryoforiginonpackageasiasing: all characters numeric; replaced as byte
-(0 real changes made)
-(19 real changes made)
-(455,456 real changes made)
-countryoforiginonpackageasiasout: all characters numeric; replaced as byte
-(42 real changes made)
-(378 real changes made)
-(455,097 real changes made)
-countryoforiginonpackageasiasril: all characters numeric; replaced as byte
-(1 real change made)
-(10 real changes made)
-(455,465 real changes made)
-countryoforiginonpackageasiasyri: all characters numeric; replaced as byte
-(20 real changes made)
-(491 real changes made)
-(454,984 real changes made)
-countryoforiginonpackageasiataiw: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiataji: all characters numeric; replaced as byte
-(116 real changes made)
-(1,070 real changes made)
-(454,405 real changes made)
-countryoforiginonpackageasiathai: all characters numeric; replaced as byte
-(69 real changes made)
-(1,652 real changes made)
-(453,823 real changes made)
-countryoforiginonpackageasiaturk: all characters numeric; replaced as byte
-(1 real change made)
-(19 real changes made)
-(455,456 real changes made)
-countryoforiginonpackageasiaunit: all characters numeric; replaced as byte
-(1 real change made)
-(19 real changes made)
-(455,456 real changes made)
-countryoforiginonpackageasiauzbe: all characters numeric; replaced as byte
-(69 real changes made)
-(1,889 real changes made)
-(453,586 real changes made)
-countryoforiginonpackageasiaviet: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageasiayeme: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropeal: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropean: all characters numeric; replaced as byte
-(6 real changes made)
-(111 real changes made)
-(455,364 real changes made)
-countryoforiginonpackageeuropeau: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropebe: all characters numeric; replaced as byte
-(1 real change made)
-(33 real changes made)
-(455,442 real changes made)
-countryoforiginonpackageeuropebo: all characters numeric; replaced as byte
-(24 real changes made)
-(243 real changes made)
-(455,232 real changes made)
-countryoforiginonpackageeuropebu: all characters numeric; replaced as byte
-(1 real change made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageeuropeca: all characters numeric; replaced as byte
-(1 real change made)
-(67 real changes made)
-(455,408 real changes made)
-countryoforiginonpackageeuropecr: all characters numeric; replaced as byte
-(5 real changes made)
-(100 real changes made)
-(455,375 real changes made)
-countryoforiginonpackageeuropecz: all characters numeric; replaced as byte
-(6 real changes made)
-(168 real changes made)
-(455,307 real changes made)
-countryoforiginonpackageeuropede: all characters numeric; replaced as byte
-(2 real changes made)
-(204 real changes made)
-(455,271 real changes made)
-countryoforiginonpackageeuropeen: all characters numeric; replaced as byte
-(2 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-countryoforiginonpackageeuropees: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropefa: all characters numeric; replaced as byte
-(3 real changes made)
-(58 real changes made)
-(455,417 real changes made)
-countryoforiginonpackageeuropefi: all characters numeric; replaced as byte
-(75 real changes made)
-(1,611 real changes made)
-(453,864 real changes made)
-countryoforiginonpackageeuropefr: all characters numeric; replaced as byte
-(48 real changes made)
-(1,767 real changes made)
-(453,708 real changes made)
-countryoforiginonpackageeuropege: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropegi: all characters numeric; replaced as byte
-(80 real changes made)
-(1,331 real changes made)
-(454,144 real changes made)
-countryoforiginonpackageeuropegr: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropegu: all characters numeric; replaced as byte
-(4 real changes made)
-(90 real changes made)
-(455,385 real changes made)
-countryoforiginonpackageeuropehu: all characters numeric; replaced as byte
-(11 real changes made)
-(36 real changes made)
-(455,439 real changes made)
-countryoforiginonpackageeuropeic: all characters numeric; replaced as byte
-(5 real changes made)
-(190 real changes made)
-(455,285 real changes made)
-countryoforiginonpackageeuropeir: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropeis: all characters numeric; replaced as byte
-(321 real changes made)
-(3,807 real changes made)
-(451,668 real changes made)
-countryoforiginonpackageeuropeit: all characters numeric; replaced as byte
-(1 real change made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageeuropeje: all characters numeric; replaced as byte
-(0 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-countryoforiginonpackageeuropeko: all characters numeric; replaced as byte
-(0 real changes made)
-(50 real changes made)
-(455,425 real changes made)
-countryoforiginonpackageeuropela: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropeli: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageeuropelu: all characters numeric; replaced as byte
-(0 real changes made)
-(6 real changes made)
-(455,469 real changes made)
-countryoforiginonpackageeuropema: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropemo: all characters numeric; replaced as byte
-(17 real changes made)
-(619 real changes made)
-(454,856 real changes made)
-countryoforiginonpackageeuropene: all characters numeric; replaced as byte
-(0 real changes made)
-(3 real changes made)
-(455,472 real changes made)
-countryoforiginonpackageeuropeno: all characters numeric; replaced as byte
-(8 real changes made)
-(1,091 real changes made)
-(454,384 real changes made)
-countryoforiginonpackageeuropepo: all characters numeric; replaced as byte
-(0 real changes made)
-(15 real changes made)
-(455,460 real changes made)
-countryoforiginonpackageeuropere: all characters numeric; replaced as byte
-(6 real changes made)
-(113 real changes made)
-(455,362 real changes made)
-countryoforiginonpackageeuropero: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropesa: all characters numeric; replaced as byte
-(0 real changes made)
-(118 real changes made)
-(455,357 real changes made)
-countryoforiginonpackageeuropesc: all characters numeric; replaced as byte
-(2 real changes made)
-(37 real changes made)
-(455,438 real changes made)
-countryoforiginonpackageeuropese: all characters numeric; replaced as byte
-(0 real changes made)
-(17 real changes made)
-(455,458 real changes made)
-countryoforiginonpackageeuropesl: all characters numeric; replaced as byte
-(83 real changes made)
-(2,918 real changes made)
-(452,557 real changes made)
-countryoforiginonpackageeuropesp: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageeuropesv: all characters numeric; replaced as byte
-(1 real change made)
-(58 real changes made)
-(455,417 real changes made)
-countryoforiginonpackageeuropesw: all characters numeric; replaced as byte
-(4 real changes made)
-(41 real changes made)
-(455,434 real changes made)
-countryoforiginonpackageeuropeuk: all characters numeric; replaced as byte
-(6 real changes made)
-(781 real changes made)
-(454,694 real changes made)
-countryoforiginonpackageeuropeun: all characters numeric; replaced as byte
-(23 real changes made)
-(106 real changes made)
-(455,369 real changes made)
-countryoforiginonpackageeuropeur: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageeuropewa: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackagenorthame: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanica: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanicc: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanicf: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanicg: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanick: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanicm: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanicn: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanicp: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanics: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-countryoforiginonpackageoceanict: all characters numeric; replaced as byte
-(1 real change made)
-(1 real change made)
-(455,474 real changes made)
-countryoforiginonpackageoceanicv: all characters numeric; replaced as byte
-(191 real changes made)
-(969 real changes made)
-(454,506 real changes made)
-countryoforiginonpackagesouthame: all characters numeric; replaced as byte
-(3 real changes made)
-(6 real changes made)
-(455,469 real changes made)
-v13: all characters numeric; replaced as byte
-(0 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-v15: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v26: all characters numeric; replaced as byte
-(1 real change made)
-(1 real change made)
-(455,474 real changes made)
-v30: all characters numeric; replaced as byte
-(0 real changes made)
-(19 real changes made)
-(455,456 real changes made)
-v32: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v33: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v34: all characters numeric; replaced as byte
-(2 real changes made)
-(14 real changes made)
-(455,461 real changes made)
-v35: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v36: all characters numeric; replaced as byte
-(1 real change made)
-(211 real changes made)
-(455,264 real changes made)
-v38: all characters numeric; replaced as byte
-(2 real changes made)
-(107 real changes made)
-(455,368 real changes made)
-v41: all characters numeric; replaced as byte
-(1 real change made)
-(6 real changes made)
-(455,469 real changes made)
-v43: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v47: all characters numeric; replaced as byte
-(76 real changes made)
-(501 real changes made)
-(454,974 real changes made)
-v50: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v51: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v62: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v63: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v64: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v65: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v115: all characters numeric; replaced as byte
-(0 real changes made)
-(6 real changes made)
-(455,469 real changes made)
-v121: all characters numeric; replaced as byte
-(120 real changes made)
-(936 real changes made)
-(454,539 real changes made)
-v125: all characters numeric; replaced as byte
-(0 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-v135: all characters numeric; replaced as byte
-(0 real changes made)
-(6 real changes made)
-(455,469 real changes made)
-v151: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v155: all characters numeric; replaced as byte
-(12 real changes made)
-(123 real changes made)
-(455,352 real changes made)
-v158: all characters numeric; replaced as byte
-(1 real change made)
-(98 real changes made)
-(455,377 real changes made)
-v160: all characters numeric; replaced as byte
-(0 real changes made)
-(6 real changes made)
-(455,469 real changes made)
-v167: all characters numeric; replaced as byte
-(20 real changes made)
-(557 real changes made)
-(454,918 real changes made)
-v171: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v177: all characters numeric; replaced as byte
-(5 real changes made)
-(5 real changes made)
-(455,470 real changes made)
-v178: all characters numeric; replaced as byte
-(1 real change made)
-(13 real changes made)
-(455,462 real changes made)
-v179: all characters numeric; replaced as byte
-(13 real changes made)
-(27 real changes made)
-(455,448 real changes made)
-v180: all characters numeric; replaced as byte
-(2 real changes made)
-(3 real changes made)
-(455,472 real changes made)
-v181: all characters numeric; replaced as byte
-(1 real change made)
-(33 real changes made)
-(455,442 real changes made)
-v182: all characters numeric; replaced as byte
-(243 real changes made)
-(14,400 real changes made)
-(441,075 real changes made)
-v183: all characters numeric; replaced as byte
-(11 real changes made)
-(345 real changes made)
-(455,130 real changes made)
-v184: all characters numeric; replaced as byte
-(114 real changes made)
-(500 real changes made)
-(454,975 real changes made)
-v185: all characters numeric; replaced as byte
-(0 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-v186: all characters numeric; replaced as byte
-(3 real changes made)
-(11 real changes made)
-(455,464 real changes made)
-v187: all characters numeric; replaced as byte
-(29 real changes made)
-(256 real changes made)
-(455,219 real changes made)
-v188: all characters numeric; replaced as byte
-(5 real changes made)
-(140 real changes made)
-(455,335 real changes made)
-v189: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v190: all characters numeric; replaced as byte
-(3 real changes made)
-(3 real changes made)
-(455,472 real changes made)
-v191: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v192: all characters numeric; replaced as byte
-(85 real changes made)
-(4,496 real changes made)
-(450,979 real changes made)
-v193: all characters numeric; replaced as byte
-(3 real changes made)
-(11 real changes made)
-(455,464 real changes made)
-v194: all characters numeric; replaced as byte
-(25 real changes made)
-(153 real changes made)
-(455,322 real changes made)
-v195: all characters numeric; replaced as byte
-(24 real changes made)
-(314 real changes made)
-(455,161 real changes made)
-v196: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v197: all characters numeric; replaced as byte
-(444 real changes made)
-(10,030 real changes made)
-(445,445 real changes made)
-v198: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-v199: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v200: all characters numeric; replaced as byte
-(20 real changes made)
-(78 real changes made)
-(455,397 real changes made)
-v201: all characters numeric; replaced as byte
-(1 real change made)
-(7 real changes made)
-(455,468 real changes made)
-v202: all characters numeric; replaced as byte
-(2 real changes made)
-(26 real changes made)
-(455,449 real changes made)
-v203: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v204: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v205: all characters numeric; replaced as byte
-(2 real changes made)
-(16 real changes made)
-(455,459 real changes made)
-v206: all characters numeric; replaced as byte
-(3,422 real changes made)
-(90,308 real changes made)
-(365,167 real changes made)
-v207: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v208: all characters numeric; replaced as byte
-(45 real changes made)
-(580 real changes made)
-(454,895 real changes made)
-v210: all characters numeric; replaced as byte
-(3 real changes made)
-(43 real changes made)
-(455,432 real changes made)
-v213: all characters numeric; replaced as byte
-(1 real change made)
-(1 real change made)
-(455,474 real changes made)
-v214: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v219: all characters numeric; replaced as byte
-(89 real changes made)
-(371 real changes made)
-(455,104 real changes made)
-v220: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v221: all characters numeric; replaced as byte
-(0 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-v222: all characters numeric; replaced as byte
-(3 real changes made)
-(57 real changes made)
-(455,418 real changes made)
-v223: all characters numeric; replaced as byte
-(8 real changes made)
-(30 real changes made)
-(455,445 real changes made)
-v225: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-v226: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v228: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v230: all characters numeric; replaced as byte
-(0 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-v231: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v232: all characters numeric; replaced as byte
-(35 real changes made)
-(259 real changes made)
-(455,216 real changes made)
-v235: all characters numeric; replaced as byte
-(119 real changes made)
-(2,322 real changes made)
-(453,153 real changes made)
-v236: all characters numeric; replaced as byte
-(40 real changes made)
-(1,116 real changes made)
-(454,359 real changes made)
-v237: all characters numeric; replaced as byte
-(124 real changes made)
-(971 real changes made)
-(454,504 real changes made)
-v238: all characters numeric; replaced as byte
-(34 real changes made)
-(466 real changes made)
-(455,009 real changes made)
-v239: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v240: all characters numeric; replaced as byte
-(2 real changes made)
-(6 real changes made)
-(455,469 real changes made)
-v241: all characters numeric; replaced as byte
-(1 real change made)
-(37 real changes made)
-(455,438 real changes made)
-v242: all characters numeric; replaced as byte
-(52 real changes made)
-(1,729 real changes made)
-(453,746 real changes made)
-v243: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v244: all characters numeric; replaced as byte
-(9 real changes made)
-(14 real changes made)
-(455,461 real changes made)
-v245: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v107: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v111: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v137: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v141: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v144: all characters numeric; replaced as byte
-(2 real changes made)
-(110 real changes made)
-(455,365 real changes made)
-v146: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v153: all characters numeric; replaced as byte
-(2 real changes made)
-(6 real changes made)
-(455,469 real changes made)
-v157: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v163: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v164: all characters numeric; replaced as byte
-(0 real changes made)
-(1 real change made)
-(455,474 real changes made)
-v165: all characters numeric; replaced as byte
-(0 real changes made)
-(8 real changes made)
-(455,467 real changes made)
-v166: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v168: all characters numeric; replaced as byte
-(48 real changes made)
-(562 real changes made)
-(454,913 real changes made)
-v169: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v170: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v172: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v173: all characters numeric; replaced as byte
-(0 real changes made)
-(3 real changes made)
-(455,472 real changes made)
-v174: all characters numeric; replaced as byte
-(0 real changes made)
-(2 real changes made)
-(455,473 real changes made)
-v175: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v176: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v209: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v211: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v212: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v216: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v217: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v218: all characters numeric; replaced as byte
-(0 real changes made)
-(49 real changes made)
-(455,426 real changes made)
-v224: all characters numeric; replaced as byte
-(0 real changes made)
-(0 real changes made)
-(455,475 real changes made)
-v227: all characters numeric; replaced as byte
-(1 real change made)
-(23 real changes made)
-(455,452 real changes made)
-v229: all characters numeric; replaced as byte
-
-.         
-.         ssc install labutil2
-checking labutil2 consistency and verifying not already installed...
-all files already exist and are up to date.
-
-.         lab2varn countryof*
-
-.         
-.         foreach var of varlist v* {
-  2.                 local label: variable label `var'
-  3.                 local v "`label'`var'"
-  4.                 rename `var' `v'
-  5.         }
-
-.         
-.         order _all, alpha
-
-.         foreach x in Albania Aruba Bahamas Barbados Belgium Belize ///
->                                  BritishVirginIslands Canada CaymanIslands Colombia Cuba ///
->                                  DominicanRepublic Dominica ElSalvador Greenland Guyana ///
->                                  Lithuania Montenegro NorthernMarianaIsland Norway ///
->                                  PapuaNewGuinea Peru Pitcairn Portugal Slovenia Switzerland ///
->                                  Tokelau Tonga Tuvalu {
-  2.                 egen `x' = rowmax(`x'*)
-  3.                 /* drop original duplicated obs
->                 local i "`x'v"
->                 drop `i' */
-.         }
-
-.         foreach x in Albania Aruba Bahamas Barbados Belgium Belize ///
->                                  BritishVirginIslands Canada CaymanIslands Colombia Cuba ///
->                                  DominicanRepublic Dominica ElSalvador Greenland Guyana ///
->                                  Lithuania Montenegro NorthernMarianaIsland Norway ///
->                                  PapuaNewGuinea Peru Pitcairn Portugal Slovenia Switzerland ///
->                                  Tokelau Tonga Tuvalu {
-  2.                 local i "`x'v"
-  3.                 drop `i'*       
-  4.         }
-
-.         
-.         merge 1:1 productid using "$outdir/labelinsights_product_coo_cleaned", keepusing(coo partial)
-
-    Result                      Number of obs
-    -----------------------------------------
-    Not matched                             0
-    Matched                           455,475  (_merge==3)
-    -----------------------------------------
-
-. 
-end of do-file
-
-. br
-
-. isid productid
-
-. assert partial = partial_m
-invalid syntax
-r(198);
-
-. assert partial == partial_m
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
-
-.         drop partial_m
-
-.         order _all, alpha
-
-.         order productid-upcstandard* 
-upcstandard* invalid name
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
-
-.         rename *v *
-variable *v not found
-r(111);
-
-end of do-file
-
-r(111);
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
-
-.         rename *v* *
-1 new name specified repeatedly in newname
-    You requested the name Slo be assigned to 2 existing variables:  SlovakRepublic and Slovenia.
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
-
-.         use "$outdir/labelinsights_product_coo_base.dta", clear
+.         use "$intdir/labelinsights_product_coo_base.dta", clear
 
 . *** change label to be country names solely
 .         drop countryoforigin
@@ -16010,30 +14747,22 @@ all files already exist and are up to date.
   4.                 drop `i'*       
   5.         }
 
-. 
-end of do-file
-
-. save "temp", replace
-(file temp.dta not found)
-file temp.dta saved
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
-
+.         * clean other variables ended with _v...
 .         rename *_v* *
 
-. 
-end of do-file
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
-
 .         
-.         merge 1:1 productid using "$outdir/labelinsights_product_coo_cleaned", keepusing(coo partial)
+.         merge 1:1 productid using "$intdir/labelinsights_product_coo_cleaned", keepusing(coo partial)
 
     Result                      Number of obs
     -----------------------------------------
     Not matched                             0
     Matched                           455,475  (_merge==3)
     -----------------------------------------
+
+.         keep if _merge == 3
+(0 observations deleted)
+
+.         drop _merge
 
 .         * simple sanity checks
 .         isid productid
@@ -16043,349 +14772,23 @@ end of do-file
 .         
 .         drop partial_m
 
+.         rename brandidentifyingheaderinformatio brand
+
+.         rename categoryproductcategorization category
+
+.         rename productsizeidentifyingheaderinfo size
+
+.         rename producttitleidentifyingheaderinf title
+
 .         order _all, alpha
 
-.         order productid-upcstandardfields 
-
-.         sort product_id
-variable product_id not found
-r(111);
-
-end of do-file
-
-r(111);
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
+.         order productid title brand category size upc upcstandardfields coo 
 
 .         sort productid
 
 .         save "$outdir/labelinsights_product_cleaned", replace
-(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_product_cleaned.dta not found)
 file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_product_cleaned.dta saved
 
+. ********************************* END ******************************************
 . 
-end of do-file
-
-. br
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
-
-.         order productid-upcstandardfields coo 
-
-. 
-end of do-file
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD3e78_000000.tmp"
-
-.         save "$outdir/labelinsights_product_cleaned", replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/labelinsights_product_cleaned.dta saved
-
-. 
-end of do-file
-
-. sum
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-   productid |    455,475     5117080     1930663    2000057   1.08e+07
-productsiz~o |          0
-producttit~f |          0
-         upc |          0
-upcstandar~s |          0
--------------+---------------------------------------------------------
-         coo |          0
- Afghanistan |    455,475    .0000132    .0036295          0          1
-AlandIslands |    455,475           0           0          0          0
-     Albania |    455,475    .0000132    .0036295          0          1
-     Algeria |    455,475    2.20e-06    .0014817          0          1
--------------+---------------------------------------------------------
-AmericanSa~a |    455,475           0           0          0          0
-     Andorra |    455,475           0           0          0          0
-      Angola |    455,475           0           0          0          0
-    Anguilla |    455,475           0           0          0          0
-  Antarctica |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-   Argentina |    455,475    .0021274    .0460752          0          1
-     Armenia |    455,475    .0000527    .0072588          0          1
-       Aruba |    455,475           0           0          0          0
-   Australia |    455,475    .0012734     .035662          0          1
-     Austria |    455,475    .0002437    .0156091          0          1
--------------+---------------------------------------------------------
-  Azerbaijan |    455,475    8.78e-06    .0029634          0          1
-     Bahamas |    455,475     .000011    .0033132          0          1
-     Bahrain |    455,475           0           0          0          0
-  Bangladesh |    455,475    .0000681    .0082496          0          1
-    Barbados |    455,475    .0000307     .005544          0          1
--------------+---------------------------------------------------------
-     Belarus |    455,475           0           0          0          0
-     Belgium |    455,475     .002055    .0452855          0          1
-      Belize |    455,475    .0000768    .0087657          0          1
-       Benin |    455,475    .0001208    .0109881          0          1
-     Bermuda |    455,475    6.59e-06    .0025664          0          1
--------------+---------------------------------------------------------
-      Bhutan |    455,475           0           0          0          0
-     Bolivia |    455,475    .0005686    .0238394          0          1
-BosniaandH~a |    455,475    .0000725    .0085116          0          1
-    Botswana |    455,475           0           0          0          0
-BouvetIsland |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-      Brazil |    455,475     .005098     .071218          0          1
-BritishInd~y |    455,475           0           0          0          0
-BritishVir~s |    455,475    .0000725    .0085116          0          1
-      Brunei |    455,475           0           0          0          0
-    Bulgaria |    455,475    .0005335    .0230917          0          1
--------------+---------------------------------------------------------
- BurkinaFaso |    455,475    .0000263    .0051328          0          1
-     Burundi |    455,475    .0000132    .0036295          0          1
-    Cambodia |    455,475    .0001844     .013579          0          1
-    Cameroon |    455,475    2.20e-06    .0014817          0          1
-      Canada |    455,475    .0328492     .178242          0          1
--------------+---------------------------------------------------------
-CanaryIsla~s |    455,475    2.20e-06    .0014817          0          1
-   CapeVerde |    455,475    4.39e-06    .0020955          0          1
-CaymanIsla~s |    455,475    .0007575    .0275114          0          1
-CentralAfr~c |    455,475    6.59e-06    .0025664          0          1
-        Chad |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-       Chile |    455,475    .0024502    .0494388          0          1
-       China |    455,475    .0173643    .1306247          0          1
-ChristmasI~d |    455,475           0           0          0          0
-    Colombia |    455,475    .0022394    .0472695          0          1
-     Comoros |    455,475           0           0          0          0
--------------+---------------------------------------------------------
- CookIslands |    455,475           0           0          0          0
-   CostaRica |    455,475    .0010978    .0331142          0          1
-     Croatia |    455,475    .0001471    .0121276          0          1
-        Cuba |    455,475    4.39e-06    .0020955          0          1
-      Cyprus |    455,475    .0000527    .0072588          0          1
--------------+---------------------------------------------------------
-CzechRepub~c |    455,475    .0002196    .0148156          0          1
-Democratic~e |    455,475           0           0          0          0
-Democratic~o |    455,475           0           0          0          0
-     Denmark |    455,475    .0003688    .0192018          0          1
-    Djibouti |    455,475    4.39e-06    .0020955          0          1
--------------+---------------------------------------------------------
-    Dominica |    455,475    .0005928      .02434          0          1
-DominicanR~c |    455,475    .0005686    .0238394          0          1
-     Ecuador |    455,475    .0010231    .0319697          0          1
-       Egypt |    455,475    .0005137    .0226602          0          1
-  ElSalvador |    455,475    .0003118    .0176541          0          1
--------------+---------------------------------------------------------
-     England |    455,475    .0004479    .0211586          0          1
-Equatorial~a |    455,475           0           0          0          0
-     Eritrea |    455,475           0           0          0          0
-     Estonia |    455,475    4.39e-06    .0020955          0          1
-    Ethiopia |    455,475     .000213    .0145918          0          1
--------------+---------------------------------------------------------
-FalklandIs~s |    455,475           0           0          0          0
-FaroeIslands |    455,475    4.39e-06    .0020955          0          1
-FederatedS~a |    455,475           0           0          0          0
-        Fiji |    455,475    .0000944    .0097159          0          1
-     Finland |    455,475    .0001273    .0112838          0          1
--------------+---------------------------------------------------------
-      France |    455,475     .003537    .0593672          0          1
-FrenchGuiana |    455,475           0           0          0          0
-FrenchPoly~a |    455,475    2.20e-06    .0014817          0          1
-FrenchSout~s |    455,475           0           0          0          0
-       Gabon |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-      Gambia |    455,475           0           0          0          0
-     Georgia |    455,475    .0000746    .0086396          0          1
-     Germany |    455,475    .0038795    .0621645          0          1
-       Ghana |    455,475    .0010341    .0321406          0          1
-   Gibraltar |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-      Greece |    455,475    .0029222    .0539786          0          1
-   Greenland |    455,475           0           0          0          0
-     Grenada |    455,475    6.59e-06    .0025664          0          1
-  Guadeloupe |    455,475           0           0          0          0
-        Guam |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-   Guatemala |    455,475     .009871    .0988615          0          1
-    Guernsey |    455,475           0           0          0          0
-      Guyana |    455,475    .0000132    .0036295          0          1
-       Haiti |    455,475    .0000242    .0049143          0          1
-HeardandMc~s |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-    Honduras |    455,475    .0003359    .0183249          0          1
-    HongKong |    455,475    .0000834    .0091336          0          1
-     Hungary |    455,475    .0001976    .0140555          0          1
-     Iceland |    455,475     .000079      .00889          0          1
-       India |    455,475    .0063428     .079389          0          1
--------------+---------------------------------------------------------
-   Indonesia |    455,475    .0036489    .0602962          0          1
-        Iran |    455,475    2.20e-06    .0014817          0          1
-        Iraq |    455,475           0           0          0          0
-     Ireland |    455,475    .0004171    .0204199          0          1
-   IsleofMan |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-      Israel |    455,475    .0018157    .0425722          0          1
-       Italy |    455,475    .0083583     .091041          0          1
-     Jamaica |    455,475    .0006894    .0262472          0          1
-       Japan |    455,475    .0018618    .0431084          0          1
-      Jersey |    455,475    2.20e-06    .0014817          0          1
--------------+---------------------------------------------------------
-      Jordan |    455,475    2.20e-06    .0014817          0          1
-  Kazakhstan |    455,475    2.20e-06    .0014817          0          1
-       Kenya |    455,475    .0005335    .0230917          0          1
-    Kiribati |    455,475           0           0          0          0
-      Kosovo |    455,475    4.39e-06    .0020955          0          1
--------------+---------------------------------------------------------
-      Kuwait |    455,475    2.20e-06    .0014817          0          1
-  Kyrgyzstan |    455,475           0           0          0          0
-LaoPeople_~c |    455,475           0           0          0          0
-      Latvia |    455,475    .0001098    .0104768          0          1
-     Lebanon |    455,475    .0000856     .009253          0          1
--------------+---------------------------------------------------------
-     Lesotho |    455,475           0           0          0          0
-     Liberia |    455,475           0           0          0          0
-       Libya |    455,475    2.20e-06    .0014817          0          1
-Liechtenst~n |    455,475           0           0          0          0
-   Lithuania |    455,475    .0000132    .0036295          0          1
--------------+---------------------------------------------------------
-  Luxembourg |    455,475    2.20e-06    .0014817          0          1
-       Macau |    455,475           0           0          0          0
-  Madagascar |    455,475    .0006389    .0252683          0          1
-      Malawi |    455,475    .0000417    .0064586          0          1
-    Malaysia |    455,475    .0004742    .0217717          0          1
--------------+---------------------------------------------------------
-    Maldives |    455,475    4.39e-06    .0020955          0          1
-        Mali |    455,475           0           0          0          0
-       Malta |    455,475    .0000132    .0036295          0          1
-MarshallIs~s |    455,475           0           0          0          0
-  Martinique |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-  Mauritania |    455,475           0           0          0          0
-   Mauritius |    455,475    .0000307     .005544          0          1
-     Mayotte |    455,475           0           0          0          0
-      Mexico |    455,475     .022021    .1467518          0          1
-      Monaco |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-    Mongolia |    455,475    .0000132    .0036295          0          1
-  Montenegro |    455,475           0           0          0          0
-  Montserrat |    455,475    2.20e-06    .0014817          0          1
-     Morocco |    455,475    .0009177    .0302801          0          1
-  Mozambique |    455,475    .0004633    .0215183          0          1
--------------+---------------------------------------------------------
-     Namibia |    455,475           0           0          0          0
-       Nauru |    455,475           0           0          0          0
-       Nepal |    455,475     .000011    .0033132          0          1
- Netherlands |    455,475     .001359    .0368399          0          1
-Netherlan~es |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-NewCaledonia |    455,475           0           0          0          0
-  NewZealand |    455,475    .0008145    .0285285          0          1
-   Nicaragua |    455,475    .0001712    .0130851          0          1
-       Niger |    455,475    .0000285    .0053424          0          1
-     Nigeria |    455,475    .0002349    .0153253          0          1
--------------+---------------------------------------------------------
-        Niue |    455,475           0           0          0          0
-NorfolkIsl~d |    455,475    4.39e-06    .0020955          0          1
-NorthernIr~d |    455,475    6.59e-06    .0025664          0          1
-NorthernMa~d |    455,475    .0001251    .0111861          0          1
-      Norway |    455,475      .00027    .0164309          0          1
--------------+---------------------------------------------------------
-        Oman |    455,475    2.20e-06    .0014817          0          1
-    Pakistan |    455,475    .0004698    .0216707          0          1
-       Palau |    455,475           0           0          0          0
-Palestinia~y |    455,475    4.39e-06    .0020955          0          1
-      Panama |    455,475    .0000154    .0039203          0          1
--------------+---------------------------------------------------------
-PapuaNewGu~a |    455,475    .0000659    .0081155          0          1
-    Paraguay |    455,475    .0000812    .0090126          0          1
-        Peru |    455,475    .0038465    .0619011          0          1
- Philippines |    455,475    .0023558    .0484793          0          1
-    Pitcairn |    455,475    2.20e-06    .0014817          0          1
--------------+---------------------------------------------------------
-      Poland |    455,475    .0023953    .0488832          0          1
-    Portugal |    455,475    .0004567    .0213649          0          1
-  PuertoRico |    455,475    .0000571    .0075551          0          1
-       Qatar |    455,475           0           0          0          0
-Republicof~o |    455,475     .000011    .0033132          0          1
--------------+---------------------------------------------------------
-Republico~ea |    455,475    .0000417    .0064586          0          1
-Republico~va |    455,475    .0000329    .0057386          0          1
-     Reunion |    455,475    .0000132    .0036295          0          1
-     Romania |    455,475    .0002481     .015749          0          1
-      Russia |    455,475    .0001734    .0131687          0          1
--------------+---------------------------------------------------------
-      Rwanda |    455,475    .0000329    .0057386          0          1
-SaintBarth~y |    455,475           0           0          0          0
- SaintHelena |    455,475           0           0          0          0
-  SaintLucia |    455,475           0           0          0          0
- SaintMartin |    455,475    .0000351    .0059268          0          1
--------------+---------------------------------------------------------
-       Samoa |    455,475           0           0          0          0
-   SanMarino |    455,475           0           0          0          0
- SaudiArabia |    455,475    2.20e-06    .0014817          0          1
-    Scotland |    455,475    .0002591    .0160936          0          1
-     Senegal |    455,475     .000011    .0033132          0          1
--------------+---------------------------------------------------------
-      Serbia |    455,475    .0000812    .0090126          0          1
-  Seychelles |    455,475           0           0          0          0
- SierraLeone |    455,475    6.59e-06    .0025664          0          1
-   Singapore |    455,475    .0000285    .0053424          0          1
-SlovakRepu~c |    455,475    .0000373    .0061092          0          1
--------------+---------------------------------------------------------
-    Slovenia |    455,475    .0000132    .0036295          0          1
-SolomonIsl~d |    455,475           0           0          0          0
-     Somalia |    455,475           0           0          0          0
- SouthAfrica |    455,475       .0011    .0331473          0          1
-SouthGeorg~l |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-  SouthKorea |    455,475    .0000417    .0064586          0          1
-  SouthSudan |    455,475           0           0          0          0
-       Spain |    455,475    .0064065    .0797839          0          1
-    SriLanka |    455,475    .0008299    .0287961          0          1
-       Sudan |    455,475           0           0          0          0
--------------+---------------------------------------------------------
-    Suriname |    455,475           0           0          0          0
-Svalbardan~s |    455,475           0           0          0          0
-   Swaziland |    455,475    4.39e-06    .0020955          0          1
-      Sweden |    455,475    .0001273    .0112838          0          1
- Switzerland |    455,475    .0012361    .0351361          0          1
--------------+---------------------------------------------------------
-SyrianArab~c |    455,475     .000022    .0046856          0          1
-      Taiwan |    455,475     .001078    .0328152          0          1
-  Tajikistan |    455,475           0           0          0          0
-    Tanzania |    455,475    .0003732    .0193158          0          1
-    Thailand |    455,475    .0023492    .0484116          0          1
--------------+---------------------------------------------------------
-  TimorLeste |    455,475           0           0          0          0
-        Togo |    455,475           0           0          0          0
-     Tokelau |    455,475           0           0          0          0
-       Tonga |    455,475    4.39e-06    .0020955          0          1
-     Tunisia |    455,475    .0007662    .0276703          0          1
--------------+---------------------------------------------------------
-      Turkey |    455,475     .003627    .0601152          0          1
-Turkmenistan |    455,475           0           0          0          0
-      Tuvalu |    455,475           0           0          0          0
-      Uganda |    455,475    .0000351    .0059268          0          1
-     Ukraine |    455,475      .00009    .0094873          0          1
--------------+---------------------------------------------------------
-UnitedArab~s |    455,475    .0000417    .0064586          0          1
-UnitedKing~m |    455,475    .0017147    .0413734          0          1
-UnitedStates |    455,475    .1982721    .3986987          0          1
-UnitedSta~Is |    455,475           0           0          0          0
-     Uruguay |    455,475    .0002327    .0152535          0          1
--------------+---------------------------------------------------------
-  Uzbekistan |    455,475    .0000417    .0064586          0          1
-     Vanuatu |    455,475    2.20e-06    .0014817          0          1
-   Venezuela |    455,475    .0000307     .005544          0          1
-     Vietnam |    455,475    .0041473    .0642661          0          1
-       Wales |    455,475    2.20e-06    .0014817          0          1
--------------+---------------------------------------------------------
-WesternSah~a |    455,475           0           0          0          0
-       Yemen |    455,475           0           0          0          0
-      Zambia |    455,475           0           0          0          0
-    Zimbabwe |    455,475           0           0          0          0
-      _merge |    455,475           3           0          3          3
--------------+---------------------------------------------------------
-brandident~o |          0
-categorypr~n |          0
-     partial |    455,475    .0226664    .1488379          0          1
-
-. 
-. 
-. 
-. exit, clear
+. capture log close

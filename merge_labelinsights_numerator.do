@@ -203,6 +203,16 @@ save  "$intdir/matchkey_NM_LI_`year'.dta", replace
 /**************
 	Append NM_LI_Key data from 2017-2021 
 	***************/
+	use "$intdir/matchkey_NM_LI_2017.dta", clear
+	gen year = 2017
+	save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+	forv year = 2018/2021 {
+		use "$intdir/matchkey_NM_LI_`year'.dta", clear
+		gen year = `year'
+		append using "$intdir/matchkey_NM_LI_2017to2021.dta"
+		save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+	}
+	
 	
 ********************************* END ******************************************
 

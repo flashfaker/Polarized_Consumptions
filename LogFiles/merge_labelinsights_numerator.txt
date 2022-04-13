@@ -2,44 +2,179 @@
       name:  <unnamed>
        log:  C:/Users/zsong98/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/merge_labelinsights_numerator.txt
   log type:  text
- opened on:  13 Apr 2022, 13:46:07
+ opened on:  13 Apr 2022, 14:24:25
+
+.         
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD327c_000000.tmp"
+
+.         ***************/
+.         use "$intdir/matchkey_NM_LI_2017.dta", clear
+
+.         gen year = 2017
+
+.         save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+
+.         forv year = 2018/2021 {
+  2.                 use "$intdir/matchkey_NM_LI_`year'.dta", clear
+  3.                 gen year = `year'
+  4.                 append using "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+  5.         }
+option replace not allowed
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD327c_000000.tmp"
+
+.         use "$intdir/matchkey_NM_LI_2017.dta", clear
+
+.         gen year = 2017
+
+.         save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+
+.         forv year = 2018/2021 {
+  2.                 use "$intdir/matchkey_NM_LI_`year'.dta", clear
+  3.                 gen year = `year'
+  4.                 append using "$intdir/matchkey_NM_LI_2017to2021.dta"
+  5.                 save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+  6.         }
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
 
 . 
 end of do-file
 
-. do "C:\Users\zsong98\AppData\Local\Temp\STD1990_000000.tmp"
+. tab year
 
-.         forv year in 2017(1)2021 {
-  2.                 use "$intdir/numerator_item_`year'_cleaned.dta"
-  3.                 keep *_id
-  4.                 save "$intdir/numerator_item_`year'_cleaned.dta", replace
-  5.         }
-invalid syntax
+       year |      Freq.     Percent        Cum.
+------------+-----------------------------------
+       2017 |     33,123       16.68       16.68
+       2018 |     37,152       18.70       35.38
+       2019 |     38,729       19.50       54.88
+       2020 |     43,126       21.71       76.59
+       2021 |     46,499       23.41      100.00
+------------+-----------------------------------
+      Total |    198,629      100.00
+
+. br
+
+. duplicates tag upc, gen(dup)
+
+Duplicates in terms of upc
+
+. tab dup
+
+        dup |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     18,933        9.53        9.53
+          1 |     33,616       16.92       26.46
+          2 |     35,433       17.84       44.29
+          3 |     36,992       18.62       62.92
+          4 |     73,655       37.08      100.00
+------------+-----------------------------------
+      Total |    198,629      100.00
+
+. duplicates drop upc
+force option required with duplicates drop varlist
 r(198);
 
+. duplicates drop
+
+Duplicates in terms of all variables
+
+(0 observations are duplicates)
+
+. drop year
+
+. duplicates drop
+
+Duplicates in terms of all variables
+
+(127,089 observations deleted)
+
+. sum
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         upc |     71,540    6.69e+11    2.76e+11       1601   9.58e+11
+   productid |     71,540     5425230     1920021    2006137   1.09e+07
+         dup |     71,540     1.77688    1.482187          0          4
+
+. duplicates tag upc, gen(dup)
+generate() must specify new variable
+r(110);
+
+. drop dup
+
+. duplicates drop
+
+Duplicates in terms of all variables
+
+(0 observations are duplicates)
+
+. duplicates tag upc, gen(dup)
+
+Duplicates in terms of upc
+
+. tab duo
+variable duo not found
+r(111);
+
+. tab dup
+
+        dup |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     71,522       99.97       99.97
+          1 |         18        0.03      100.00
+------------+-----------------------------------
+      Total |     71,540      100.00
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD327c_000000.tmp"
+
+.         use "$intdir/matchkey_NM_LI_2017.dta", clear
+
+.         gen year = 2017
+
+.         save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+
+.         forv year = 2018/2021 {
+  2.                 use "$intdir/matchkey_NM_LI_`year'.dta", clear
+  3.                 gen year = `year'
+  4.                 append using "$intdir/matchkey_NM_LI_2017to2021.dta"
+  5.                 save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+  6.         }
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+
+. 
 end of do-file
 
-r(198);
+. tab upc productid
+too many values
+r(134);
 
-. do "C:\Users\zsong98\AppData\Local\Temp\STD1990_000000.tmp"
+. tab year
 
-.         forv year of 2017(1)2021 {
-  2.                 use "$intdir/numerator_item_`year'_cleaned.dta"
-  3.                 keep *_id
-  4.                 save "$intdir/numerator_item_`year'_cleaned.dta", replace
-  5.         }
-invalid syntax
-r(198);
+       year |      Freq.     Percent        Cum.
+------------+-----------------------------------
+       2017 |     33,123       16.68       16.68
+       2018 |     37,152       18.70       35.38
+       2019 |     38,729       19.50       54.88
+       2020 |     43,126       21.71       76.59
+       2021 |     46,499       23.41      100.00
+------------+-----------------------------------
+      Total |    198,629      100.00
 
-end of do-file
-
-r(198);
-
-. help forvalues
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD1990_000000.tmp"
-
-.         forv year = 2017(1)2021 {
-  2.                 use "$intdir/numerator_item_`year'_cleaned.dta"
-  3.                 keep *_id
-  4.                 save "$intdir/numerator_item_`year'_cleaned.dta", replace

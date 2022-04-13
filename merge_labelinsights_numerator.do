@@ -7,7 +7,7 @@ local fname merge_labelinsights_numerator
 
 Author: Zirui Song
 Date Created: Apr 11th, 2022
-Date Modified: Apr 11th, 2022
+Date Modified: Apr 12th, 2022
 
 ********************************************************************************/
 
@@ -33,12 +33,21 @@ Date Modified: Apr 11th, 2022
 	Clean Numerator Item Data
 	***************/	
 	* separately import 2017 and 2019 item data due to the size of those two data sets
-	import delimited "$datadir/Numerator/New File Formats 2017 - 2020/2017/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+	import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2017/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
 	drop v*
 	save "$intdir/numerator_item_2017_cleaned", replace
-	import delimited "$datadir/Numerator/New File Formats 2017 - 2020/2019/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+	import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2018/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+	drop v*
+	save "$intdir/numerator_item_2018_cleaned", replace
+	import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2019/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
 	drop v*
 	save "$intdir/numerator_item_2019_cleaned", replace
+	import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2020/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+	drop v*
+	save "$intdir/numerator_item_2020_cleaned", replace
+	import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2021/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+	drop v*
+	save "$intdir/numerator_item_2021_cleaned", replace
 
 /**************
 	Merge with Label Insights data via UPC 
@@ -49,7 +58,7 @@ Date Modified: Apr 11th, 2022
 // The UPC codes (UPC) in the Numerator data do not include the check digits. 
 // Label Insights offers three types of codes, UPC code without check digit, UPC-A code with check digit, and UPC-E
 
-foreach year in 2017 2019 {
+foreach year in 2017 2018 2019 2020 2021 {
 	
 use "$intdir/numerator_item_`year'_cleaned", clear
 ////// Step 1 -- > Merge UPCs in the numerator item data with the UPC code without check digit in the Label Insights database
@@ -167,7 +176,7 @@ drop _merge
 save "$intdir/numerator_merge5_`year'.dta", replace
 
 ///////// Step 4) Appending all datasets
-use "$intdir/numerator_merge1_`year'dta", clear
+use "$intdir/numerator_merge1_`year'.dta", clear
 append using "$intdir/numerator_merge2_`year'.dta"
 append using "$intdir/numerator_merge3_`year'.dta"
 append using "$intdir/numerator_merge4_`year'.dta"
@@ -181,9 +190,19 @@ keep upc productid
 save  "$intdir/matchkey_NM_LI_`year'.dta", replace	
 }
 	
-	
-	
-	
+/**************
+	Clean Numerator Item Data to Make Space
+	***************/		
+	forv year = 2017(1)2021 {
+		use "$intdir/numerator_item_`year'_cleaned.dta"
+		* keep only id variables for matching
+		keep *_id
+		save "$intdir/numerator_item_`year'_cleaned.dta", replace
+	}
+
+/**************
+	Append NM_LI_Key data from 2017-2021 
+	***************/
 	
 ********************************* END ******************************************
 

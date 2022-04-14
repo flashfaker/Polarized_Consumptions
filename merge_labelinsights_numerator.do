@@ -7,7 +7,7 @@ local fname merge_labelinsights_numerator
 
 Author: Zirui Song
 Date Created: Apr 11th, 2022
-Date Modified: Apr 12th, 2022
+Date Modified: Apr 14th, 2022
 
 ********************************************************************************/
 
@@ -187,19 +187,19 @@ gduplicates drop productid, force
 gduplicates drop upc, force
 
 keep upc productid
-save  "$intdir/matchkey_NM_LI_`year'.dta", replace	
+save "$intdir/matchkey_NM_LI_`year'.dta", replace	
 }
-	
+
 /**************
 	Clean Numerator Item Data to Make Space
 	***************/		
 	forv year = 2017(1)2021 {
 		use "$intdir/numerator_item_`year'_cleaned.dta"
 		* keep only id variables for matching
-		keep *_id
+		keep upc *_id
 		save "$intdir/numerator_item_`year'_cleaned.dta", replace
 	}
-
+	
 /**************
 	Append NM_LI_Key data from 2017-2021 
 	***************/

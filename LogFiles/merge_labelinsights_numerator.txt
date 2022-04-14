@@ -2,179 +2,912 @@
       name:  <unnamed>
        log:  C:/Users/zsong98/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/merge_labelinsights_numerator.txt
   log type:  text
- opened on:  13 Apr 2022, 14:24:25
+ opened on:  13 Apr 2022, 14:43:37
 
 .         
+. /**************
+>         Clean Numerator Item Data
+>         ***************/        
+.         * separately import 2017 and 2019 item data due to the size of those two data sets
+.         import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2017/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+(encoding automatically selected: ISO-8859-1)
+(31 vars, 27,129,431 obs)
+
+.         drop v*
+
+.         save "$intdir/numerator_item_2017_cleaned", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2017_cleaned.dta saved
+
+.         import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2018/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+(encoding automatically selected: ISO-8859-2)
+(33 vars, 31,444,686 obs)
+
+.         drop v*
+
+.         save "$intdir/numerator_item_2018_cleaned", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2018_cleaned.dta saved
+
+.         import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2019/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+(encoding automatically selected: ISO-8859-1)
+(36 vars, 32,274,867 obs)
+
+.         drop v*
+
+.         save "$intdir/numerator_item_2019_cleaned", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2019_cleaned.dta saved
+
+.         import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2020/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+(encoding automatically selected: ISO-8859-1)
+(40 vars, 34,075,004 obs)
+
+.         drop v*
+
+.         save "$intdir/numerator_item_2020_cleaned", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2020_cleaned.dta saved
+
+.         import delimited "$datadir/Numerator/New_File_Formats_2017-2021/2021/standard_nmr_feed_item_table.csv", delimiter("|") bindquotes(nobind) clear
+(encoding automatically selected: UTF-8)
+(58 vars, 47,541,706 obs)
+
+.         drop v*
+
+.         save "$intdir/numerator_item_2021_cleaned", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2021_cleaned.dta saved
+
+. 
+. /**************
+>         Merge with Label Insights data via UPC 
+>         ***************/        
+.         
+. // This section borrows code from JG/merge_Nielsen_Label.
+. //                                                                              Initial Note: 
+. // The UPC codes (UPC) in the Numerator data do not include the check digits. 
+. // Label Insights offers three types of codes, UPC code without check digit, UPC-A code with check digit, and UPC-E
+. 
+. foreach year in 2017 2018 2019 2020 2021 {
+  2.         
+. use "$intdir/numerator_item_`year'_cleaned", clear
+  3. ////// Step 1 -- > Merge UPCs in the numerator item data with the UPC code without check digit in the Label Insights database
+> // Step 1.1 -- > Tranforming UPCs in the numerator data to string format
+. keep if upc != .
+  4. format upc %17.0g
+  5. tostring upc, gen(upc12nocheckdigitgtinformats) usedisplayformat
+  6. 
+. // Step 1.2 --> Merging based on UPC code without check digit
+. merge 1:m upc12nocheckdigitgtinformats using "$outdir/labelinsights_product_cleaned.dta", force
+  7. 
+. // Step 1.3 --> Saving file
+. preserve
+  8. keep if _merge==3
+  9. gduplicates drop upc12nocheckdigitgtinformats, force
+ 10. save  "$intdir/numerator_merge1_`year'.dta",replace 
+ 11. restore
+ 12. 
+. //////  Step 2 --> Merge the unmatched in Step 1. based on UPC code without check digit from Numerator and UPC-A with check digit from Label Insights
+> 
+. keep if _merge==1
+ 13. keep item_id-item_description
+ 14. 
+. // Step 2.1.1 --> UPCs with 11 digits in the Numerator Data
+. gen length = length(upc12nocheckdigitgtinformats)
+ 15. 
+. // Step 2.1.2 -- > Creating the check digit according to formula in the Label Insight manual
+. preserve
+ 16. keep if length==11
+ 17. foreach num of numlist 1/11{
+ 18.         gen c`num' = substr(upc12nocheckdigitgtinformats,`num',1)
+ 19.         destring c`num', replace force
+ 20. }
+ 21. 
+. gen nbr = (c11+c9+c7+c5+c3 +c1)*3 + (c2+c4+c6+c8+c10)
+ 22. gen mod = mod(nbr,10)
+ 23. gen checkdigit = 10-mod
+ 24. replace checkdigit=0 if checkdigit==10
+ 25. tostring checkdigit, replace force
+ 26. 
+. gen upcagtinformats = upc12nocheckdigitgtinformats + checkdigit
+ 27. drop c1-checkdigit
+ 28. 
+. // Step 2.1.3 -- > Merge the UPC with check digit in the Consumer Panel to UPC-A in the Label Insight
+. merge 1:m upcagtinformats using "$outdir/labelinsights_product_cleaned.dta", force
+ 29. 
+. keep if _merge==3
+ 30. drop _merge
+ 31. gduplicates drop upcagtinformats, force
+ 32. save  "$intdir/numerator_merge2_`year'.dta", replace
+ 33. restore
+ 34. 
+. // Step 2.2.1 -- > UPCs with 10 digits in the Numerator Data
+. preserve
+ 35. keep if length==10
+ 36. 
+. // Step 2.2.2 -- > Creating the check digit according to formula in the Label Insight manual
+. foreach num of numlist 1/10{
+ 37.         gen c`num' = substr(upc12nocheckdigitgtinformats,`num',1)
+ 38.         destring c`num', replace force
+ 39. }
+ 40. 
+. gen nbr = (c10+c8+c6+c4+c2)*3 + (c1+c3+c5+c7+c9)
+ 41. gen mod = mod(nbr,10)
+ 42. gen checkdigit = 10-mod
+ 43. replace checkdigit=0 if checkdigit==10
+ 44. tostring checkdigit, replace force
+ 45. 
+. gen upcagtinformats = upc12nocheckdigitgtinformats + checkdigit
+ 46. drop c1-checkdigit
+ 47. 
+. // Step 2.3.3 -- > Merge the UPC with check digit in the Consumer Panel to UPC-A in the Label Insight
+. merge 1:m  upcagtinformats using "$outdir/labelinsights_product_cleaned.dta", force
+ 48. keep if _merge==3
+ 49. drop _merge
+ 50. 
+. gduplicates drop upcagtinformats, force
+ 51. save  "$intdir/numerator_merge3_`year'.dta", replace
+ 52. restore
+ 53. 
+. /// 
+> // Step 2.3.1 -- > UPCs with 12 digits in the Numerator Data
+. keep if length==12
+ 54. gen upcagtinformats = upc12nocheckdigitgtinformats
+ 55. merge 1:m upcagtinformats using "$outdir/labelinsights_product_cleaned.dta", force
+ 56. keep if _merge ==3
+ 57. drop _merge
+ 58. gduplicates drop upcagtinformats, force
+ 59. save "$intdir/numerator_merge4_`year'.dta", replace
+ 60. 
+. 
+. /// Step 3) Create List of Label Insights products that went unmatched in Step 2. and remove leading zeros from the UPC 12 digit with no checkdigit
+> use "$intdir/numerator_merge1_`year'.dta", clear
+ 61. append using "$intdir/numerator_merge2_`year'.dta"
+ 62. append using "$intdir/numerator_merge3_`year'.dta"
+ 63. append using "$intdir/numerator_merge4_`year'.dta"
+ 64. 
+. drop _merge 
+ 65. gduplicates drop productid, force
+ 66. 
+. merge 1:1 productid using "$outdir/labelinsights_product_cleaned.dta", force
+ 67. keep if _merge==2
+ 68. drop _merge
+ 69. drop upc item_id rin-item_description
+ 70. 
+. // Step 3.1) Destring the UPC 12 in Label Insights to remove leading zeros and merge to UPC numerical variable in the Numerator Item Data
+. destring upc12nocheckdigitgtinformats, gen(upc) force
+ 71. drop if upc==.
+ 72. gduplicates drop upc, force
+ 73. 
+. // Step 3.2) Merging with consumer Panels
+. merge 1:m upc using "$intdir/numerator_item_`year'_cleaned", force
+ 74. keep if _merge==3
+ 75. drop _merge
+ 76. save "$intdir/numerator_merge5_`year'.dta", replace
+ 77. 
+. ///////// Step 4) Appending all datasets
+> use "$intdir/numerator_merge1_`year'.dta", clear
+ 78. append using "$intdir/numerator_merge2_`year'.dta"
+ 79. append using "$intdir/numerator_merge3_`year'.dta"
+ 80. append using "$intdir/numerator_merge4_`year'.dta"
+ 81. append using "$intdir/numerator_merge5_`year'.dta"
+ 82. 
+. drop _merge 
+ 83. gduplicates drop productid, force
+ 84. gduplicates drop upc, force
+ 85. 
+. keep upc productid
+ 86. save "$intdir/matchkey_NM_LI_`year'.dta", replace       
+ 87. }
+(23,899,245 observations deleted)
+upc12nocheckdigitgtinformats generated as str12
+(note: variable upc was str18 in the using data, but will be double now)
+(variable brand was str63, now str88 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     3,680,657
+        from master                 3,227,250  (_merge==1)
+        from using                    453,407  (_merge==2)
+
+    Matched                             2,938  (_merge==3)
+    -----------------------------------------
+(3,680,657 observations deleted)
+
+Duplicates in terms of upc12nocheckdigitgtinformats
+
+(2 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge1_2017.dta saved
+(456,345 observations deleted)
+(1,440,204 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+c11: all characters numeric; replaced as byte
+(356,931 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     2,242,467
+        from master                 1,786,584  (_merge==1)
+        from using                    455,883  (_merge==2)
+
+    Matched                               462  (_merge==3)
+    -----------------------------------------
+(2,242,467 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge2_2017.dta saved
+(3,113,318 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+(23,087 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+(variable upcagtinformats was str11, now str12 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       567,607
+        from master                   112,597  (_merge==1)
+        from using                    455,010  (_merge==2)
+
+    Matched                             1,335  (_merge==3)
+    -----------------------------------------
+(567,607 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge3_2017.dta saved
+(2,115,322 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     1,509,720
+        from master                 1,082,652  (_merge==1)
+        from using                    427,068  (_merge==2)
+
+    Matched                            29,277  (_merge==3)
+    -----------------------------------------
+(1,509,720 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(1 observation deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge4_2017.dta saved
+
+Duplicates in terms of productid
+
+(905 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       423,241
+        from master                         0  (_merge==1)
+        from using                    423,241  (_merge==2)
+
+    Matched                            33,104  (_merge==3)
+    -----------------------------------------
+(33,104 observations deleted)
+upc12nocheckdigitgtinformats: contains nonnumeric characters; upc generated as double
+(4367 missing values generated)
+(4,367 observations deleted)
+
+Duplicates in terms of upc
+
+(521 observations deleted)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                    27,547,740
+        from master                   418,331  (_merge==1)
+        from using                 27,129,409  (_merge==2)
+
+    Matched                                22  (_merge==3)
+    -----------------------------------------
+(27,547,740 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge5_2017.dta saved
+
+Duplicates in terms of productid
+
+(905 observations deleted)
+
+Duplicates in terms of upc
+
+(2 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017.dta saved
+(28,627,060 observations deleted)
+upc12nocheckdigitgtinformats generated as str12
+(note: variable upc was str18 in the using data, but will be double now)
+(variable brand was str63, now str88 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     3,268,055
+        from master                 2,814,674  (_merge==1)
+        from using                    453,381  (_merge==2)
+
+    Matched                             2,964  (_merge==3)
+    -----------------------------------------
+(3,268,055 observations deleted)
+
+Duplicates in terms of upc12nocheckdigitgtinformats
+
+(12 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge1_2018.dta saved
+(456,345 observations deleted)
+(1,280,179 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+c11: all characters numeric; replaced as byte
+(306,385 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     1,989,918
+        from master                 1,534,034  (_merge==1)
+        from using                    455,884  (_merge==2)
+
+    Matched                               461  (_merge==3)
+    -----------------------------------------
+(1,989,918 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge2_2018.dta saved
+(2,726,464 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+(17,730 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+(variable upcagtinformats was str11, now str12 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       541,883
+        from master                    86,874  (_merge==1)
+        from using                    455,009  (_merge==2)
+
+    Matched                             1,336  (_merge==3)
+    -----------------------------------------
+(541,883 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge3_2018.dta saved
+(1,812,814 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     1,391,429
+        from master                   968,473  (_merge==1)
+        from using                    422,956  (_merge==2)
+
+    Matched                            33,389  (_merge==3)
+    -----------------------------------------
+(1,391,429 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(2 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge4_2018.dta saved
+
+Duplicates in terms of productid
+
+(1,003 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       419,212
+        from master                         0  (_merge==1)
+        from using                    419,212  (_merge==2)
+
+    Matched                            37,133  (_merge==3)
+    -----------------------------------------
+(37,133 observations deleted)
+upc12nocheckdigitgtinformats: contains nonnumeric characters; upc generated as double
+(4353 missing values generated)
+(4,353 observations deleted)
+
+Duplicates in terms of upc
+
+(510 observations deleted)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                    31,858,989
+        from master                   414,326  (_merge==1)
+        from using                 31,444,663  (_merge==2)
+
+    Matched                                23  (_merge==3)
+    -----------------------------------------
+(31,858,989 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge5_2018.dta saved
+
+Duplicates in terms of productid
+
+(1,003 observations deleted)
+
+Duplicates in terms of upc
+
+(4 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2018.dta saved
+(30,160,700 observations deleted)
+upc12nocheckdigitgtinformats generated as str12
+(note: variable upc was str18 in the using data, but will be double now)
+(variable brand was str63, now str88 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     2,564,192
+        from master                 2,111,009  (_merge==1)
+        from using                    453,183  (_merge==2)
+
+    Matched                             3,162  (_merge==3)
+    -----------------------------------------
+(2,564,192 observations deleted)
+
+Duplicates in terms of upc12nocheckdigitgtinformats
+
+(4 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge1_2019.dta saved
+(456,345 observations deleted)
+(1,103,939 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+c11: all characters numeric; replaced as byte
+(201,157 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     1,462,377
+        from master                 1,006,551  (_merge==1)
+        from using                    455,826  (_merge==2)
+
+    Matched                               519  (_merge==3)
+    -----------------------------------------
+(1,462,377 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge2_2019.dta saved
+(2,040,331 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+(14,215 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+(variable upcagtinformats was str11, now str12 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       524,155
+        from master                    69,244  (_merge==1)
+        from using                    454,911  (_merge==2)
+
+    Matched                             1,434  (_merge==3)
+    -----------------------------------------
+(524,155 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge3_2019.dta saved
+(1,238,574 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     1,259,300
+        from master                   837,696  (_merge==1)
+        from using                    421,604  (_merge==2)
+
+    Matched                            34,741  (_merge==3)
+    -----------------------------------------
+(1,259,300 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(2 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge4_2019.dta saved
+
+Duplicates in terms of productid
+
+(1,141 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       417,636
+        from master                         0  (_merge==1)
+        from using                    417,636  (_merge==2)
+
+    Matched                            38,709  (_merge==3)
+    -----------------------------------------
+(38,709 observations deleted)
+upc12nocheckdigitgtinformats: contains nonnumeric characters; upc generated as double
+(4214 missing values generated)
+(4,214 observations deleted)
+
+Duplicates in terms of upc
+
+(513 observations deleted)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                    32,687,730
+        from master                   412,886  (_merge==1)
+        from using                 32,274,844  (_merge==2)
+
+    Matched                                23  (_merge==3)
+    -----------------------------------------
+(32,687,730 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge5_2019.dta saved
+
+Duplicates in terms of productid
+
+(1,141 observations deleted)
+
+Duplicates in terms of upc
+
+(3 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2019.dta saved
+(31,987,903 observations deleted)
+upc12nocheckdigitgtinformats generated as str12
+(note: variable upc was str18 in the using data, but will be double now)
+(variable brand was str63, now str88 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     2,535,765
+        from master                 2,083,264  (_merge==1)
+        from using                    452,501  (_merge==2)
+
+    Matched                             3,844  (_merge==3)
+    -----------------------------------------
+(2,535,765 observations deleted)
+
+Duplicates in terms of upc12nocheckdigitgtinformats
+
+(7 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge1_2020.dta saved
+(456,345 observations deleted)
+(1,100,544 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+c11: all characters numeric; replaced as byte
+(196,193 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     1,437,845
+        from master                   982,110  (_merge==1)
+        from using                    455,735  (_merge==2)
+
+    Matched                               610  (_merge==3)
+    -----------------------------------------
+(1,437,845 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge2_2020.dta saved
+(2,015,720 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+(13,513 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+(variable upcagtinformats was str11, now str12 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       520,541
+        from master                    65,870  (_merge==1)
+        from using                    454,671  (_merge==2)
+
+    Matched                             1,674  (_merge==3)
+    -----------------------------------------
+(520,541 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge3_2020.dta saved
+(1,152,519 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     1,310,400
+        from master                   892,401  (_merge==1)
+        from using                    417,999  (_merge==2)
+
+    Matched                            38,346  (_merge==3)
+    -----------------------------------------
+(1,310,400 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(2 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge4_2020.dta saved
+
+Duplicates in terms of productid
+
+(1,362 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       413,242
+        from master                         0  (_merge==1)
+        from using                    413,242  (_merge==2)
+
+    Matched                            43,103  (_merge==3)
+    -----------------------------------------
+(43,103 observations deleted)
+upc12nocheckdigitgtinformats: contains nonnumeric characters; upc generated as double
+(4185 missing values generated)
+(4,185 observations deleted)
+
+Duplicates in terms of upc
+
+(492 observations deleted)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                    34,483,509
+        from master                   408,535  (_merge==1)
+        from using                 34,074,974  (_merge==2)
+
+    Matched                                30  (_merge==3)
+    -----------------------------------------
+(34,483,509 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge5_2020.dta saved
+
+Duplicates in terms of productid
+
+(1,362 observations deleted)
+
+Duplicates in terms of upc
+
+(7 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2020.dta saved
+(45,391,566 observations deleted)
+upc12nocheckdigitgtinformats generated as str12
+(note: variable upc was str18 in the using data, but will be double now)
+(variable brand was str63, now str88 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     2,599,435
+        from master                 2,146,620  (_merge==1)
+        from using                    452,815  (_merge==2)
+
+    Matched                             3,530  (_merge==3)
+    -----------------------------------------
+(2,599,435 observations deleted)
+
+Duplicates in terms of upc12nocheckdigitgtinformats
+
+(10 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge1_2021.dta saved
+(456,345 observations deleted)
+(1,196,370 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+c11: all characters numeric; replaced as byte
+(189,413 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     1,405,337
+        from master                   949,621  (_merge==1)
+        from using                    455,716  (_merge==2)
+
+    Matched                               629  (_merge==3)
+    -----------------------------------------
+(1,405,337 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge2_2021.dta saved
+(2,085,693 observations deleted)
+c1: all characters numeric; replaced as byte
+c2: all characters numeric; replaced as byte
+c3: all characters numeric; replaced as byte
+c4: all characters numeric; replaced as byte
+c5: all characters numeric; replaced as byte
+c6: all characters numeric; replaced as byte
+c7: all characters numeric; replaced as byte
+c8: all characters numeric; replaced as byte
+c9: all characters numeric; replaced as byte
+c10: all characters numeric; replaced as byte
+(12,248 real changes made)
+checkdigit was float now str1
+(note: variable upc was str18 in the using data, but will be double now)
+(variable upcagtinformats was str11, now str12 to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       514,236
+        from master                    59,409  (_merge==1)
+        from using                    454,827  (_merge==2)
+
+    Matched                             1,518  (_merge==3)
+    -----------------------------------------
+(514,236 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(0 observations are duplicates)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge3_2021.dta saved
+(1,064,702 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                     1,453,851
+        from master                 1,039,713  (_merge==1)
+        from using                    414,138  (_merge==2)
+
+    Matched                            42,207  (_merge==3)
+    -----------------------------------------
+(1,453,851 observations deleted)
+
+Duplicates in terms of upcagtinformats
+
+(2 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge4_2021.dta saved
+
+Duplicates in terms of productid
+
+(1,404 observations deleted)
+(note: variable upc was str18 in the using data, but will be double now)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                       409,877
+        from master                         0  (_merge==1)
+        from using                    409,877  (_merge==2)
+
+    Matched                            46,468  (_merge==3)
+    -----------------------------------------
+(46,468 observations deleted)
+upc12nocheckdigitgtinformats: contains nonnumeric characters; upc generated as double
+(4227 missing values generated)
+(4,227 observations deleted)
+
+Duplicates in terms of upc
+
+(491 observations deleted)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                    47,946,795
+        from master                   405,124  (_merge==1)
+        from using                 47,541,671  (_merge==2)
+
+    Matched                                35  (_merge==3)
+    -----------------------------------------
+(47,946,795 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_merge5_2021.dta saved
+
+Duplicates in terms of productid
+
+(1,404 observations deleted)
+
+Duplicates in terms of upc
+
+(4 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2021.dta saved
+
 . 
 end of do-file
 
 . do "C:\Users\zsong98\AppData\Local\Temp\STD327c_000000.tmp"
 
-.         ***************/
-.         use "$intdir/matchkey_NM_LI_2017.dta", clear
-
-.         gen year = 2017
-
-.         save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
-(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta not found)
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-
-.         forv year = 2018/2021 {
-  2.                 use "$intdir/matchkey_NM_LI_`year'.dta", clear
-  3.                 gen year = `year'
-  4.                 append using "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+.         forv year = 2017(1)2021 {
+  2.                 use "$intdir/numerator_item_`year'_cleaned.dta"
+  3.                 * keep only id variables for matching
+.                 keep upc *_id
+  4.                 save "$intdir/numerator_item_`year'_cleaned.dta", replace
   5.         }
-option replace not allowed
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD327c_000000.tmp"
-
-.         use "$intdir/matchkey_NM_LI_2017.dta", clear
-
-.         gen year = 2017
-
-.         save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-
-.         forv year = 2018/2021 {
-  2.                 use "$intdir/matchkey_NM_LI_`year'.dta", clear
-  3.                 gen year = `year'
-  4.                 append using "$intdir/matchkey_NM_LI_2017to2021.dta"
-  5.                 save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
-  6.         }
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2017_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2018_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2019_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2020_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_item_2021_cleaned.dta saved
 
 . 
 end of do-file
-
-. tab year
-
-       year |      Freq.     Percent        Cum.
-------------+-----------------------------------
-       2017 |     33,123       16.68       16.68
-       2018 |     37,152       18.70       35.38
-       2019 |     38,729       19.50       54.88
-       2020 |     43,126       21.71       76.59
-       2021 |     46,499       23.41      100.00
-------------+-----------------------------------
-      Total |    198,629      100.00
-
-. br
-
-. duplicates tag upc, gen(dup)
-
-Duplicates in terms of upc
-
-. tab dup
-
-        dup |      Freq.     Percent        Cum.
-------------+-----------------------------------
-          0 |     18,933        9.53        9.53
-          1 |     33,616       16.92       26.46
-          2 |     35,433       17.84       44.29
-          3 |     36,992       18.62       62.92
-          4 |     73,655       37.08      100.00
-------------+-----------------------------------
-      Total |    198,629      100.00
-
-. duplicates drop upc
-force option required with duplicates drop varlist
-r(198);
-
-. duplicates drop
-
-Duplicates in terms of all variables
-
-(0 observations are duplicates)
-
-. drop year
-
-. duplicates drop
-
-Duplicates in terms of all variables
-
-(127,089 observations deleted)
-
-. sum
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-         upc |     71,540    6.69e+11    2.76e+11       1601   9.58e+11
-   productid |     71,540     5425230     1920021    2006137   1.09e+07
-         dup |     71,540     1.77688    1.482187          0          4
-
-. duplicates tag upc, gen(dup)
-generate() must specify new variable
-r(110);
-
-. drop dup
-
-. duplicates drop
-
-Duplicates in terms of all variables
-
-(0 observations are duplicates)
-
-. duplicates tag upc, gen(dup)
-
-Duplicates in terms of upc
-
-. tab duo
-variable duo not found
-r(111);
-
-. tab dup
-
-        dup |      Freq.     Percent        Cum.
-------------+-----------------------------------
-          0 |     71,522       99.97       99.97
-          1 |         18        0.03      100.00
-------------+-----------------------------------
-      Total |     71,540      100.00
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD327c_000000.tmp"
-
-.         use "$intdir/matchkey_NM_LI_2017.dta", clear
-
-.         gen year = 2017
-
-.         save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-
-.         forv year = 2018/2021 {
-  2.                 use "$intdir/matchkey_NM_LI_`year'.dta", clear
-  3.                 gen year = `year'
-  4.                 append using "$intdir/matchkey_NM_LI_2017to2021.dta"
-  5.                 save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
-  6.         }
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matchkey_NM_LI_2017to2021.dta saved
-
-. 
-end of do-file
-
-. tab upc productid
-too many values
-r(134);
-
-. tab year
-
-       year |      Freq.     Percent        Cum.
-------------+-----------------------------------
-       2017 |     33,123       16.68       16.68
-       2018 |     37,152       18.70       35.38
-       2019 |     38,729       19.50       54.88
-       2020 |     43,126       21.71       76.59
-       2021 |     46,499       23.41      100.00
-------------+-----------------------------------
-      Total |    198,629      100.00
 

@@ -8,3 +8,67 @@
 . 
 end of do-file
 
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD61292.000000"
+
+.         use "$intdir/matchkey_NM_LI_2017.dta", clear
+
+.         gen year = 2017
+
+.         save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+file /Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matc
+> hkey_NM_LI_2017to2021.dta saved
+
+.         forv year = 2018/2021 {
+  2.                 use "$intdir/matchkey_NM_LI_`year'.dta", clear
+  3.                 gen year = `year'
+  4.                 append using "$intdir/matchkey_NM_LI_2017to2021.dta"
+  5.                 save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
+  6.         }
+file /Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matc
+> hkey_NM_LI_2017to2021.dta saved
+file /Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matc
+> hkey_NM_LI_2017to2021.dta saved
+file /Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matc
+> hkey_NM_LI_2017to2021.dta saved
+file /Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/matc
+> hkey_NM_LI_2017to2021.dta saved
+
+. 
+end of do-file
+
+. tab year
+
+       year |      Freq.     Percent        Cum.
+------------+-----------------------------------
+       2017 |     33,124       16.68       16.68
+       2018 |     37,152       18.70       35.38
+       2019 |     38,729       19.50       54.88
+       2020 |     43,126       21.71       76.59
+       2021 |     46,499       23.41      100.00
+------------+-----------------------------------
+      Total |    198,630      100.00
+
+. sum
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         upc |    198,630    6.69e+11    2.73e+11       1601   9.58e+11
+   productid |    198,630     5374983     1873908    2006137   1.09e+07
+        year |    198,630    2019.165    1.407292       2017       2021
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD61292.000000"
+
+.         forv year = 2017(1)2021 {
+  2.                 use "$intdir/numerator_item_`year'_cleaned.dta"
+  3.                 * keep only id variables for matching
+.                 keep upc *_id
+  4.                 save "$intdir/numerator_item_`year'_cleaned.dta", replace
+  5.         }
+file /Users/zsong/Dropbox/Polarized Consumptions/Data/Cleaned
+    Data/Intermediate/numerator_item_2017_cleaned.dta not found
+r(601);
+
+end of do-file
+
+r(601);
+

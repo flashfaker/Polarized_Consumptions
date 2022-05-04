@@ -1,0 +1,122 @@
+------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/zsong/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/merge_trum
+> prallies_numerator_ppl.txt
+  log type:  text
+ opened on:   4 May 2022, 09:38:00
+
+. 
+end of do-file
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD67256.000000"
+
+.         use "$intdir/numerator_person_2017to2021_id_latlong_only.dta", clear
+
+.                 keep if year == 2019
+(4,264,438 observations deleted)
+
+.                 fmerge m:1 year using "$intdir/trump_rally_data_id_latlong_only.dt
+> a"
+method hash0 cannot be applied, using hash1
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             4
+        from master                         0  
+        from using                          4  (_merge==2)
+
+    matched                         1,493,100  (_merge==3)
+    -----------------------------------------
+
+.                 keep if _merge==3 
+(4 observations deleted)
+
+.                 drop _merge
+
+. 
+end of do-file
+
+. br
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD67256.000000"
+
+.         use "$intdir/numerator_person_2017to2021_id_latlong_only.dta", clear
+
+.                 keep if year == 2020
+(4,966,685 observations deleted)
+
+.                 fmerge m:1 year using "$intdir/trump_rally_data_id_latlong_only.dt
+> a"
+method hash0 cannot be applied, using hash1
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             4
+        from master                         0  
+        from using                          4  (_merge==2)
+
+    matched                           790,853  (_merge==3)
+    -----------------------------------------
+
+.                 keep if _merge==3 
+(4 observations deleted)
+
+.                 drop _merge
+
+. 
+end of do-file
+
+. br
+
+. do "/var/folders/j0/m4ml1k5n497d6fwz1z9j80040000gn/T//SD67256.000000"
+
+.         use "$intdir/numerator_person_2017to2021_id_latlong_only.dta", clear
+
+.                 keep if year == 2021
+(5,047,376 observations deleted)
+
+.                 fmerge m:1 year using "$intdir/trump_rally_data_id_latlong_only.dt
+> a"
+method hash0 cannot be applied, using hash1
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             4
+        from master                         0  
+        from using                          4  (_merge==2)
+
+    matched                           710,162  (_merge==3)
+    -----------------------------------------
+
+.                 keep if _merge==3 
+(4 observations deleted)
+
+.                 drop _merge
+
+. 
+end of do-file
+
+. do "/Users/zsong/Dropbox/Fracking Disclosure regulation project/2. code/zs/code/an
+> _predict_wq_monitoring.do"
+
+. * Prediction Model for Water Quality Measurement Before and After 
+. local fname an_predict_wq_monitoring
+
+. 
+. /*******************************************************************************
+> 
+> Author: Zirui Song
+> Date Created: Apr 23th, 2022
+> Date Modified: May 3rd, 2022
+> 
+> ********************************************************************************/
+. 
+. /**************
+>         Basic Set-up
+>         ***************/
+.         clear all
+
+.         set more off, permanently
+(set more preference recorded)
+
+.         capture log close

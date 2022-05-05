@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:/Users/zsong98/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/merge_trumprallies_numerator_ppl.txt
   log type:  text
- opened on:   4 May 2022, 12:20:15
+ opened on:   5 May 2022, 14:17:27
 
 .         
 . /**************
@@ -334,6 +334,97 @@ method hash0 cannot be applied, using hash1
 .                 save "$outdir/numerator_person_dist_to_trumprally_2021.dta", replace
 file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_person_dist_to_trumprally_2021.dta saved
 
+.                 
+. /**************
+>         Reshape and Merge Cleaned Trump Rally Data
+>         ***************/        
+.         * reshape distance data to long format
+.         forv yr = 2017/2021 {
+  2.                 use "$outdir/numerator_person_dist_to_trumprally_`yr'.dta", clear
+  3.                 reshape long dist_rally, i(household_id) j(rallyid)
+  4.                 save "$intdir/numerator_person_dist_to_trumprally_`yr'_reshaped", replace
+  5.         }
+(j = 215 216 217 218 219 220 221 222 223 224)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations        1,270,323   ->   12,703,230  
+Number of variables                  12   ->   4           
+j variable (10 values)                    ->   rallyid
+xij variables:
+dist_rally215 dist_rally216 ... dist_rally224->dist_rally
+-----------------------------------------------------------------------------
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2017_reshaped.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2017_reshaped.dta saved
+(j = 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 2
+> 68 269 270)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations        1,493,100   ->   68,682,600  
+Number of variables                  48   ->   4           
+j variable (46 values)                    ->   rallyid
+xij variables:
+dist_rally225 dist_rally226 ... dist_rally270->dist_rally
+-----------------------------------------------------------------------------
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2018_reshaped.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2018_reshaped.dta saved
+(j = 458 459 460 461 462 463 464 465 466 467 468 469 470 471 472 473 474 475 476 477 478 479)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations        1,493,100   ->   32,848,200  
+Number of variables                  24   ->   4           
+j variable (22 values)                    ->   rallyid
+xij variables:
+dist_rally458 dist_rally459 ... dist_rally479->dist_rally
+-----------------------------------------------------------------------------
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2019_reshaped.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2019_reshaped.dta saved
+(j = 1 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190
+>  191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 480 481 482 483 484 485 486 487 488 489)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations          790,853   ->   61,686,534  
+Number of variables                  80   ->   4           
+j variable (78 values)                    ->   rallyid
+xij variables:
+dist_rally1 dist_rally148 ... dist_rally489->  dist_rally
+-----------------------------------------------------------------------------
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2020_reshaped.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2020_reshaped.dta saved
+(j = 2 3 4 5 6 7 8 9)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations          710,162   ->   5,681,296   
+Number of variables                  10   ->   4           
+j variable (8 values)                     ->   rallyid
+xij variables:
+dist_rally2 dist_rally3 ... dist_rally9   ->   dist_rally
+-----------------------------------------------------------------------------
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2021_reshaped.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_person_dist_to_trumprally_2021_reshaped.dta saved
+
+.         * append all years
+.         use "$intdir/numerator_person_dist_to_trumprally_2017_reshaped", clear
+
+.         forv yr = 2018/2021 {
+  2.                 append using "$intdir/numerator_person_dist_to_trumprally_`yr'_reshaped"
+  3.                 save "$outdir/numerator_person_dist_to_trumprally_2017to2021_reshaped", replace
+  4.         }
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_person_dist_to_trumprally_2017to2021_reshaped.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_person_dist_to_trumprally_2017to2021_reshaped.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_person_dist_to_trumprally_2017to2021_reshaped.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_person_dist_to_trumprally_2017to2021_reshaped.dta saved
+
+.         * remove the annual data after appending
+.         forv yr = 2017/2021 {
+  2.                 rm "$intdir/numerator_person_dist_to_trumprally_`yr'_reshaped.dta" 
+  3.         }
+
+. 
 . ********************************* END ******************************************
 . 
 . capture log close

@@ -161,6 +161,27 @@ Date Modified: May 4th, 2022
 		}
 		keep household_id year dist_rally*
 		save "$outdir/numerator_person_dist_to_trumprally_2021.dta", replace
+		
+/**************
+	Reshape and Merge Cleaned Trump Rally Data
+	***************/	
+	* reshape distance data to long format
+	forv yr = 2017/2021 {
+		use "$outdir/numerator_person_dist_to_trumprally_`yr'.dta", clear
+		reshape long dist_rally, i(household_id) j(rallyid)
+		save "$intdir/numerator_person_dist_to_trumprally_`yr'_reshaped", replace
+	}
+	* append all years
+	use "$intdir/numerator_person_dist_to_trumprally_2017_reshaped", clear
+	forv yr = 2018/2021 {
+		append using "$intdir/numerator_person_dist_to_trumprally_`yr'_reshaped"
+		save "$outdir/numerator_person_dist_to_trumprally_2017to2021_reshaped", replace
+	}
+	* remove the annual data after appending
+	forv yr = 2017/2021 {
+		rm "$intdir/numerator_person_dist_to_trumprally_`yr'_reshaped.dta" 
+	}
+
 ********************************* END ******************************************
 
 capture log close

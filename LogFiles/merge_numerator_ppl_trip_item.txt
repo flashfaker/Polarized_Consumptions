@@ -1,0 +1,500 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:/Users/zsong98/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/merge_numerator_ppl_trip_item.txt
+  log type:  text
+ opened on:   6 May 2022, 14:56:32
+
+.         
+. /**************
+>         Clean Trip Data (contain only trip_id and household_id)
+>         ***************/                
+. cd "$numdir"
+C:\Users\zsong98\Dropbox\Polarized Consumptions\Data\Numerator\New_File_Formats_2017-2021
+
+. * ssc install filelist // filelist due to Robert Picard
+. * obtain all trips csv.
+. 
+. forv yr = 2017/2021 {
+  2.         filelist, dir("`yr'") pat("*trips*.csv") save("trips_datasets_`yr'.dta") replace
+  3.         * merge csvs. into one
+.         use "trips_datasets_`yr'.dta", clear
+  4.     local obs = _N
+  5.     forvalues i=1/`obs' {
+  6.                 use "trips_datasets_`yr'.dta" in `i', clear
+  7.                 local f = dirname + "/" + filename
+  8.                 import delimited using "`f'", clear
+  9.                 gen source = "`f'"
+ 10.                 tempfile save`i'
+ 11.                 save "`save`i''"
+ 12.                 * delete the original csv. files to make space          
+.                 * this step erases the csv. files used in the cleaning step (to re-do--)
+.                 * to re-do this whole importing step, one has to download data from
+.                 * Mercury share again.
+.                 erase "`f'"
+ 13.     }
+ 14.         * append files together
+.     use "`save1'", clear
+ 15.     forvalues i=2/`obs' {
+ 16.                 append using "`save`i''"
+ 17.     }
+ 18.         * keep only id variables, dates of the trip and trip total
+.         keep *_id trip_total transaction_date
+ 19.         gen trip_date = date(transaction_date, "YMD")
+ 20.         format trip_date %td
+ 21.         drop transaction_date
+ 22.         save "$intdir/numerator_trip_cleaned_`yr'", replace
+ 23. }
+Number of files found = 16
+file trips_datasets_2017.dta saved
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,178,095 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000001.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,278,583 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000002.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,288,512 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000003.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,475,529 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000004.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,374,528 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000005.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,440,064 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000006.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,193,509 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000007.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,222,976 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000008.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,293,200 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000009.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,001,902 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000a.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,186,112 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000b.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 3,888,799 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000c.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,100,968 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000d.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,325,107 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000e.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,144,488 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000f.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,014,976 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000g.tmp saved as .dta format
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2017.dta saved
+Number of files found = 16
+(file trips_datasets_2018.dta not found)
+file trips_datasets_2018.dta saved
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,254,095 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000h.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,087,119 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000i.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,036,367 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000j.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,648,384 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000k.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,641,935 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000l.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,459,453 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000m.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,210,112 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000n.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,723,029 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000o.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,200,737 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000p.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,419,511 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000q.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,562,135 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000r.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,320,704 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000s.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,506,692 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000t.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,099,520 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000u.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,271,552 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000v.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,195,383 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000w.tmp saved as .dta format
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2018.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2018.dta saved
+Number of files found = 16
+(file trips_datasets_2019.dta not found)
+file trips_datasets_2019.dta saved
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,251,072 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000x.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,786,517 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000010.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,398,528 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000011.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,246,976 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000012.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,400,301 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000013.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,682,201 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000014.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,562,368 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000015.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,795,551 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000016.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,243,916 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000017.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,243,093 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000018.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,199,218 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000019.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,592,243 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001a.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,217,064 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001b.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,394,432 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001c.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,873,058 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001d.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,219,069 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001e.tmp saved as .dta format
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2019.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2019.dta saved
+Number of files found = 16
+(file trips_datasets_2020.dta not found)
+file trips_datasets_2020.dta saved
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,587,520 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001f.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,031,544 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001g.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,108,100 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001h.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,806,348 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001i.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,936,521 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001j.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,054,142 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001k.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,862,837 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001l.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,849,664 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001m.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,269,248 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001n.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,138,527 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001o.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,858,896 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001p.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,111,808 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001q.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,337,782 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001r.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,095,424 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001s.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,997,120 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001t.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,095,424 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001u.tmp saved as .dta format
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2020.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2020.dta saved
+Number of files found = 16
+(file trips_datasets_2021.dta not found)
+file trips_datasets_2021.dta saved
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,132,805 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001v.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,619,712 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001w.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,177,253 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00001x.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,533,146 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000020.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,281,558 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000021.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,125,853 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000022.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,713,920 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000023.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,746,688 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000024.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,331,501 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000025.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,245,280 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000026.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,768,510 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000027.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,219,648 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000028.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,271,461 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000029.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,246,086 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00002a.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 4,882,432 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00002b.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(15 vars, 5,054,464 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00002c.tmp saved as .dta format
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2021.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2021.dta saved
+
+. 
+. *** append the trips data together 
+.         use "$intdir/numerator_trip_cleaned_2017", clear
+
+.         forv yr = 2018/2021 {
+  2.                 append using "$intdir/numerator_trip_cleaned_`yr'"
+  3.                 save "$outdir/numerator_trip_cleaned_2017to2021"
+  4.         }
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_trip_cleaned_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_trip_cleaned_2017to2021.dta already exists
+r(602);
+
+end of do-file
+
+r(602);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD3518_000000.tmp"
+
+.         use "$intdir/numerator_trip_cleaned_2017", clear
+
+.         forv yr = 2018/2021 {
+  2.                 append using "$intdir/numerator_trip_cleaned_`yr'"
+  3.                 save "$outdir/numerator_trip_cleaned_2017to2021", replace
+  4.         }
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_trip_cleaned_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_trip_cleaned_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_trip_cleaned_2017to2021.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_trip_cleaned_2017to2021.dta saved
+
+. 
+end of do-file
+
+. br
+
+. compress, save
+option save not allowed
+r(198);
+
+. compress
+  variable trip_date was float now int
+  (809,281,810 bytes saved)
+
+. br
+
+. save
+invalid file specification
+r(198);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD3518_000000.tmp"
+
+.         save "$outdir/numerator_trip_cleaned_2017to2021", replace 
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_trip_cleaned_2017to2021.dta saved
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD3518_000000.tmp"
+
+.         forv yr = 2017/2021 {
+  2.                 erase "$intdir/numerator_trip_cleaned_`yr'"
+  3.         }
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_trip_cleaned_2017 not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD3518_000000.tmp"
+
+.         forv yr = 2017/2021 {
+  2.                 erase "$intdir/numerator_trip_cleaned_`yr'.dta"
+  3.         }
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD3518_000000.tmp"
+
+.         import delimited using "standard_nmr_feed_purchase_table_0_0_0", clear
+file standard_nmr_feed_purchase_table_0_0_0.csv not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD3518_000000.tmp"
+
+.         import delimited using "standard_nmr_feed_purchase_table_0_0_0.csv", clear
+file standard_nmr_feed_purchase_table_0_0_0.csv not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD3518_000000.tmp"
+
+.         import delimited using "2017/standard_nmr_feed_purchase_table_0_0_0.csv", clear
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,437,888 obs)
+
+. 
+end of do-file
+
+. br
+
+. sort trip_id
+
+. br
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD3518_000000.tmp"
+
+. forv yr = 2017/2021 {
+  2.         filelist, dir("`yr'") pat("*purchase*.csv") save("purchase_datasets_`yr'.dta") replace
+  3.         * merge csvs. into one
+.         use "purchase_datasets_`yr'.dta", clear
+  4.     local obs = _N
+  5.     forvalues i=1/`obs' {
+  6.                 use "purchase_datasets_`yr'.dta" in `i', clear
+  7.                 local f = dirname + "/" + filename
+  8.                 import delimited using "`f'", clear
+  9.                 gen source = "`f'"
+ 10.                 tempfile save`i'
+ 11.                 save "`save`i''"
+ 12.                 * delete the original csv. files to make space          
+.                 * this step erases the csv. files used in the cleaning step (to re-do--)
+.                 * to re-do this whole importing step, one has to download data from
+.                 * Mercury share again.
+.                 erase "`f'"
+ 13.     }
+ 14.         * append files together
+.     use "`save1'", clear
+ 15.     forvalues i=2/`obs' {
+ 16.                 append using "`save`i''"
+ 17.     }
+ 18.         compress
+ 19.         save "$intdir/numerator_purchase_cleaned_`yr'", replace
+ 20. }
+Number of files found = 16
+(file purchase_datasets_2017.dta not found)
+file purchase_datasets_2017.dta saved
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,437,888 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000001.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 23,026,237 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000002.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,741,556 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000003.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,437,888 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000004.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,320,108 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000005.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 23,020,344 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000006.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 23,041,513 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000007.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,738,246 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000008.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 23,029,372 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_000009.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,437,888 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000a.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,437,888 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000b.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,437,888 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000c.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,437,888 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000d.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 23,457,792 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000e.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 23,037,825 obs)
+file C:\Users\zsong98\AppData\Local\Temp\ST_3518_00000f.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-2)
+(5 vars, 22,736,112 obs)

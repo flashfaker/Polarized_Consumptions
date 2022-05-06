@@ -186,7 +186,7 @@ drop _merge
 gduplicates drop productid, force
 gduplicates drop upc, force
 
-keep upc productid
+keep upc productid item_id
 save "$intdir/matchkey_NM_LI_`year'.dta", replace	
 }
 

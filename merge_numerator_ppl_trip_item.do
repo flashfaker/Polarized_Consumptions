@@ -8,7 +8,7 @@ to obtain the the fraction of items that the household purchases
 
 Author: Zirui Song
 Date Created: May 5th, 2022
-Date Modified: May 6th, 2022
+Date Modified: May 9th, 2022
 
 ********************************************************************************/
 
@@ -86,7 +86,7 @@ forv yr = 2017/2021 {
 /**************
 	Clean Purchase Data (contain trip_id and item_id)
 	***************/	
-	
+	cd "$numdir"
 forv yr = 2017/2021 {
 	filelist, dir("`yr'") pat("*purchase*.csv") save("purchase_datasets_`yr'.dta") replace
 	* merge csvs. into one
@@ -96,7 +96,8 @@ forv yr = 2017/2021 {
 		use "purchase_datasets_`yr'.dta" in `i', clear
 		local f = dirname + "/" + filename
 		import delimited using "`f'", clear
-		gen source = "`f'"
+		* keep only trip_id item_id and total (due to size of the data sets)
+		keep *_id item_total
 		tempfile save`i'
 		save "`save`i''"
 		* delete the original csv. files to make space		
@@ -114,7 +115,7 @@ forv yr = 2017/2021 {
 	save "$intdir/numerator_purchase_cleaned_`yr'", replace
 }
 *** append the trips data together 
-	use "$intdir/numerator_purchase_cleaned_", clear
+	use "$intdir/numerator_purchase_cleaned_2017", clear
 	forv yr = 2018/2021 {
 		append using "$intdir/numerator_purchase_cleaned_`yr'"
 		save "$outdir/numerator_purchase_cleaned_2017to2021", replace

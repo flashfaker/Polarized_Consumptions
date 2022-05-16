@@ -2,393 +2,1655 @@
       name:  <unnamed>
        log:  C:/Users/zsong98/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/merge_numerator_ppl_trip_item.txt
   log type:  text
- opened on:   9 May 2022, 14:06:29
+ opened on:  16 May 2022, 10:29:50
 
 . 
 end of do-file
 
-. do "C:\Users\zsong98\AppData\Local\Temp\STD41f8_000000.tmp"
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
 
-.         cd "$numdir"
-C:\Users\zsong98\Dropbox\Polarized Consumptions\Data\Numerator\New_File_Formats_2017-2021
+.         use "$intdir/numerator_purchase_2017to2021_LI_matched", clear
 
-. forv yr = 2017/2021 {
-  2.         filelist, dir("`yr'") pat("*purchase*.csv") save("purchase_datasets_`yr'.dta") replace
-  3.         * merge csvs. into one
-.         use "purchase_datasets_`yr'.dta", clear
-  4.     local obs = _N
-  5.     forvalues i=1/`obs' {
-  6.                 use "purchase_datasets_`yr'.dta" in `i', clear
-  7.                 local f = dirname + "/" + filename
-  8.                 import delimited using "`f'", clear
-  9.                 * keep only trip_id item_id and total (due to size of the data sets)
-.                 keep *_id item_total
- 10.                 tempfile save`i'
- 11.                 save "`save`i''"
- 12.                 * delete the original csv. files to make space          
-.                 * this step erases the csv. files used in the cleaning step (to re-do--)
-.                 * to re-do this whole importing step, one has to download data from
-.                 * Mercury share again.
-.                 erase "`f'"
- 13.     }
- 14.         * append files together
-.     use "`save1'", clear
- 15.     forvalues i=2/`obs' {
- 16.                 append using "`save`i''"
- 17.     }
- 18.         compress
- 19.         save "$intdir/numerator_purchase_cleaned_`yr'", replace
- 20. }
-Number of files found = 16
-file purchase_datasets_2017.dta saved
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000001.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,026,237 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000002.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,741,556 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000003.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000004.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,320,108 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000005.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,020,344 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000006.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,041,513 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000007.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,738,246 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000008.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,029,372 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000009.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000a.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000b.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000c.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000d.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,457,792 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000e.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,037,825 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000f.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,736,112 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000g.tmp saved as .dta format
-  (0 bytes saved)
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_purchase_cleaned_2017.dta saved
-Number of files found = 16
-file purchase_datasets_2018.dta saved
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,787,840 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000h.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,329,022 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000i.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,760,004 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000j.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 30,238,769 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000k.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,787,620 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000l.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,982,720 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000m.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,982,720 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000n.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,813,666 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000o.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,970,432 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000p.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 28,999,680 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000q.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,769,646 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000r.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,982,720 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000s.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,563,498 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000t.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,249,162 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000u.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,995,008 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000v.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 29,211,000 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000w.tmp saved as .dta format
-  (0 bytes saved)
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_purchase_cleaned_2018.dta saved
-Number of files found = 16
-file purchase_datasets_2019.dta saved
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00000x.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,026,237 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000010.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,741,556 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000011.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000012.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,320,108 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000013.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,020,344 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000014.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,041,513 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000015.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,738,246 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000016.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,029,372 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000017.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000018.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000019.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001a.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,437,888 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001b.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,457,792 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001c.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 23,037,825 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001d.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 22,736,112 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001e.tmp saved as .dta format
-  (0 bytes saved)
-(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_purchase_cleaned_2019.dta not found)
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_purchase_cleaned_2019.dta saved
-Number of files found = 16
-(file purchase_datasets_2020.dta not found)
-file purchase_datasets_2020.dta saved
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 33,374,208 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001f.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 33,529,748 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001g.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 33,337,344 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001h.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 33,337,344 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001i.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 33,478,084 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001j.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 32,419,262 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001k.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 33,325,056 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001l.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 33,440,278 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001m.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 31,506,834 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001n.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 31,487,151 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001o.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 31,399,535 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001p.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 31,364,592 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001q.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 32,398,487 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001r.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 32,292,864 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001s.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 32,307,779 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001t.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 31,355,573 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001u.tmp saved as .dta format
-  (0 bytes saved)
-(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_purchase_cleaned_2020.dta not found)
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_purchase_cleaned_2020.dta saved
-Number of files found = 16
-(file purchase_datasets_2021.dta not found)
-file purchase_datasets_2021.dta saved
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 36,143,104 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001v.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 36,110,336 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001w.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 35,591,982 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00001x.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 35,913,728 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000020.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 36,309,778 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000021.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 36,044,800 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000022.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 36,237,459 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000023.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 36,077,568 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000024.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 34,987,563 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000025.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 35,558,517 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000026.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 34,935,311 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000027.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 35,553,077 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000028.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 34,335,632 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_000029.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 36,077,568 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00002a.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 34,024,894 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00002b.tmp saved as .dta format
-(encoding automatically selected: ISO-8859-2)
-(5 vars, 36,024,289 obs)
-file C:\Users\zsong98\AppData\Local\Temp\ST_41f8_00002c.tmp saved as .dta format
-  (0 bytes saved)
-(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_purchase_cleaned_2021.dta not found)
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_purchase_cleaned_2021.dta saved
+.         fmerge m:1 productid using "$outdir/coo_cleaned"
 
-. *** append the trips data together 
-.         use "$intdir/numerator_purchase_cleaned_", clear
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/numerator_purchase_cleaned_.dta not found
-r(601);
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                       386,346
+        from master                         0  
+        from using                    386,346  (_merge==2)
+
+    matched                        73,903,423  (_merge==3)
+    -----------------------------------------
+
+.                 keep if _merge == 3
+(386,346 observations deleted)
+
+.                 drop _merge
+
+.         
+.         * drop trip_total == 0 (cannot compute shares)
+.         drop if trip_total == 0
+(35,770 observations deleted)
+
+.         * change country origin dummy into trip purchase shares (dummy times item total/trip total)
+.         foreach c in EU other MX CN US {
+  2.                 replace `c' = `c'*item_total/trip_total
+  3.         }
+(1,133,831 real changes made)
+(3,926,238 real changes made)
+(2,497,319 real changes made)
+(380,725 real changes made)
+(13,806,246 real changes made)
+
+.         * collapse down to trip_id level to obtain the total shares of each country/origin 
+.         * for a given trip that the household goes 
+.         collapse (first) household_id trip_date trip_total (sum) EU-US, by(trip_id)
+
+.         tempfile shares
+
+.         save "`shares'"
+file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000001.tmp saved as .dta format
+
+.         
+. /**************
+>         Append the trip data set with no matched Label Insights items 
+>         ***************/        
+.         use "$intdir/numerator_purchase_2017to2021_not_LI_matched", clear
+
+.         keep trip_id household_id trip_date trip_total
+
+.         append using "`shares'"
+
+.         * gsort household_id trip_date
+.         * fillin missings for the 5 COO regions
+.         foreach x in EU other MX CN US {
+  2.                 replace `x' = 0 if `x' >=.
+  3.         }
+(371,335,463 real changes made)
+(371,335,463 real changes made)
+(371,335,463 real changes made)
+(371,335,463 real changes made)
+(371,335,463 real changes made)
+
+.         save "$outdir/numerator_trip_coo_2017to2021_cleaned", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_trip_coo_2017to2021_cleaned.dta saved
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         use "$outdir/numerator_trip_coo_2017to2021_cleaned", replace
+
+. 
+end of do-file
+
+. help cross
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         * generate week variable of which Jan 1st, 2017 is the first date
+.         gen trip_week = wofd(trip_date) - wofd(td(1jan2017))
+
+.         * collapse down to trip_week-household panel (weighted mean by trip_total)
+.         collapse (mean) EU-US [aw=trip_total], by(household_id trip_week)
+--Break--
+r(1);
 
 end of do-file
 
-r(601);
+--Break--
+r(1);
 
-. do "C:\Users\zsong98\AppData\Local\Temp\STD41f8_000000.tmp"
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
 
-. *** append the trips data together 
-.         use "$intdir/numerator_purchase_cleaned_2017", clear
+.         use "$outdir/numerator_trip_coo_2017to2021_cleaned", replace
 
-.         forv yr = 2018/2021 {
-  2.                 append using "$intdir/numerator_purchase_cleaned_`yr'"
-  3.                 save "$outdir/numerator_purchase_cleaned_2017to2021", replace
-  4.         }
-(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_purchase_cleaned_2017to2021.dta not found)
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_purchase_cleaned_2017to2021.dta saved
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_purchase_cleaned_2017to2021.dta saved
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_purchase_cleaned_2017to2021.dta saved
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_purchase_cleaned_2017to2021.dta saved
+.         * generate week variable of which Jan 1st, 2017 is the first date
+.         * identify the Saturday of trip week
+.         gen dow = dow(trip_date)
 
-.         save "$outdir/numerator_purchase_cleaned_2017to2021", replace 
-file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_purchase_cleaned_2017to2021.dta saved
+.         gen weekend = trip_date + (6 - trip_date)
 
-.         * erase the annual intermediate trip data to save space
-.         forv yr = 2017/2021 {
-  2.                 erase "$intdir/numerator_purchase_cleaned_`yr'.dta"
-  3.         }
+. 
+.         rename weekend week
 
 . 
 end of do-file
 
 . br
 
-. gisid trip_id
-too many observations
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
 
-A Stata bug prevents gtools from working with more than 2,147,483,647 observations.
-See https://www.statalist.org/forums/forum/general-stata-discussion/general/1457637
-and https://github.com/mcaceresb/stata-gtools/issues/43
-r(17800);
+.         use "$outdir/numerator_trip_coo_2017to2021_cleaned", replace
 
-. gtools, update
-option update not allowed
-r(198);
+.         * generate week variable of which Jan 1st, 2017 is the first date
+.         * identify the Saturday of trip week
+.         gen dow = dow(trip_date)
 
-. gtools, upgrade
-checking gtools consistency and verifying not already installed...
-installing into C:\Users\zsong98\ado\plus\...
-installation complete.
-
-. fisid trip_id
-class Factor undefined
-(2 lines skipped)
-(error occurred while loading fisid.ado)
-r(3000);
-
-. isid trip_id
-op. sys. refuses to provide memory
-r(909);
-
-. do "C:\Users\zsong98\AppData\Local\Temp\STD41f8_000000.tmp"
-
-. * Prediction Model for Water Quality Measurement Before and After 
-. local fname an_predict_wq_monitoring
+.         gen weekend = trip_date + (6 - dow)
 
 . 
-. /*******************************************************************************
-> 
-> Author: Zirui Song
-> Date Created: Apr 23th, 2022
-> Date Modified: May 10th, 2022
-> 
-> ********************************************************************************/
+.         rename weekend week
+
 . 
-. /**************
->         Basic Set-up
->         ***************/
+end of do-file
+
+. tab week
+
+       week |      Freq.     Percent        Cum.
+------------+-----------------------------------
+      20826 |  1,171,022        0.29        0.29
+      20833 |  1,178,307        0.29        0.58
+      20840 |  1,154,208        0.29        0.87
+      20847 |  1,135,231        0.28        1.15
+      20854 |  1,220,229        0.30        1.45
+      20861 |  1,229,737        0.30        1.75
+      20868 |  1,242,437        0.31        2.06
+      20875 |  1,239,113        0.31        2.37
+      20882 |  1,269,160        0.31        2.68
+      20889 |  1,254,610        0.31        2.99
+      20896 |  1,217,966        0.30        3.29
+      20903 |  1,208,092        0.30        3.59
+      20910 |  1,197,834        0.30        3.88
+      20917 |  1,195,252        0.30        4.18
+      20924 |  1,265,656        0.31        4.49
+      20931 |  1,119,754        0.28        4.77
+      20938 |  1,140,983        0.28        5.05
+      20945 |  1,208,340        0.30        5.35
+      20952 |  1,234,046        0.30        5.66
+      20959 |  1,166,002        0.29        5.94
+      20966 |  1,181,066        0.29        6.24
+      20973 |  1,179,546        0.29        6.53
+      20980 |  1,177,789        0.29        6.82
+      20987 |  1,201,014        0.30        7.11
+      20994 |  1,147,855        0.28        7.40
+      21001 |  1,156,621        0.29        7.68
+      21008 |  1,162,261        0.29        7.97
+      21015 |  1,328,764        0.33        8.30
+      21022 |  1,163,559        0.29        8.59
+      21029 |  1,141,765        0.28        8.87
+      21036 |  1,215,737        0.30        9.17
+      21043 |  1,214,437        0.30        9.47
+      21050 |  1,208,888        0.30        9.77
+      21057 |  1,203,890        0.30       10.07
+      21064 |  1,207,768        0.30       10.37
+      21071 |  1,226,486        0.30       10.67
+      21078 |  1,194,298        0.30       10.96
+      21085 |  1,226,824        0.30       11.27
+      21092 |  1,217,135        0.30       11.57
+      21099 |  1,265,617        0.31       11.88
+      21106 |  1,282,525        0.32       12.20
+      21113 |  1,337,880        0.33       12.53
+      21120 |  1,345,312        0.33       12.86
+      21127 |  1,367,394        0.34       13.20
+      21134 |  1,433,607        0.35       13.55
+      21141 |  1,483,096        0.37       13.92
+      21148 |  1,882,597        0.47       14.38
+      21155 |  1,820,979        0.45       14.83
+      21162 |  1,790,427        0.44       15.28
+      21169 |  1,908,436        0.47       15.75
+      21176 |  2,003,772        0.50       16.24
+      21183 |  1,449,559        0.36       16.60
+      21190 |  1,523,381        0.38       16.98
+      21197 |  1,526,264        0.38       17.36
+      21204 |  1,509,210        0.37       17.73
+      21211 |  1,495,271        0.37       18.10
+      21218 |  1,545,561        0.38       18.48
+      21225 |  1,532,982        0.38       18.86
+      21232 |  1,579,396        0.39       19.25
+      21239 |  1,555,398        0.38       19.63
+      21246 |  1,651,103        0.41       20.04
+      21253 |  1,652,436        0.41       20.45
+      21260 |  1,648,260        0.41       20.86
+      21267 |  1,639,997        0.41       21.26
+      21274 |  1,708,347        0.42       21.69
+      21281 |  1,571,659        0.39       22.07
+      21288 |  1,604,472        0.40       22.47
+      21295 |  1,581,475        0.39       22.86
+      21302 |  1,542,153        0.38       23.24
+      21309 |  1,603,824        0.40       23.64
+      21316 |  1,645,480        0.41       24.05
+      21323 |  1,552,908        0.38       24.43
+      21330 |  1,557,964        0.39       24.81
+      21337 |  1,548,390        0.38       25.20
+      21344 |  1,582,827        0.39       25.59
+      21351 |  1,609,146        0.40       25.99
+      21358 |  1,512,619        0.37       26.36
+      21365 |  1,503,267        0.37       26.73
+      21372 |  1,578,720        0.39       27.12
+      21379 |  1,570,574        0.39       27.51
+      21386 |  1,728,853        0.43       27.94
+      21393 |  1,539,255        0.38       28.32
+      21400 |  1,615,790        0.40       28.72
+      21407 |  1,625,523        0.40       29.12
+      21414 |  1,630,597        0.40       29.52
+      21421 |  1,628,987        0.40       29.92
+      21428 |  1,617,925        0.40       30.32
+      21435 |  1,635,330        0.40       30.73
+      21442 |  1,637,711        0.40       31.13
+      21449 |  1,608,350        0.40       31.53
+      21456 |  1,584,473        0.39       31.92
+      21463 |  1,664,164        0.41       32.33
+      21470 |  1,623,769        0.40       32.73
+      21477 |  1,650,552        0.41       33.14
+      21484 |  1,628,916        0.40       33.54
+      21491 |  1,642,521        0.41       33.95
+      21498 |  1,676,922        0.41       34.36
+      21505 |  1,726,647        0.43       34.79
+      21512 |  2,027,722        0.50       35.29
+      21519 |  1,933,630        0.48       35.77
+      21526 |  1,972,703        0.49       36.26
+      21533 |  2,034,219        0.50       36.76
+      21540 |  2,144,026        0.53       37.29
+      21547 |  1,644,318        0.41       37.70
+      21554 |  1,690,721        0.42       38.12
+      21561 |  1,674,214        0.41       38.53
+      21568 |  1,662,515        0.41       38.94
+      21575 |  1,603,075        0.40       39.34
+      21582 |  1,650,947        0.41       39.74
+      21589 |  1,679,575        0.42       40.16
+      21596 |  1,745,178        0.43       40.59
+      21603 |  1,670,069        0.41       41.00
+      21610 |  1,768,872        0.44       41.44
+      21617 |  1,752,542        0.43       41.87
+      21624 |  1,730,173        0.43       42.30
+      21631 |  1,726,663        0.43       42.73
+      21638 |  1,676,607        0.41       43.14
+      21645 |  1,737,721        0.43       43.57
+      21652 |  1,690,881        0.42       43.99
+      21659 |  1,808,606        0.45       44.44
+      21666 |  1,590,952        0.39       44.83
+      21673 |  1,710,859        0.42       45.25
+      21680 |  1,750,877        0.43       45.69
+      21687 |  1,660,128        0.41       46.10
+      21694 |  1,692,815        0.42       46.51
+      21701 |  1,654,428        0.41       46.92
+      21708 |  1,703,456        0.42       47.34
+      21715 |  1,722,964        0.43       47.77
+      21722 |  1,636,127        0.40       48.17
+      21729 |  1,629,801        0.40       48.58
+      21736 |  1,714,748        0.42       49.00
+      21743 |  1,672,697        0.41       49.41
+      21750 |  1,796,296        0.44       49.86
+      21757 |  1,570,469        0.39       50.25
+      21764 |  1,624,115        0.40       50.65
+      21771 |  1,651,350        0.41       51.06
+      21778 |  1,637,123        0.40       51.46
+      21785 |  1,609,078        0.40       51.86
+      21792 |  1,550,209        0.38       52.24
+      21799 |  1,492,597        0.37       52.61
+      21806 |  1,500,352        0.37       52.98
+      21813 |  1,472,657        0.36       53.34
+      21820 |  1,445,325        0.36       53.70
+      21827 |  1,508,367        0.37       54.07
+      21834 |  1,506,029        0.37       54.45
+      21841 |  1,508,687        0.37       54.82
+      21848 |  1,505,136        0.37       55.19
+      21855 |  1,513,642        0.37       55.57
+      21862 |  1,546,484        0.38       55.95
+      21869 |  1,546,361        0.38       56.33
+      21876 |  1,649,057        0.41       56.74
+      21883 |  1,975,615        0.49       57.23
+      21890 |  1,929,336        0.48       57.70
+      21897 |  2,015,606        0.50       58.20
+      21904 |  2,137,349        0.53       58.73
+      21911 |  1,754,149        0.43       59.16
+      21918 |  1,689,605        0.42       59.58
+      21925 |  1,623,629        0.40       59.98
+      21932 |  1,592,792        0.39       60.38
+      21939 |  1,609,065        0.40       60.77
+      21946 |  1,621,364        0.40       61.17
+      21953 |  1,643,963        0.41       61.58
+      21960 |  1,723,769        0.43       62.01
+      21967 |  1,632,048        0.40       62.41
+      21974 |  1,681,017        0.42       62.82
+      21981 |  1,739,903        0.43       63.25
+      21988 |  1,873,619        0.46       63.72
+      21995 |  1,748,280        0.43       64.15
+      22002 |  1,325,364        0.33       64.48
+      22009 |  1,372,892        0.34       64.82
+      22016 |  1,370,401        0.34       65.16
+      22023 |  1,367,125        0.34       65.49
+      22030 |  1,409,429        0.35       65.84
+      22037 |  1,471,047        0.36       66.21
+      22044 |  1,547,498        0.38       66.59
+      22051 |  1,472,193        0.36       66.95
+      22058 |  1,504,219        0.37       67.32
+      22065 |  1,447,647        0.36       67.68
+      22072 |  1,468,847        0.36       68.04
+      22079 |  1,502,147        0.37       68.42
+      22086 |  1,537,792        0.38       68.80
+      22093 |  1,462,117        0.36       69.16
+      22100 |  1,533,031        0.38       69.54
+      22107 |  1,475,172        0.36       69.90
+      22114 |  1,463,589        0.36       70.26
+      22121 |  1,437,811        0.36       70.62
+      22128 |  1,423,427        0.35       70.97
+      22135 |  1,451,924        0.36       71.33
+      22142 |  1,433,097        0.35       71.68
+      22149 |  1,428,275        0.35       72.04
+      22156 |  1,388,715        0.34       72.38
+      22163 |  1,438,951        0.36       72.73
+      22170 |  1,414,384        0.35       73.08
+      22177 |  1,432,819        0.35       73.44
+      22184 |  1,428,437        0.35       73.79
+      22191 |  1,456,355        0.36       74.15
+      22198 |  1,451,753        0.36       74.51
+      22205 |  1,609,459        0.40       74.91
+      22212 |  1,452,638        0.36       75.27
+      22219 |  1,443,029        0.36       75.62
+      22226 |  1,501,832        0.37       75.99
+      22233 |  1,547,591        0.38       76.38
+      22240 |  1,606,495        0.40       76.77
+      22247 |  1,671,525        0.41       77.19
+      22254 |  1,698,315        0.42       77.61
+      22261 |  1,748,949        0.43       78.04
+      22268 |  1,773,110        0.44       78.48
+      22275 |  1,614,648        0.40       78.88
+      22282 |  1,593,750        0.39       79.27
+      22289 |  1,669,112        0.41       79.68
+      22296 |  1,633,126        0.40       80.09
+      22303 |  1,607,265        0.40       80.48
+      22310 |  1,564,518        0.39       80.87
+      22317 |  1,617,406        0.40       81.27
+      22324 |  1,622,757        0.40       81.67
+      22331 |  1,487,437        0.37       82.04
+      22338 |  1,619,080        0.40       82.44
+      22345 |  1,669,463        0.41       82.85
+      22352 |  1,670,983        0.41       83.26
+      22359 |  1,734,161        0.43       83.69
+      22366 |  1,695,649        0.42       84.11
+      22373 |  1,777,865        0.44       84.55
+      22380 |  1,598,123        0.39       84.95
+      22387 |  1,639,875        0.41       85.35
+      22394 |  1,616,332        0.40       85.75
+      22401 |  1,594,516        0.39       86.14
+      22408 |  1,674,845        0.41       86.56
+      22415 |  1,579,634        0.39       86.95
+      22422 |  1,584,441        0.39       87.34
+      22429 |  1,596,748        0.39       87.74
+      22436 |  1,586,961        0.39       88.13
+      22443 |  1,588,931        0.39       88.52
+      22450 |  1,634,495        0.40       88.92
+      22457 |  1,689,893        0.42       89.34
+      22464 |  1,622,339        0.40       89.74
+      22471 |  1,543,637        0.38       90.12
+      22478 |  1,571,111        0.39       90.51
+      22485 |  1,578,709        0.39       90.90
+      22492 |  1,565,176        0.39       91.29
+      22499 |  1,636,235        0.40       91.69
+      22506 |  1,621,996        0.40       92.09
+      22513 |  1,626,906        0.40       92.50
+      22520 |  1,589,863        0.39       92.89
+      22527 |  1,615,706        0.40       93.29
+      22534 |  1,604,627        0.40       93.69
+      22541 |  1,604,241        0.40       94.08
+      22548 |  1,592,408        0.39       94.48
+      22555 |  1,587,672        0.39       94.87
+      22562 |  1,588,275        0.39       95.26
+      22569 |  1,584,316        0.39       95.65
+      22576 |  1,569,045        0.39       96.04
+      22583 |  1,528,428        0.38       96.42
+      22590 |  1,580,911        0.39       96.81
+      22597 |  1,594,879        0.39       97.20
+      22604 |  1,618,537        0.40       97.60
+      22611 |  1,704,290        0.42       98.02
+      22618 |  1,670,077        0.41       98.44
+      22625 |  1,661,181        0.41       98.85
+      22632 |  1,724,246        0.43       99.27
+      22639 |  1,622,411        0.40       99.67
+      22646 |  1,318,457        0.33      100.00
+------------+-----------------------------------
+      Total |404,620,618      100.00
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         use "$outdir/numerator_trip_coo_2017to2021_cleaned", replace
+
+.         
+.         * identify the Saturday of trip week (in order to get trip week number)
+.         gen dow = dow(trip_date)
+
+.         gen weekend = trip_date + (6 - dow)
+
+. 
+.         rename weekend date
+
+.         format date %td
+
+.         /* generate week variable of which Jan 1st, 2017 is the first date
+>         gen trip_week = wofd(trip_date) - wofd(td(1jan2017)) */
+.         
+.         * collapse down to trip_week-household panel (weighted mean by trip_total)
+.         collapse (mean) EU-US [fw=trip_total], by(household_id date)
+may not use noninteger frequency weights
+r(401);
+
+end of do-file
+
+r(401);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         * collapse down to trip_week-household panel (weighted mean by trip_total)
+.         collapse (mean) EU-US [aw=trip_total], by(household_id date)
+
+.         xtset household_id trip_week
+variable trip_week not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. br
+
+. tab date
+
+       date |      Freq.     Percent        Cum.
+------------+-----------------------------------
+  07jan2017 |    364,915        0.35        0.35
+  14jan2017 |    361,637        0.35        0.70
+  21jan2017 |    355,988        0.34        1.05
+  28jan2017 |    352,025        0.34        1.39
+  04feb2017 |    361,431        0.35        1.74
+  11feb2017 |    361,722        0.35        2.09
+  18feb2017 |    358,443        0.35        2.43
+  25feb2017 |    367,974        0.36        2.79
+  04mar2017 |    374,316        0.36        3.15
+  11mar2017 |    367,238        0.36        3.51
+  18mar2017 |    362,015        0.35        3.86
+  25mar2017 |    358,071        0.35        4.21
+  01apr2017 |    355,814        0.34        4.55
+  08apr2017 |    353,679        0.34        4.89
+  15apr2017 |    351,606        0.34        5.23
+  22apr2017 |    341,337        0.33        5.56
+  29apr2017 |    346,334        0.34        5.90
+  06may2017 |    353,224        0.34        6.24
+  13may2017 |    351,818        0.34        6.58
+  20may2017 |    343,266        0.33        6.91
+  27may2017 |    342,774        0.33        7.24
+  03jun2017 |    344,910        0.33        7.58
+  10jun2017 |    344,382        0.33        7.91
+  17jun2017 |    347,659        0.34        8.25
+  24jun2017 |    340,342        0.33        8.58
+  01jul2017 |    339,933        0.33        8.91
+  08jul2017 |    336,767        0.33        9.23
+  15jul2017 |    366,920        0.36        9.59
+  22jul2017 |    345,006        0.33        9.92
+  29jul2017 |    342,873        0.33       10.25
+  05aug2017 |    355,079        0.34       10.60
+  12aug2017 |    354,011        0.34       10.94
+  19aug2017 |    356,393        0.34       11.28
+  26aug2017 |    355,941        0.34       11.63
+  02sep2017 |    358,866        0.35       11.97
+  09sep2017 |    357,690        0.35       12.32
+  16sep2017 |    354,861        0.34       12.66
+  23sep2017 |    363,005        0.35       13.02
+  30sep2017 |    361,514        0.35       13.37
+  07oct2017 |    371,141        0.36       13.72
+  14oct2017 |    377,728        0.37       14.09
+  21oct2017 |    393,434        0.38       14.47
+  28oct2017 |    395,853        0.38       14.85
+  04nov2017 |    398,799        0.39       15.24
+  11nov2017 |    418,521        0.40       15.64
+  18nov2017 |    433,261        0.42       16.06
+  25nov2017 |    501,228        0.49       16.55
+  02dec2017 |    513,669        0.50       17.05
+  09dec2017 |    499,210        0.48       17.53
+  16dec2017 |    514,557        0.50       18.03
+  23dec2017 |    509,201        0.49       18.52
+  30dec2017 |    451,493        0.44       18.96
+  06jan2018 |    476,395        0.46       19.42
+  13jan2018 |    475,779        0.46       19.88
+  20jan2018 |    472,920        0.46       20.34
+  27jan2018 |    466,204        0.45       20.79
+  03feb2018 |    476,170        0.46       21.25
+  10feb2018 |    478,043        0.46       21.71
+  17feb2018 |    477,735        0.46       22.17
+  24feb2018 |    488,109        0.47       22.65
+  03mar2018 |    505,989        0.49       23.13
+  10mar2018 |    503,763        0.49       23.62
+  17mar2018 |    504,510        0.49       24.11
+  24mar2018 |    500,365        0.48       24.59
+  31mar2018 |    495,382        0.48       25.07
+  07apr2018 |    485,103        0.47       25.54
+  14apr2018 |    487,272        0.47       26.02
+  21apr2018 |    481,100        0.47       26.48
+  28apr2018 |    473,234        0.46       26.94
+  05may2018 |    472,357        0.46       27.40
+  12may2018 |    464,116        0.45       27.84
+  19may2018 |    449,992        0.44       28.28
+  26may2018 |    445,901        0.43       28.71
+  02jun2018 |    447,565        0.43       29.14
+  09jun2018 |    449,382        0.43       29.58
+  16jun2018 |    449,181        0.43       30.01
+  23jun2018 |    436,029        0.42       30.44
+  30jun2018 |    434,388        0.42       30.86
+  07jul2018 |    435,987        0.42       31.28
+  14jul2018 |    442,258        0.43       31.71
+  21jul2018 |    465,463        0.45       32.16
+  28jul2018 |    443,743        0.43       32.59
+  04aug2018 |    455,527        0.44       33.03
+  11aug2018 |    456,238        0.44       33.47
+  18aug2018 |    458,718        0.44       33.91
+  25aug2018 |    460,963        0.45       34.36
+  01sep2018 |    460,721        0.45       34.80
+  08sep2018 |    463,007        0.45       35.25
+  15sep2018 |    460,198        0.45       35.70
+  22sep2018 |    458,522        0.44       36.14
+  29sep2018 |    457,258        0.44       36.58
+  06oct2018 |    465,716        0.45       37.03
+  13oct2018 |    459,950        0.45       37.48
+  20oct2018 |    462,792        0.45       37.93
+  27oct2018 |    460,229        0.45       38.37
+  03nov2018 |    461,332        0.45       38.82
+  10nov2018 |    468,602        0.45       39.27
+  17nov2018 |    475,975        0.46       39.73
+  24nov2018 |    512,070        0.50       40.23
+  01dec2018 |    518,135        0.50       40.73
+  08dec2018 |    510,075        0.49       41.22
+  15dec2018 |    518,810        0.50       41.73
+  22dec2018 |    519,505        0.50       42.23
+  29dec2018 |    463,659        0.45       42.68
+  05jan2019 |    478,200        0.46       43.14
+  12jan2019 |    471,260        0.46       43.60
+  19jan2019 |    470,579        0.46       44.05
+  26jan2019 |    464,522        0.45       44.50
+  02feb2019 |    471,618        0.46       44.96
+  09feb2019 |    471,341        0.46       45.41
+  16feb2019 |    474,076        0.46       45.87
+  23feb2019 |    470,165        0.45       46.33
+  02mar2019 |    484,874        0.47       46.80
+  09mar2019 |    481,968        0.47       47.26
+  16mar2019 |    473,372        0.46       47.72
+  23mar2019 |    471,187        0.46       48.18
+  30mar2019 |    465,830        0.45       48.63
+  06apr2019 |    469,046        0.45       49.08
+  13apr2019 |    459,715        0.44       49.53
+  20apr2019 |    464,140        0.45       49.98
+  27apr2019 |    446,706        0.43       50.41
+  04may2019 |    457,962        0.44       50.85
+  11may2019 |    455,785        0.44       51.29
+  18may2019 |    447,504        0.43       51.73
+  25may2019 |    447,203        0.43       52.16
+  01jun2019 |    444,867        0.43       52.59
+  08jun2019 |    447,131        0.43       53.02
+  15jun2019 |    446,734        0.43       53.45
+  22jun2019 |    434,611        0.42       53.87
+  29jun2019 |    433,426        0.42       54.29
+  06jul2019 |    435,154        0.42       54.71
+  13jul2019 |    434,119        0.42       55.13
+  20jul2019 |    420,231        0.41       55.54
+  27jul2019 |    398,090        0.39       55.93
+  03aug2019 |    407,495        0.39       56.32
+  10aug2019 |    410,537        0.40       56.72
+  17aug2019 |    407,833        0.39       57.11
+  24aug2019 |    404,530        0.39       57.50
+  31aug2019 |    398,485        0.39       57.89
+  07sep2019 |    393,051        0.38       58.27
+  14sep2019 |    392,810        0.38       58.65
+  21sep2019 |    387,494        0.37       59.03
+  28sep2019 |    383,441        0.37       59.40
+  05oct2019 |    389,419        0.38       59.77
+  12oct2019 |    388,857        0.38       60.15
+  19oct2019 |    388,879        0.38       60.53
+  26oct2019 |    388,689        0.38       60.90
+  02nov2019 |    388,445        0.38       61.28
+  09nov2019 |    391,027        0.38       61.66
+  16nov2019 |    390,678        0.38       62.03
+  23nov2019 |    399,793        0.39       62.42
+  30nov2019 |    423,081        0.41       62.83
+  07dec2019 |    425,697        0.41       63.24
+  14dec2019 |    427,004        0.41       63.66
+  21dec2019 |    431,670        0.42       64.07
+  28dec2019 |    401,678        0.39       64.46
+  04jan2020 |    398,982        0.39       64.85
+  11jan2020 |    387,926        0.38       65.22
+  18jan2020 |    385,618        0.37       65.60
+  25jan2020 |    386,419        0.37       65.97
+  01feb2020 |    387,043        0.37       66.35
+  08feb2020 |    388,337        0.38       66.72
+  15feb2020 |    389,636        0.38       67.10
+  22feb2020 |    383,846        0.37       67.47
+  29feb2020 |    388,349        0.38       67.85
+  07mar2020 |    391,082        0.38       68.22
+  14mar2020 |    391,905        0.38       68.60
+  21mar2020 |    375,354        0.36       68.97
+  28mar2020 |    344,534        0.33       69.30
+  04apr2020 |    350,295        0.34       69.64
+  11apr2020 |    347,398        0.34       69.97
+  18apr2020 |    351,050        0.34       70.31
+  25apr2020 |    354,262        0.34       70.66
+  02may2020 |    359,112        0.35       71.00
+  09may2020 |    362,216        0.35       71.36
+  16may2020 |    356,918        0.35       71.70
+  23may2020 |    357,977        0.35       72.05
+  30may2020 |    353,081        0.34       72.39
+  06jun2020 |    353,262        0.34       72.73
+  13jun2020 |    352,970        0.34       73.07
+  20jun2020 |    353,090        0.34       73.41
+  27jun2020 |    346,013        0.33       73.75
+  04jul2020 |    348,706        0.34       74.09
+  11jul2020 |    343,582        0.33       74.42
+  18jul2020 |    338,495        0.33       74.75
+  25jul2020 |    330,509        0.32       75.07
+  01aug2020 |    330,333        0.32       75.39
+  08aug2020 |    331,530        0.32       75.71
+  15aug2020 |    328,996        0.32       76.02
+  22aug2020 |    328,318        0.32       76.34
+  29aug2020 |    325,441        0.31       76.66
+  05sep2020 |    329,299        0.32       76.98
+  12sep2020 |    326,296        0.32       77.29
+  19sep2020 |    326,963        0.32       77.61
+  26sep2020 |    326,684        0.32       77.92
+  03oct2020 |    329,645        0.32       78.24
+  10oct2020 |    329,575        0.32       78.56
+  17oct2020 |    336,887        0.33       78.89
+  24oct2020 |    329,577        0.32       79.21
+  31oct2020 |    328,360        0.32       79.53
+  07nov2020 |    333,327        0.32       79.85
+  14nov2020 |    337,174        0.33       80.17
+  21nov2020 |    339,701        0.33       80.50
+  28nov2020 |    340,601        0.33       80.83
+  05dec2020 |    346,450        0.34       81.17
+  12dec2020 |    349,268        0.34       81.51
+  19dec2020 |    350,125        0.34       81.84
+  26dec2020 |    339,225        0.33       82.17
+  02jan2021 |    357,567        0.35       82.52
+  09jan2021 |    375,350        0.36       82.88
+  16jan2021 |    372,040        0.36       83.24
+  23jan2021 |    368,217        0.36       83.60
+  30jan2021 |    364,413        0.35       83.95
+  06feb2021 |    367,103        0.36       84.31
+  13feb2021 |    365,378        0.35       84.66
+  20feb2021 |    352,328        0.34       85.00
+  27feb2021 |    363,830        0.35       85.35
+  06mar2021 |    368,315        0.36       85.71
+  13mar2021 |    366,666        0.35       86.06
+  20mar2021 |    371,081        0.36       86.42
+  27mar2021 |    366,602        0.35       86.78
+  03apr2021 |    368,470        0.36       87.13
+  10apr2021 |    357,355        0.35       87.48
+  17apr2021 |    360,134        0.35       87.83
+  24apr2021 |    355,692        0.34       88.17
+  01may2021 |    352,832        0.34       88.51
+  08may2021 |    355,103        0.34       88.86
+  15may2021 |    348,780        0.34       89.20
+  22may2021 |    347,150        0.34       89.53
+  29may2021 |    345,715        0.33       89.87
+  05jun2021 |    344,341        0.33       90.20
+  12jun2021 |    343,247        0.33       90.53
+  19jun2021 |    343,825        0.33       90.86
+  26jun2021 |    343,855        0.33       91.20
+  03jul2021 |    342,201        0.33       91.53
+  10jul2021 |    336,341        0.33       91.85
+  17jul2021 |    339,334        0.33       92.18
+  24jul2021 |    339,044        0.33       92.51
+  31jul2021 |    338,891        0.33       92.84
+  07aug2021 |    346,226        0.34       93.17
+  14aug2021 |    345,822        0.33       93.51
+  21aug2021 |    345,491        0.33       93.84
+  28aug2021 |    342,345        0.33       94.17
+  04sep2021 |    343,738        0.33       94.51
+  11sep2021 |    343,700        0.33       94.84
+  18sep2021 |    343,686        0.33       95.17
+  25sep2021 |    341,749        0.33       95.50
+  02oct2021 |    340,639        0.33       95.83
+  09oct2021 |    339,825        0.33       96.16
+  16oct2021 |    338,919        0.33       96.49
+  23oct2021 |    335,480        0.32       96.81
+  30oct2021 |    329,519        0.32       97.13
+  06nov2021 |    330,731        0.32       97.45
+  13nov2021 |    331,977        0.32       97.77
+  20nov2021 |    332,200        0.32       98.09
+  27nov2021 |    333,267        0.32       98.42
+  04dec2021 |    333,289        0.32       98.74
+  11dec2021 |    331,338        0.32       99.06
+  18dec2021 |    333,484        0.32       99.38
+  25dec2021 |    326,206        0.32       99.70
+  01jan2022 |    311,906        0.30      100.00
+------------+-----------------------------------
+      Total |103,338,799      100.00
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         egen total_share = rowtotal(EU-US)
+
+. 
+end of do-file
+
+. sum total_share
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+ total_share |103,338,799    .0057795    .4158252          0   2536.294
+
+. hist total_share
+(bin=80, start=0, width=31.703677)
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         * generate indicator variable (whether or not have positive total_share) by hh
+.         bysort household_id: egen total_shares = sum(total_share)
+
+. 
+end of do-file
+
+. sum total_shares
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+total_shares |103,338,799    .7823883    3.501859          0   2536.294
+
+. hist total_shares
+(bin=80, start=0, width=31.703677)
+
+. br
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.                 drop if total_shares == 0
+(19,462,024 observations deleted)
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.                 drop total_share*
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         save "$outdir/numerator_trip_coo_2017to2021_cleaned", replace   
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_trip_coo_2017to2021_cleaned.dta saved
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         use "$outdir/numerator_person_dist_to_trumprally_2017to2021_reshaped", clear
+
+. 
+end of do-file
+
+. hist dist_rally
+(bin=82, start=.07624639, width=164.65688)
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         drop if dist_rally > 800
+(134,328,349 observations deleted)
+
+. 
+end of do-file
+
+. gsort household_id
+
+. br
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         merge m:1 rallyid using "$dropbox/Data/rallies/trump_rally_data.dta", keepusing(date)
+(variable rallyid was int, now float to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                           334
+        from master                         0  (_merge==1)
+        from using                        334  (_merge==2)
+
+    Matched                        47,273,511  (_merge==3)
+    -----------------------------------------
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.                 keep if _merge == 3
+(334 observations deleted)
+
+.                 drop _merge
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         * convert rally date to Stata date format
+.         replace date = trim(date)
+(47,244,924 real changes made)
+
+.         gen month_str = substr(date, 1, strpos(date, " ") - 1)
+
+.         gen month = 1 if month_str == "January"
+(45,845,468 missing values generated)
+
+.         replace month = 2 if month_str == "February"
+(854,590 real changes made)
+
+.         replace month = 3 if month_str == "March"
+(2,310,519 real changes made)
+
+.         replace month = 4 if month_str == "April"
+(1,302,788 real changes made)
+
+.         replace month = 5 if month_str == "May"
+(1,845,124 real changes made)
+
+.         replace month = 6 if month_str == "June"
+(1,989,884 real changes made)
+
+.         replace month = 7 if month_str == "July"
+(1,475,591 real changes made)
+
+.         replace month = 8 if month_str == "August"
+(5,053,393 real changes made)
+
+.         replace month = 9 if month_str == "September"
+(6,145,251 real changes made)
+
+.         replace month = 10 if month_str == "October"
+(13,982,749 real changes made)
+
+.         replace month = 11 if month_str == "November"
+(9,459,781 real changes made)
+
+.         replace month = 12 if month_str == "December"
+(1,425,798 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         gen day = substr(date, strpos(date, " ") + 1, strlen(date) - strpos(date, " "))
+
+.         destring day, replace
+day: all characters numeric; replaced as byte
+
+. 
+end of do-file
+
+. br
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         gen date = mdy(month, day, year)
+variable date already defined
+r(110);
+
+end of do-file
+
+r(110);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         replace date = mdy(month, day, year)
+type mismatch
+r(109);
+
+end of do-file
+
+r(109);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         drop date 
+
+.         gen date = mdy(month, day, year)
+
+.         drop year month_str month day
+
+. 
+end of do-file
+
+. br
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         format date %td
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         use "$outdir/numerator_person_dist_to_trumprally_2017to2021_reshaped", clear
+
+.         * drop household-rally combination with more than 800km distance
+.         drop if dist_rally > 800
+(134,328,349 observations deleted)
+
+.         * (134,328,349 observations deleted)
+.         
+. *** obtain rally date and get event-time 
+.         * merge with rally data for date 
+.         merge m:1 rallyid using "$dropbox/Data/rallies/trump_rally_data.dta", keepusing(date)
+(variable rallyid was int, now float to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                           334
+        from master                         0  (_merge==1)
+        from using                        334  (_merge==2)
+
+    Matched                        47,273,511  (_merge==3)
+    -----------------------------------------
+
+.                 keep if _merge == 3
+(334 observations deleted)
+
+.                 drop _merge
+
+.         * convert rally date to Stata date format
+.         replace date = trim(date)
+(47,244,924 real changes made)
+
+.         gen month_str = substr(date, 1, strpos(date, " ") - 1)
+
+.         gen month = 1 if month_str == "January"
+(45,845,468 missing values generated)
+
+.         replace month = 2 if month_str == "February"
+(854,590 real changes made)
+
+.         replace month = 3 if month_str == "March"
+(2,310,519 real changes made)
+
+.         replace month = 4 if month_str == "April"
+(1,302,788 real changes made)
+
+.         replace month = 5 if month_str == "May"
+(1,845,124 real changes made)
+
+.         replace month = 6 if month_str == "June"
+(1,989,884 real changes made)
+
+.         replace month = 7 if month_str == "July"
+(1,475,591 real changes made)
+
+.         replace month = 8 if month_str == "August"
+(5,053,393 real changes made)
+
+.         replace month = 9 if month_str == "September"
+(6,145,251 real changes made)
+
+.         replace month = 10 if month_str == "October"
+(13,982,749 real changes made)
+
+.         replace month = 11 if month_str == "November"
+(9,459,781 real changes made)
+
+.         replace month = 12 if month_str == "December"
+(1,425,798 real changes made)
+
+.         gen day = substr(date, strpos(date, " ") + 1, strlen(date) - strpos(date, " "))
+
+.         destring day, replace
+day: all characters numeric; replaced as byte
+
+.         gen rally_date = mdy(month, day, year)
+
+.         drop year date month_str month day
+
+.         
+.         * identify the Saturday of rally week
+.         gen rally_dow = dow(rally_date)
+
+.         gen rally_weekend = rally_date + (6 - rally_dow)
+
+. 
+.         rename rally_weekend date
+
+.         format date %td
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         ***************/
+. *** create event-time panel
 .         clear all
 
-.         set more off, permanently
-(set more preference recorded)
+.         set obs 21 // The number of observations will define the number of weeks before and after that we will look at
+Number of observations (_N) was 0, now 21.
 
-.         capture log close
+.         gen t = .
+(21 missing values generated)
+
+.         foreach num of numlist 1(1)21{
+  2.                 replace t = `num' - 11 in `num'
+  3.         }
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+(1 real change made)
+
+.         tempfile eventime
+
+.         save `eventime'
+file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000001.tmp saved as .dta format
+
+.         
+.         use "$outdir/numerator_person_dist_to_trumprally_2017to2021_reshaped", clear
+
+.         * drop household-rally combination with more than 800km distance
+.         drop if dist_rally > 800
+(134,328,349 observations deleted)
+
+.         * (134,328,349 observations deleted)
+.         
+. *** obtain rally date and get event-time 
+.         * merge with rally data for date 
+.         merge m:1 rallyid using "$dropbox/Data/rallies/trump_rally_data.dta", keepusing(date)
+(variable rallyid was int, now float to accommodate using data's values)
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                           334
+        from master                         0  (_merge==1)
+        from using                        334  (_merge==2)
+
+    Matched                        47,273,511  (_merge==3)
+    -----------------------------------------
+
+.                 keep if _merge == 3
+(334 observations deleted)
+
+.                 drop _merge
+
+.         * convert rally date to Stata date format
+.         replace date = trim(date)
+(47,244,924 real changes made)
+
+.         gen month_str = substr(date, 1, strpos(date, " ") - 1)
+
+.         gen month = 1 if month_str == "January"
+(45,845,468 missing values generated)
+
+.         replace month = 2 if month_str == "February"
+(854,590 real changes made)
+
+.         replace month = 3 if month_str == "March"
+(2,310,519 real changes made)
+
+.         replace month = 4 if month_str == "April"
+(1,302,788 real changes made)
+
+.         replace month = 5 if month_str == "May"
+(1,845,124 real changes made)
+
+.         replace month = 6 if month_str == "June"
+(1,989,884 real changes made)
+
+.         replace month = 7 if month_str == "July"
+(1,475,591 real changes made)
+
+.         replace month = 8 if month_str == "August"
+(5,053,393 real changes made)
+
+.         replace month = 9 if month_str == "September"
+(6,145,251 real changes made)
+
+.         replace month = 10 if month_str == "October"
+(13,982,749 real changes made)
+
+.         replace month = 11 if month_str == "November"
+(9,459,781 real changes made)
+
+.         replace month = 12 if month_str == "December"
+(1,425,798 real changes made)
+
+.         gen day = substr(date, strpos(date, " ") + 1, strlen(date) - strpos(date, " "))
+
+.         destring day, replace
+day: all characters numeric; replaced as byte
+
+.         gen rally_date = mdy(month, day, year)
+
+.         drop year date month_str month day
+
+.         
+.         * identify the Saturday of rally week
+.         gen rally_dow = dow(rally_date)
+
+.         gen rally_weekend = rally_date + (6 - rally_dow)
+
+. 
+.         rename rally_weekend date
+
+.         format date %td
+
+. 
+. *** cross with event-time for the final panel data
+.         cross using `eventime'
+
+.         replace date = date + t *7
+(945,470,220 real changes made)
+
+. 
+end of do-file
+
+. br
+
+. br
+
+. br
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         drop rally_date rally_dow
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         save "outdir/panel_hhrally", replace
+(file outdir/panel_hhrally.dta not found)
+file outdir/panel_hhrally.dta could not be opened
+r(603);
+
+end of do-file
+
+r(603);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         save "$outdir/panel_hhrally", replace
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally.dta saved
+
+. *** fmerge with hh-week data to obtain shares for event-times
+.         fmerge m:1 household date using "$outdir/numerator_trip_coo_2017to2021_cleaned"
+                     J():  3900  unable to allocate real <tmp>[1076620506,1]
+      __factor_hash1_0():     -  function returned error
+        __factor_hash1():     -  function returned error
+               _factor():     -  function returned error
+                  join():     -  function returned error
+                 <istmt>:     -  function returned error
+r(3900);
+
+end of do-file
+
+r(3900);
+
+. sum household_id
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+household_id |992,743,731     3902709     1856046          4    7724706
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         fmerge m:1 household date using "$outdir/numerator_trip_coo_2017to2021_cleaned" if household_id < 100000
+if not allowed
+r(101);
+
+end of do-file
+
+r(101);
+
+. br
+
+. tab t
+
+          t |      Freq.     Percent        Cum.
+------------+-----------------------------------
+        -10 | 47,273,511        4.76        4.76
+         -9 | 47,273,511        4.76        9.52
+         -8 | 47,273,511        4.76       14.29
+         -7 | 47,273,511        4.76       19.05
+         -6 | 47,273,511        4.76       23.81
+         -5 | 47,273,511        4.76       28.57
+         -4 | 47,273,511        4.76       33.33
+         -3 | 47,273,511        4.76       38.10
+         -2 | 47,273,511        4.76       42.86
+         -1 | 47,273,511        4.76       47.62
+          0 | 47,273,511        4.76       52.38
+          1 | 47,273,511        4.76       57.14
+          2 | 47,273,511        4.76       61.90
+          3 | 47,273,511        4.76       66.67
+          4 | 47,273,511        4.76       71.43
+          5 | 47,273,511        4.76       76.19
+          6 | 47,273,511        4.76       80.95
+          7 | 47,273,511        4.76       85.71
+          8 | 47,273,511        4.76       90.48
+          9 | 47,273,511        4.76       95.24
+         10 | 47,273,511        4.76      100.00
+------------+-----------------------------------
+      Total |992,743,731      100.00
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         foreach i = -10/10 {
+  2.                 keep if t == `i'
+  3.                 fmerge m:1 household date using "$outdir/numerator_trip_coo_2017to2021_cleaned"
+  4.                         keep if _merge == 3
+  5.                         drop _merge 
+  6.                 save "$intdir/panel_hhrally_cleaned_`i'", replace
+  7.         }
+invalid syntax
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         forv i = -10/10 {
+  2.                 keep if t == `i'
+  3.                 fmerge m:1 household date using "$outdir/numerator_trip_coo_2017to2021_cleaned"
+  4.                         keep if _merge == 3
+  5.                         drop _merge 
+  6.                 save "$intdir/panel_hhrally_cleaned_`i'", replace
+  7.         }
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   109,014,908
+        from master                33,806,885  (_merge==1)
+        from using                 75,208,023  (_merge==2)
+
+    matched                        13,466,626  (_merge==3)
+    -----------------------------------------
+(109,014,908 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-10.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-10.dta saved
+(13,466,626 observations deleted)
+merge:  variable EU already exists in master dataset
+r(108);
+
+end of do-file
+
+r(108);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         use "$outdir/panel_hhrally", clear
+
+.         forv i = -10/10 {
+  2.                 preserve 
+  3.                         keep if t == `i'
+  4.                         fmerge m:1 household date using "$outdir/numerator_trip_coo_2017to2021_cleaned"
+  5.                                 keep if _merge == 3
+  6.                                 drop _merge 
+  7.                         save "$intdir/panel_hhrally_cleaned_`i'", replace
+  8.                 restore
+  9.         }
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   109,014,908
+        from master                33,806,885  (_merge==1)
+        from using                 75,208,023  (_merge==2)
+
+    matched                        13,466,626  (_merge==3)
+    -----------------------------------------
+(109,014,908 observations deleted)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-10.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   109,030,572
+        from master                33,818,733  (_merge==1)
+        from using                 75,211,839  (_merge==2)
+
+    matched                        13,454,778  (_merge==3)
+    -----------------------------------------
+(109,030,572 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-9.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-9.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   109,047,260
+        from master                33,825,636  (_merge==1)
+        from using                 75,221,624  (_merge==2)
+
+    matched                        13,447,875  (_merge==3)
+    -----------------------------------------
+(109,047,260 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-8.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-8.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   109,027,876
+        from master                33,818,064  (_merge==1)
+        from using                 75,209,812  (_merge==2)
+
+    matched                        13,455,447  (_merge==3)
+    -----------------------------------------
+(109,027,876 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-7.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-7.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,969,163
+        from master                33,788,113  (_merge==1)
+        from using                 75,181,050  (_merge==2)
+
+    matched                        13,485,398  (_merge==3)
+    -----------------------------------------
+(108,969,163 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-6.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-6.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,989,636
+        from master                33,793,451  (_merge==1)
+        from using                 75,196,185  (_merge==2)
+
+    matched                        13,480,060  (_merge==3)
+    -----------------------------------------
+(108,989,636 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-5.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-5.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,989,326
+        from master                33,790,185  (_merge==1)
+        from using                 75,199,141  (_merge==2)
+
+    matched                        13,483,326  (_merge==3)
+    -----------------------------------------
+(108,989,326 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-4.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-4.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,931,783
+        from master                33,752,080  (_merge==1)
+        from using                 75,179,703  (_merge==2)
+
+    matched                        13,521,431  (_merge==3)
+    -----------------------------------------
+(108,931,783 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-3.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-3.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,898,555
+        from master                33,728,144  (_merge==1)
+        from using                 75,170,411  (_merge==2)
+
+    matched                        13,545,367  (_merge==3)
+    -----------------------------------------
+(108,898,555 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-2.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-2.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,910,562
+        from master                33,737,174  (_merge==1)
+        from using                 75,173,388  (_merge==2)
+
+    matched                        13,536,337  (_merge==3)
+    -----------------------------------------
+(108,910,562 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-1.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_-1.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,864,850
+        from master                33,707,127  (_merge==1)
+        from using                 75,157,723  (_merge==2)
+
+    matched                        13,566,384  (_merge==3)
+    -----------------------------------------
+(108,864,850 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_0.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_0.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,832,353
+        from master                33,677,841  (_merge==1)
+        from using                 75,154,512  (_merge==2)
+
+    matched                        13,595,670  (_merge==3)
+    -----------------------------------------
+(108,832,353 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_1.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_1.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,709,491
+        from master                33,589,107  (_merge==1)
+        from using                 75,120,384  (_merge==2)
+
+    matched                        13,684,404  (_merge==3)
+    -----------------------------------------
+(108,709,491 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_2.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_2.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,631,214
+        from master                33,526,575  (_merge==1)
+        from using                 75,104,639  (_merge==2)
+
+    matched                        13,746,936  (_merge==3)
+    -----------------------------------------
+(108,631,214 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_3.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_3.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,633,833
+        from master                33,521,141  (_merge==1)
+        from using                 75,112,692  (_merge==2)
+
+    matched                        13,752,370  (_merge==3)
+    -----------------------------------------
+(108,633,833 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_4.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_4.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,587,096
+        from master                33,485,587  (_merge==1)
+        from using                 75,101,509  (_merge==2)
+
+    matched                        13,787,924  (_merge==3)
+    -----------------------------------------
+(108,587,096 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_5.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_5.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,505,927
+        from master                33,425,029  (_merge==1)
+        from using                 75,080,898  (_merge==2)
+
+    matched                        13,848,482  (_merge==3)
+    -----------------------------------------
+(108,505,927 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_6.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_6.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,559,721
+        from master                33,471,437  (_merge==1)
+        from using                 75,088,284  (_merge==2)
+
+    matched                        13,802,074  (_merge==3)
+    -----------------------------------------
+(108,559,721 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_7.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_7.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,651,851
+        from master                33,535,022  (_merge==1)
+        from using                 75,116,829  (_merge==2)
+
+    matched                        13,738,489  (_merge==3)
+    -----------------------------------------
+(108,651,851 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_8.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_8.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,661,038
+        from master                33,542,660  (_merge==1)
+        from using                 75,118,378  (_merge==2)
+
+    matched                        13,730,851  (_merge==3)
+    -----------------------------------------
+(108,661,038 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_9.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_9.dta saved
+(945,470,220 observations deleted)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                   108,688,979
+        from master                33,560,353  (_merge==1)
+        from using                 75,128,626  (_merge==2)
+
+    matched                        13,713,158  (_merge==3)
+    -----------------------------------------
+(108,688,979 observations deleted)
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_10.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/Intermediate/panel_hhrally_cleaned_10.dta saved
+
+. 
+end of do-file
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         clear all 
+
+.         set obs 1 
+Number of observations (_N) was 0, now 1.
+
+.         save "$outdir/panel_hhrally_cleaned", replace 
+no variables defined
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         clear all 
+
+.         set obs 1 
+Number of observations (_N) was 0, now 1.
+
+.         gen x = . 
+(1 missing value generated)
+
+.         save "$outdir/panel_hhrally_cleaned", replace 
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+
+.         forv i = -10/10 {
+  2.                 append using "$intdir/panel_hhrally_cleaned_`i'"
+  3.                 save "$outdir/panel_hhrally_cleaned", replace
+  4.         }
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+
+. 
+end of do-file
+
+. br
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         drop in 1 
+(1 observation deleted)
+
+.         drop x
+
+.         save "$outdir/panel_hhrally_cleaned", replace 
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/panel_hhrally_cleaned.dta saved
+
+. 
+end of do-file
+

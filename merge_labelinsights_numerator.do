@@ -213,7 +213,15 @@ save "$intdir/matchkey_NM_LI_`year'.dta", replace
 		save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
 	}
 	
-	
+* destring item_id
+	forv year = 2017/2021 {
+		use "$intdir/matchkey_NM_LI_`year'.dta", clear
+		destring item_id, replace
+		save "$intdir/matchkey_NM_LI_`year'.dta", replace
+	}
+	use "$intdir/matchkey_NM_LI_2017to2021.dta", clear
+	destring item_id, replace
+	save "$intdir/matchkey_NM_LI_2017to2021.dta", replace
 ********************************* END ******************************************
 
 capture log close

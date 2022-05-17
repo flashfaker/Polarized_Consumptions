@@ -316,14 +316,14 @@ forv yr = 2017/2021 {
 /**************
 	Event-Study Regression with Distance-Eventtime Interactions
 	***************/	
+	/* need to do this on Mercury as regression takes too much memory
 	use "$outdir/panel_hhrally_cleaned", clear 
 	gen lndist_rally = ln(dist_rally)
 	fegen hhrally_id = group(household_id rallyid)
 	fegen week_fe = group(date)
 	* shift eventime by 11 to make it into all positive (categorical variable)
 	gen event = t + 11 
-	
-	reghdfe EU i(1/9 11/21)bn.event##c.lndist , absorb(hhrally_id week_fe)
+	reghdfe EU i(1/9 11/21)bn.event##c.lndist , absorb(hhrally_id week_fe) */
 	
 ********************************* END ******************************************
 

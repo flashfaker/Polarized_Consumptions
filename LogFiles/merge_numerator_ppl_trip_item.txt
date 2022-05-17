@@ -2010,3 +2010,52 @@ end of do-file
 
 r(3900);
 
+. import delimited "C:\Users\zsong98\Dropbox\Polarized Consumptions\Data\Numerator\New_File_Formats_2017-2021\2017\standard_nmr_feed_people_attributes_table_resend.csv", clear 
+(encoding automatically selected: ISO-8859-1)
+(12 vars, 83,822,666 obs)
+
+. br
+
+. gsort household_id
+
+. br
+
+. br
+
+. replace tag_description = lower(tag_description)
+(81,238,821 real changes made)
+
+. gen fox = 1 if strpos(tag_description, fox) != 0
+fox not found
+r(111);
+
+. gen fox = 1 if strpos(tag_description, "fox") != 0
+(83,694,043 missing values generated)
+
+. tab fox
+
+        fox |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |    128,623      100.00      100.00
+------------+-----------------------------------
+      Total |    128,623      100.00
+
+. keep if fox == 1
+(83,694,043 observations deleted)
+
+. isid household_id
+variable household_id does not uniquely identify the observations
+r(459);
+
+. duplicates drop household_id
+force option required with duplicates drop varlist
+r(198);
+
+. duplicates drop household_id, force
+
+Duplicates in terms of household_id
+
+(28,920 observations deleted)
+
+. br
+

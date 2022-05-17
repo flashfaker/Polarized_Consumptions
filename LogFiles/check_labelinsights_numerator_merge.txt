@@ -1,0 +1,16 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:/Users/zsong98/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/check_labelinsights_numerator_merge.txt
+  log type:  text
+ opened on:  17 May 2022, 12:14:50
+
+.         
+. /**************
+>         Import and Save all Data
+>         ***************/        
+.         
+.         use "$outdir/labelinsights_product_cleaned", clear
+
+. ********************************* END ******************************************
+. 
+. capture log close

@@ -3,7 +3,9 @@ local fname clean_02_labelinsights_coo_data
 
 /*******************************************************************************
 
-* clean and append Label Insights Food&Beverage Data 
+* clean and append Label Insights Food&Beverage Data (Newly downloaded from 20220331)
+* note that the only difference between this one and the original clean_labelinsights_coo_data
+* is that this one uses the newer data with all the upc fields for matching
 
 Author: Zirui Song
 Date Created: Mar 31st, 2022

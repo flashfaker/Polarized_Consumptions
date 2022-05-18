@@ -1,0 +1,118 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:/Users/zsong98/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/clean_numerator_ppl_attributes.txt
+  log type:  text
+ opened on:  18 May 2022, 15:21:36
+
+.         
+. /**************
+>         Import and Clean Ppl Attributes Data from Numerator
+>         ***************/                
+.         * import and clean the data (2017 to 2021)
+.         forv yr = 2017/2021 {
+  2.                 if `yr' != 2021 {
+  3.                         import delimited "$numdir/`yr'/standard_nmr_feed_people_attributes_table_resend.csv", clear 
+  4.                 } 
+  5.                 else {
+  6.                         import delimited "$numdir/`yr'/standard_nmr_feed_people_attributes_table.csv", clear    
+  7.                 }
+  8.                 * generate dummy for fox channel viewership (fox sports included?)
+.                 replace tag_description = lower(tag_description)
+  9.                 gen fox = 1 if strpos(tag_description, "fox") != 0 
+ 10.                 keep if fox == 1
+ 11.                 * keep only non-duplicates household_ids 
+.                 duplicates drop household_id, force
+ 12.                 keep household_id 
+ 13.                 gen year = `yr'
+ 14.                 tempfile attributes`yr'
+ 15.                 save "`attributes`yr''", replace
+ 16.         }
+(encoding automatically selected: ISO-8859-1)
+(12 vars, 83,822,666 obs)
+(81,238,821 real changes made)
+(83,694,043 missing values generated)
+(83,694,043 observations deleted)
+
+Duplicates in terms of household_id
+
+(28,920 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000001.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000001.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(12 vars, 101,375,957 obs)
+(98,203,035 real changes made)
+(101,222,316 missing values generated)
+(101,222,316 observations deleted)
+
+Duplicates in terms of household_id
+
+(34,985 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000002.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000002.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(12 vars, 104,621,387 obs)
+(101,403,650 real changes made)
+(104,452,142 missing values generated)
+(104,452,142 observations deleted)
+
+Duplicates in terms of household_id
+
+(38,632 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000003.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000003.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(12 vars, 95,299,057 obs)
+(92,469,243 real changes made)
+(95,139,283 missing values generated)
+(95,139,283 observations deleted)
+
+Duplicates in terms of household_id
+
+(36,706 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000004.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000004.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(12 vars, 83,823,908 obs)
+(81,369,746 real changes made)
+(83,694,713 missing values generated)
+(83,694,713 observations deleted)
+
+Duplicates in terms of household_id
+
+(29,050 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000005.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000005.tmp saved as .dta format
+
+.         * append the files together
+.         use "`attributes2017'", clear
+
+.         forvalues yr = 2018/2021 {
+  2.                 append using "`attributes`yr''"
+  3.     }
+
+.         save "$outdir/numerator_ppl_attributes_2017to2021", clear
+option clear not allowed
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+
+.         save "$outdir/numerator_ppl_attributes_2017to2021", replace
+(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_ppl_attributes_2017to2021.dta not found)
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_ppl_attributes_2017to2021.dta saved
+
+. 
+end of do-file
+
+. br
+
+. isid household_id year
+
+. isid household_id
+variable household_id does not uniquely identify the observations
+r(459);
+
+. exit, clear

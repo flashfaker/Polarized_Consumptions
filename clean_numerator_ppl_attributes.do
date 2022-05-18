@@ -36,24 +36,29 @@ Date Modified: May 17th, 2022
 	***************/		
 	* import and clean the data (2017 to 2021)
 	forv yr = 2017/2021 {
-		import delimited "$numdir\`yr'\standard_nmr_feed_people_attributes_table_resend.csv", clear 
+		if `yr' != 2021 {
+			import delimited "$numdir/`yr'/standard_nmr_feed_people_attributes_table_resend.csv", clear 
+		} 
+		else {
+			import delimited "$numdir/`yr'/standard_nmr_feed_people_attributes_table.csv", clear 	
+		}
 		* generate dummy for fox channel viewership (fox sports included?)
 		replace tag_description = lower(tag_description)
-		gen fox = 1 if strpos(tag_description, fox) != 0 
+		gen fox = 1 if strpos(tag_description, "fox") != 0 
 		keep if fox == 1
 		* keep only non-duplicates household_ids 
 		duplicates drop household_id, force
 		keep household_id 
 		gen year = `yr'
 		tempfile attributes`yr'
-		save "attributes`yr'"
+		save "`attributes`yr''", replace
 	}
 	* append the files together
-	use "attributes2017", clear
-	forvalues i = 2018/2021 {
-		append using "`attributes`i''"
+	use "`attributes2017'", clear
+	forvalues yr = 2018/2021 {
+		append using "`attributes`yr''"
     }
-	save "$outdir/numerator_ppl_attributes_2017to2021", clear
+	save "$outdir/numerator_ppl_attributes_2017to2021", replace
 ********************************* END ******************************************
 
 capture log close

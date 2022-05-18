@@ -2059,3 +2059,29 @@ Duplicates in terms of household_id
 
 . br
 
+. do "C:\Users\zsong98\Dropbox\Polarized Consumptions\Code\ZS\clean_numerator_ppl_attributes.do"
+
+. * import and clean people attributes data from numerator
+. local fname clean_numerator_ppl_attributes
+
+. 
+. /*******************************************************************************
+> 
+> * obtain the household that watches fox, fox news, fox sports from the Numerator
+> People Attributes data set from 2017 to 2021 
+> 
+> Author: Zirui Song
+> Date Created: May 17th, 2022
+> Date Modified: May 17th, 2022
+> 
+> ********************************************************************************/
+. 
+. /**************
+>         Basic Set-up
+>         ***************/
+.         clear all
+
+.         set more off, permanently
+(set more preference recorded)
+
+.         capture log close

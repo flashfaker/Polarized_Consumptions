@@ -2,13 +2,13 @@
       name:  <unnamed>
        log:  C:/Users/zsong98/Dropbox/Polarized Consumptions/Code/ZS/LogFiles/clean_numerator_ppl_attributes.txt
   log type:  text
- opened on:  18 May 2022, 15:21:36
+ opened on:  20 May 2022, 15:29:48
 
 .         
 . /**************
 >         Import and Clean Ppl Attributes Data from Numerator
 >         ***************/                
-.         * import and clean the data (2017 to 2021)
+.         * import and clean the data (2017 to 2021) (Fox News)
 .         forv yr = 2017/2021 {
   2.                 if `yr' != 2021 {
   3.                         import delimited "$numdir/`yr'/standard_nmr_feed_people_attributes_table_resend.csv", clear 
@@ -19,10 +19,11 @@
   8.                 * generate dummy for fox channel viewership (fox sports included?)
 .                 replace tag_description = lower(tag_description)
   9.                 gen fox = 1 if strpos(tag_description, "fox") != 0 
- 10.                 keep if fox == 1
- 11.                 * keep only non-duplicates household_ids 
-.                 duplicates drop household_id, force
- 12.                 keep household_id 
+ 10.                 replace fox = 0 if strpos(tag_description, "fox sport") != 0
+ 11.                 keep if fox == 1
+ 12.                 * keep only non-duplicates household_ids 
+.                 * gduplicates drop household_id, force
+.                 keep household_id fox tag_date
  13.                 gen year = `yr'
  14.                 tempfile attributes`yr'
  15.                 save "`attributes`yr''", replace
@@ -31,57 +32,42 @@
 (12 vars, 83,822,666 obs)
 (81,238,821 real changes made)
 (83,694,043 missing values generated)
-(83,694,043 observations deleted)
-
-Duplicates in terms of household_id
-
-(28,920 observations deleted)
-(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000001.tmp not found)
-file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000001.tmp saved as .dta format
+(9,085 real changes made)
+(83,703,128 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000001.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000001.tmp saved as .dta format
 (encoding automatically selected: ISO-8859-1)
 (12 vars, 101,375,957 obs)
 (98,203,035 real changes made)
 (101,222,316 missing values generated)
-(101,222,316 observations deleted)
-
-Duplicates in terms of household_id
-
-(34,985 observations deleted)
-(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000002.tmp not found)
-file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000002.tmp saved as .dta format
+(11,053 real changes made)
+(101,233,369 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000002.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000002.tmp saved as .dta format
 (encoding automatically selected: ISO-8859-1)
 (12 vars, 104,621,387 obs)
 (101,403,650 real changes made)
 (104,452,142 missing values generated)
-(104,452,142 observations deleted)
-
-Duplicates in terms of household_id
-
-(38,632 observations deleted)
-(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000003.tmp not found)
-file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000003.tmp saved as .dta format
+(12,270 real changes made)
+(104,464,412 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000003.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000003.tmp saved as .dta format
 (encoding automatically selected: ISO-8859-1)
 (12 vars, 95,299,057 obs)
 (92,469,243 real changes made)
 (95,139,283 missing values generated)
-(95,139,283 observations deleted)
-
-Duplicates in terms of household_id
-
-(36,706 observations deleted)
-(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000004.tmp not found)
-file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000004.tmp saved as .dta format
+(11,432 real changes made)
+(95,150,715 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000004.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000004.tmp saved as .dta format
 (encoding automatically selected: ISO-8859-1)
 (12 vars, 83,823,908 obs)
 (81,369,746 real changes made)
 (83,694,713 missing values generated)
-(83,694,713 observations deleted)
-
-Duplicates in terms of household_id
-
-(29,050 observations deleted)
-(file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000005.tmp not found)
-file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000005.tmp saved as .dta format
+(8,594 real changes made)
+(83,703,307 observations deleted)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000005.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000005.tmp saved as .dta format
 
 .         * append the files together
 .         use "`attributes2017'", clear
@@ -90,29 +76,118 @@ file C:\Users\zsong98\AppData\Local\Temp\ST_399c_000005.tmp saved as .dta format
   2.                 append using "`attributes`yr''"
   3.     }
 
-.         save "$outdir/numerator_ppl_attributes_2017to2021", clear
-option clear not allowed
-r(198);
+.         * clean data -- 
+.         gduplicates drop household_id tag_date fox, force // note that 2017-2021 files might contain the same information about tags
 
-end of do-file
+Duplicates in terms of household_id tag_date fox
 
-r(198);
+(532,043 observations deleted)
 
-. do "C:\Users\zsong98\AppData\Local\Temp\STD399c_000000.tmp"
+.         gduplicates drop household_id fox, force
 
-.         save "$outdir/numerator_ppl_attributes_2017to2021", replace
-(file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_ppl_attributes_2017to2021.dta not found)
+Duplicates in terms of household_id fox
+
+(14,093 observations deleted)
+
+.         keep household_id fox
+
+.         
+.         save "$outdir/numerator_ppl_foxnews_2017to2021", replace
+file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_ppl_foxnews_2017to2021.dta saved
+
+.         
+.         * import and clean data (education and income buckets)
+.         forv yr = 2017/2021 {
+  2.                 import delimited "$numdir/2017/standard_nmr_feed_people_table.csv", clear 
+  3.                 * keep only education and income variables
+.                 keep household_id education_group income_bucket
+  4.                 * encode education and income
+.                 encode education_group, gen(education)
+  5.                 encode income_bucket, gen(income)
+  6.                 gen year = `yr'
+  7.                 tempfile educ_income`yr'
+  8.                 save "`educ_income`yr''", replace
+  9.         }
+(encoding automatically selected: ISO-8859-1)
+(21 vars, 1,399,912 obs)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000006.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000006.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(21 vars, 1,399,912 obs)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000007.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000007.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(21 vars, 1,399,912 obs)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000008.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000008.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(21 vars, 1,399,912 obs)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000009.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_000009.tmp saved as .dta format
+(encoding automatically selected: ISO-8859-1)
+(21 vars, 1,399,912 obs)
+(file C:\Users\zsong98\AppData\Local\Temp\ST_2240_00000a.tmp not found)
+file C:\Users\zsong98\AppData\Local\Temp\ST_2240_00000a.tmp saved as .dta format
+
+.         * append the files together
+.         use "`educ_income2017'", clear
+
+.         forvalues yr = 2018/2021 {
+  2.                 append using "`educ_income`yr''"
+  3.     }
+(label income already defined)
+(label education already defined)
+(label income already defined)
+(label education already defined)
+(label income already defined)
+(label education already defined)
+(label income already defined)
+(label education already defined)
+
+.         * note that the annual data from Numerator just records the HH education+income 
+.         * five times, but they are the same (check this below)
+.         gduplicates tag household_id-income, gen(dup)
+
+Duplicates in terms of household_id education_group income_bucket education income
+
+.         sum dup 
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         dup |  6,999,560           4           0          4          4
+
+.         drop year dup education_group income_bucket
+
+.         duplicates drop 
+
+Duplicates in terms of all variables
+
+(5,599,648 observations deleted)
+
+.         * merge the fox news watching data with education/income data (all on hh_id level)
+.         fmerge 1:1 household_id using "$outdir/numerator_ppl_foxnews_2017to2021"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                     1,337,288
+        from master                 1,297,646  (_merge==1)
+        from using                     39,642  (_merge==2)
+
+    matched                           102,266  (_merge==3)
+    -----------------------------------------
+
+.                 * keep all merges 
+.                 * _merge == 1: household has education and income characteristics but 
+.                 * not watch fox
+.                 * _merge == 2: watch fox but has missing education and income characteristics
+.                 * _merge == 3: watch fox and has records income and education characteristics
+.                 drop _merge
+
+.                 gsort household_id
+
+.         save "$outdir/numerator_ppl_attributes_2017to2021", replace 
 file /Users/zsong98/Dropbox/Polarized Consumptions/Data/Cleaned Data/numerator_ppl_attributes_2017to2021.dta saved
 
+. ********************************* END ******************************************
 . 
-end of do-file
-
-. br
-
-. isid household_id year
-
-. isid household_id
-variable household_id does not uniquely identify the observations
-r(459);
-
-. exit, clear
+. capture log close
